@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["CHINT0_R","Reader of field `CHINT0`"],["CHINT1_R","Reader of field `CHINT1`"],["CHINT2_R","Reader of field `CHINT2`"],["CHINT3_R","Reader of field `CHINT3`"],["CHINT4_R","Reader of field `CHINT4`"],["CHINT5_R","Reader of field `CHINT5`"],["R","Reader of register INTSTATUS"]]});

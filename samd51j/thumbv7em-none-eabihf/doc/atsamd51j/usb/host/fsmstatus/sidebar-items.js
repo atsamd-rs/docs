@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FSMSTATE_A","Fine State Machine Status"]],"type":[["FSMSTATE_R","Reader of field `FSMSTATE`"],["R","Reader of register FSMSTATUS"]]});

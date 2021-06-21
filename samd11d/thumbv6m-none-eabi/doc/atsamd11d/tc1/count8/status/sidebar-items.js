@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["R","Reader of register STATUS"],["SLAVE_R","Reader of field `SLAVE`"],["STOP_R","Reader of field `STOP`"],["SYNCBUSY_R","Reader of field `SYNCBUSY`"]]});

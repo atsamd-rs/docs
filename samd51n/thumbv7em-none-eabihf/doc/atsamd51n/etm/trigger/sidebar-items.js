@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["R","Reader of register TRIGGER"],["W","Writer for register TRIGGER"]]});

@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["atsamd51n"] = [{"text":"impl <a class=\"trait\" href=\"bare_metal/trait.Nr.html\" title=\"trait bare_metal::Nr\">Nr</a> for <a class=\"enum\" href=\"atsamd51n/enum.Interrupt.html\" title=\"enum atsamd51n::Interrupt\">Interrupt</a>","synthetic":false,"types":["atsamd51n::Interrupt"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

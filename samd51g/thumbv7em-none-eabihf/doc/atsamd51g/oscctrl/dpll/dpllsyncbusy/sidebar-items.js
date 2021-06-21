@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["DPLLRATIO_R","Reader of field `DPLLRATIO`"],["ENABLE_R","Reader of field `ENABLE`"],["R","Reader of register DPLLSYNCBUSY"]]});

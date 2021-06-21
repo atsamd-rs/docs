@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WatchdogTimeout","WatchdogTimeout enumerates usable values for configuring the timeout of the watchdog peripheral."]],"struct":[["Watchdog",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DATA32B_A","Data 32 Bit"]],"struct":[["DATA32B_W","Write proxy for field `DATA32B`"],["ICSPACE_W","Write proxy for field `ICSPACE`"]],"type":[["DATA32B_R","Reader of field `DATA32B`"],["ICSPACE_R","Reader of field `ICSPACE`"],["R","Reader of register CTRLC"],["W","Writer for register CTRLC"]]});

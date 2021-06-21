@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["LDRFRAC_W","Write proxy for field `LDRFRAC`"],["LDR_W","Write proxy for field `LDR`"]],"type":[["LDRFRAC_R","Reader of field `LDRFRAC`"],["LDR_R","Reader of field `LDR`"],["R","Reader of register DPLLRATIO"],["W","Writer for register DPLLRATIO"]]});

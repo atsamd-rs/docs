@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MAXCUR18V_A","Maximum Current for 1.8V"],["MAXCUR30V_A","Maximum Current for 3.0V"],["MAXCUR33V_A","Maximum Current for 3.3V"]],"type":[["MAXCUR18V_R","Reader of field `MAXCUR18V`"],["MAXCUR30V_R","Reader of field `MAXCUR30V`"],["MAXCUR33V_R","Reader of field `MAXCUR33V`"],["R","Reader of register MCCAR"]]});

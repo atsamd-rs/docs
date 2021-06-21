@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ECCDIS_W","Write proxy for field `ECCDIS`"],["ECCELOG_W","Write proxy for field `ECCELOG`"]],"type":[["ECCDIS_R","Reader of field `ECCDIS`"],["ECCELOG_R","Reader of field `ECCELOG`"],["R","Reader of register DBGCTRL"],["W","Writer for register DBGCTRL"]]});

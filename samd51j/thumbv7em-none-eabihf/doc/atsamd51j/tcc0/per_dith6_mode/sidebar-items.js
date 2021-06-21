@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DITHER_W","Write proxy for field `DITHER`"],["PER_W","Write proxy for field `PER`"]],"type":[["DITHER_R","Reader of field `DITHER`"],["PER_R","Reader of field `PER`"],["R","Reader of register PER_DITH6_MODE"],["W","Writer for register PER_DITH6_MODE"]]});

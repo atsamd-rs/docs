@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FORCELDO_W","Write proxy for field `FORCELDO`"],["RUNSTDBY_W","Write proxy for field `RUNSTDBY`"]],"type":[["FORCELDO_R","Reader of field `FORCELDO`"],["R","Reader of register VREG"],["RUNSTDBY_R","Reader of field `RUNSTDBY`"],["W","Writer for register VREG"]]});

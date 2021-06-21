@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ENFCONT_W","Write proxy for field `EnFCont`"],["TRIGIN_W","Write proxy for field `TrigIn`"]],"type":[["ENFCONT_R","Reader of field `EnFCont`"],["R","Reader of register FFCR"],["TRIGIN_R","Reader of field `TrigIn`"],["W","Writer for register FFCR"]]});

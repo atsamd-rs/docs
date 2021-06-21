@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["dpllctrla","DPLL Control A"],["dpllctrlb","DPLL Control B"],["dpllratio","DPLL Ratio Control"],["dpllstatus","DPLL Status"],["dpllsyncbusy","DPLL Synchronization Busy"]],"type":[["DPLLCTRLA","DPLL Control A"],["DPLLCTRLB","DPLL Control B"],["DPLLRATIO","DPLL Ratio Control"],["DPLLSTATUS","DPLL Status"],["DPLLSYNCBUSY","DPLL Synchronization Busy"]]});

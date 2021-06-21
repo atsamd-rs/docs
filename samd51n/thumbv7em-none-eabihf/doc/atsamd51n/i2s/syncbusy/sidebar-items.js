@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["CKEN0_R","Reader of field `CKEN0`"],["CKEN1_R","Reader of field `CKEN1`"],["ENABLE_R","Reader of field `ENABLE`"],["R","Reader of register SYNCBUSY"],["RXDATA_R","Reader of field `RXDATA`"],["RXEN_R","Reader of field `RXEN`"],["SWRST_R","Reader of field `SWRST`"],["TXDATA_R","Reader of field `TXDATA`"],["TXEN_R","Reader of field `TXEN`"]]});

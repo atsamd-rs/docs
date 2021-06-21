@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Helper macro to give meaningful names to GPIO pins"><meta name="keywords" content="rust, rustlang, rust-lang, bsp_pins"><title>bsp_pins in atsamd_hal - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../atsamd_hal/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><div class="sidebar-elems"><p class="location"><a href="index.html">atsamd_hal</a></p><div id="sidebar-vars" data-name="bsp_pins" data-ty="macro" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Macro <a href="index.html">atsamd_hal</a>::<wbr><a class="macro" href="">bsp_pins</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/atsamd_hal/gpio/v2/pin.rs.html#1324-1434" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><div class="example-wrap"><pre class="rust macro">
+<span class="macro">macro_rules!</span> <span class="ident">bsp_pins</span> {
+    (
+        $(
+            $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">id_cfg</span>:<span class="ident">meta</span>]</span> )<span class="op">*</span>
+            <span class="macro-nonterminal">$</span><span class="macro-nonterminal">Id</span>:<span class="ident">ident</span> {
+                $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name_doc</span>:<span class="ident">meta</span>]</span> )<span class="op">*</span>
+                <span class="ident">name</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span> $(,)<span class="question-mark">?</span>
+                $(
+                    <span class="ident">aliases</span>: {
+                        $(
+                            $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">alias_cfg</span>:<span class="ident">meta</span>]</span> )<span class="op">*</span>
+                            <span class="macro-nonterminal">$</span><span class="macro-nonterminal">Mode</span>:<span class="ident">ident</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">Alias</span>:<span class="ident">ident</span>
+                        ),<span class="op">+</span>
+                    }
+                )<span class="question-mark">?</span>
+            } $(,)<span class="question-mark">?</span>
+        )<span class="op">+</span>
+    ) <span class="op">=</span><span class="op">&gt;</span> { ... };
+    ( @<span class="ident">aliases</span>, $( $( $( <span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>]</span> )<span class="op">*</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">Id</span>:<span class="ident">ident</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">Mode</span>:<span class="ident">ident</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">Alias</span>:<span class="ident">ident</span> )<span class="op">+</span> )<span class="question-mark">?</span> ) <span class="op">=</span><span class="op">&gt;</span> { ... };
+}</pre></div>
+</div><div class="docblock"><p>Helper macro to give meaningful names to GPIO pins</p>
+<p>The normal <a href="gpio/v2/pin/struct.Pins.html" title="Pins"><code>Pins</code></a> struct names each <a href="gpio/v2/pin/struct.Pin.html" title="Pin"><code>Pin</code></a> according to its <a href="gpio/v2/pin/trait.PinId.html" title="PinId"><code>PinId</code></a>.
+However, BSP authors would prefer to name each <a href="gpio/v2/pin/struct.Pin.html" title="Pin"><code>Pin</code></a> according to its
+function. This macro defines a new <code>Pins</code> struct with custom field names
+for each <a href="gpio/v2/pin/struct.Pin.html" title="Pin"><code>Pin</code></a>, and it defines type aliases and constants to make it
+easier to work with the <a href="gpio/v2/pin/struct.Pin.html" title="Pin"><code>Pin</code></a>s and <a href="gpio/v2/dynpin/struct.DynPin.html"><code>DynPin</code></a>s.</p>
+<p>When specifying pin aliases, be sure to use a <a href="gpio/v2/pin/trait.PinMode.html" title="PinMode"><code>PinMode</code></a>. See
+<a href="gpio/v2/pin/index.html#types">here</a> for a list of the available <a href="gpio/v2/pin/trait.PinMode.html" title="PinMode"><code>PinMode</code></a> type aliases.</p>
+<h1 id="example" class="section-header"><a href="#example">Example</a></h1>
+<p>The following example macro call</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">atsamd_hal::bsp_pins!</span>(
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+    <span class="ident">PA24</span> {
+        <span class="ident">name</span>: <span class="ident">led_pass</span>,
+        <span class="ident">aliases</span>: {
+            <span class="ident">AlternateH</span>: <span class="ident">LedPass</span>,
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;usb&quot;</span>)]</span>
+            <span class="ident">AlternateM</span>: <span class="ident">UsbPin</span>
+        }
+    }
+    <span class="ident">PA25</span> {
+        <span class="ident">name</span>: <span class="ident">led_fail</span>
+    }
+);</pre></div>
+<p>would expand to something like this</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pins</span> {
+    <span class="ident">port</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PORT</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">led_pass</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">PA24</span>, <span class="ident">Reset</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">led_fail</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">PA25</span>, <span class="ident">Reset</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Pins</span> {
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">port</span>: <span class="ident">PORT</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">pins</span> <span class="op">=</span> <span class="ident">gpio::Pins::new</span>(<span class="ident">port</span>);
+        <span class="self">Self</span> {
+            <span class="ident">port</span>: <span class="prelude-val">Some</span>(<span class="kw">unsafe</span> { <span class="ident">pins</span>.<span class="ident">port</span>() }),
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+            <span class="ident">led_pass</span>: <span class="ident">pins</span>.<span class="ident">pa24</span>,
+            <span class="ident">led_fail</span>: <span class="ident">pins</span>.<span class="ident">pa25</span>,
+        }
+    }
+
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">port</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PORT</span> {
+        <span class="self">self</span>.<span class="ident">port</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>()
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">LedPass</span> <span class="op">=</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">PA24</span>, <span class="ident">AlternateH</span><span class="op">&gt;</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LED_PASS_ID</span>: <span class="ident">DynPinId</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">PA24</span> <span class="kw">as</span> <span class="ident">PinId</span><span class="op">&gt;</span><span class="ident">::DYN</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LED_PASS_MODE</span>: <span class="ident">DynPinMode</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">AlternateH</span> <span class="kw">as</span> <span class="ident">PinMode</span><span class="op">&gt;</span><span class="ident">::DYN</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;usb&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">UsbPin</span> <span class="op">=</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">PA24</span>, <span class="ident">AlternateM</span><span class="op">&gt;</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;usb&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">USB_PIN_ID</span>: <span class="ident">DynPinId</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">PA24</span> <span class="kw">as</span> <span class="ident">PinId</span><span class="op">&gt;</span><span class="ident">::DYN</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unproven&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;usb&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">USB_PIN_MODE</span>: <span class="ident">DynPinMode</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">AlternateM</span> <span class="kw">as</span> <span class="ident">PinMode</span><span class="op">&gt;</span><span class="ident">::DYN</span>;</pre></div>
+</div></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="atsamd_hal" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
+    <script src="../main.js"></script></body></html>

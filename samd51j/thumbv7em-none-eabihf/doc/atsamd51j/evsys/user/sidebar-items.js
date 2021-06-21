@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CHANNEL_W","Write proxy for field `CHANNEL`"]],"type":[["CHANNEL_R","Reader of field `CHANNEL`"],["R","Reader of register USER[%s]"],["W","Writer for register USER[%s]"]]});

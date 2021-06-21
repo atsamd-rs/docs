@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CMD_A","Command"]],"struct":[["CMD_W","Write proxy for field `CMD`"],["LUPD_W","Write proxy for field `LUPD`"]],"type":[["CMD_R","Reader of field `CMD`"],["LUPD_R","Reader of field `LUPD`"],["R","Reader of register CTRLBCLR"],["W","Writer for register CTRLBCLR"]]});

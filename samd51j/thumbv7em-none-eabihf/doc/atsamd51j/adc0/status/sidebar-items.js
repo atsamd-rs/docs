@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["ADCBUSY_R","Reader of field `ADCBUSY`"],["R","Reader of register STATUS"],["WCC_R","Reader of field `WCC`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["R","Reader of register STATUSB"],["READY0_R","Reader of field `READY0`"],["READY1_R","Reader of field `READY1`"]]});

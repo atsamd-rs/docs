@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["MAJORTYPE_R","Reader of field `MajorType`"],["R","Reader of register DEVTYPE"],["SUBTYPE_R","Reader of field `SubType`"]]});

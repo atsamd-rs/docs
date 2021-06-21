@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["R","Reader of register STATUS"],["XOSC32KFAIL_R","Reader of field `XOSC32KFAIL`"],["XOSC32KRDY_R","Reader of field `XOSC32KRDY`"],["XOSC32KSW_R","Reader of field `XOSC32KSW`"]]});

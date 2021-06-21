@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WMODE_A","Write Mode"]],"struct":[["APRDIS_W","Write proxy for field `APRDIS`"],["WMODE_W","Write proxy for field `WMODE`"]],"type":[["APRDIS_R","Reader of field `APRDIS`"],["R","Reader of register SEECFG"],["W","Writer for register SEECFG"],["WMODE_R","Reader of field `WMODE`"]]});

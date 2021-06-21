@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MODE_A","Cache Controller Monitor Counter Mode"]],"struct":[["MODE_W","Write proxy for field `MODE`"]],"type":[["MODE_R","Reader of field `MODE`"],["R","Reader of register MCFG"],["W","Writer for register MCFG"]]});

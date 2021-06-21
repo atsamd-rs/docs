@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OVERRUN_W","Write proxy for field `OVERRUN`"],["RESRDY_W","Write proxy for field `RESRDY`"],["WINMON_W","Write proxy for field `WINMON`"]],"type":[["OVERRUN_R","Reader of field `OVERRUN`"],["R","Reader of register INTENSET"],["RESRDY_R","Reader of field `RESRDY`"],["W","Writer for register INTENSET"],["WINMON_R","Reader of field `WINMON`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["group","Register block GROUP[%s]"]],"struct":[["GROUP","Register block"],["RegisterBlock","Register block"]]});

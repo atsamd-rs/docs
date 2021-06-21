@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Version 1 of the GPIO module"><meta name="keywords" content="rust, rustlang, rust-lang, v1"><title>atsamd_hal::gpio::v1 - Rust</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../atsamd_hal/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a><p class="location">Module v1</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#reexports">Re-exports</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"><a href="../../index.html">atsamd_hal</a>::<wbr><a href="../index.html">gpio</a></p><div id="sidebar-vars" data-name="v1" data-ty="mod" data-relpath="../"></div><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../../index.html">atsamd_hal</a>::<wbr><a href="../index.html">gpio</a>::<wbr><a class="mod" href="">v1</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../../src/atsamd_hal/gpio/v1.rs.html#1-841" title="goto source code">[src]</a></span></h1><div class="docblock"><h1 id="version-1-of-the-gpio-module" class="section-header"><a href="#version-1-of-the-gpio-module">Version 1 of the GPIO module</a></h1>
+<p>This module is a compatibility shim that allows existing code to use the new
+<a href="../v2/index.html">v2</a> module. This API will eventually be deprecated and removed.</p>
+<p>Working with GPIO pins.
+The pins are associated with the PORT hardware. This module defines a
+<a href="trait.GpioExt.html#tymethod.split">split</a> method on the <a href="../../../atsamd21j/struct.PORT.html">PORT</a>
+type that is used to safely reference the individual pin configuration.
+The IO pins can be switched into alternate function modes, which
+routes the pins to different peripherals depending on the mode
+for the pin.  The pin configuration is reflected through the
+use of type states to make the interface (ideally, or at least practically)
+impossible to misuse.</p>
+</div><h2 id="reexports" class="section-header"><a href="#reexports">Re-exports</a></h2>
+<table><tr class="import-item"><td><code>pub use crate::gpio::v2::<a class="trait" href="../v2/pin/trait.PinId.html" title="trait atsamd_hal::gpio::v2::pin::PinId">PinId</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use crate::gpio::v2::<a class="trait" href="../v2/pin/trait.PinMode.html" title="trait atsamd_hal::gpio::v2::pin::PinMode">PinMode</a>;</code></td><td class="docblock-short"></td></tr></table><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
+<table><tr class="module-item"><td><a class="struct" href="struct.Parts.html" title="atsamd_hal::gpio::v1::Parts struct">Parts</a></td><td class="docblock-short"><p>Holds the GPIO Port peripheral and broken out pin instances</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Pin.html" title="atsamd_hal::gpio::v1::Pin struct">Pin</a></td><td class="docblock-short"><p>Represents a GPIO pin with a corresponding <a href="../v2/pin/trait.PinId.html" title="PinId"><code>PinId</code></a> and <a href="../v2/pin/trait.PinMode.html" title="PinMode"><code>PinMode</code></a></p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Port.html" title="atsamd_hal::gpio::v1::Port struct">Port</a></td><td class="docblock-short"><p>Opaque port reference</p>
+</td></tr></table><h2 id="traits" class="section-header"><a href="#traits">Traits</a></h2>
+<table><tr class="module-item"><td><a class="trait" href="trait.GpioExt.html" title="atsamd_hal::gpio::v1::GpioExt trait">GpioExt</a></td><td class="docblock-short"><p>The GpioExt trait allows splitting the PORT hardware into
+its constituent pin parts.</p>
+</td></tr><tr class="module-item"><td><a class="trait" href="trait.IntoFunction.html" title="atsamd_hal::gpio::v1::IntoFunction trait">IntoFunction</a></td><td class="docblock-short"><p>A trait that makes it easier to generically manage
+converting a pin from its current state into some
+other functional mode.  The configuration change
+requires exclusive access to the Port hardware,
+which is why this isn’t simply the standard <code>Into</code>
+trait.</p>
+</td></tr></table><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
+<table><tr class="module-item"><td><a class="type" href="type.Floating.html" title="atsamd_hal::gpio::v1::Floating type">Floating</a></td><td class="docblock-short"><p>Floating Input</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Input.html" title="atsamd_hal::gpio::v1::Input type">Input</a></td><td class="docblock-short"><p>Represents a pin configured for input.
+The MODE type is typically one of <code>Floating</code>, <code>PullDown</code> or
+<code>PullUp</code>.</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Interrupt.html" title="atsamd_hal::gpio::v1::Interrupt type">Interrupt</a></td><td class="docblock-short"><p>Represents a pin configured for interrupt.
+The MODE type is one of <code>Floating</code>, <code>PullDown</code> or <code>PullUp</code>.</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.OpenDrain.html" title="atsamd_hal::gpio::v1::OpenDrain type">OpenDrain</a></td><td class="docblock-short"><p>Open drain output.
+The SAMD5x/E5x chips don’t actually have open drain outputs.
+This option was added by mistake. It is currently an alias of <code>PushPull</code></p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Output.html" title="atsamd_hal::gpio::v1::Output type">Output</a></td><td class="docblock-short"><p>Represents a pin configured for output.
+The MODE type is typically one of <code>PushPull</code>, or
+<code>OpenDrain</code>.</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa0.html" title="atsamd_hal::gpio::v1::Pa0 type">Pa0</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa1.html" title="atsamd_hal::gpio::v1::Pa1 type">Pa1</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa2.html" title="atsamd_hal::gpio::v1::Pa2 type">Pa2</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa3.html" title="atsamd_hal::gpio::v1::Pa3 type">Pa3</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa4.html" title="atsamd_hal::gpio::v1::Pa4 type">Pa4</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa5.html" title="atsamd_hal::gpio::v1::Pa5 type">Pa5</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa6.html" title="atsamd_hal::gpio::v1::Pa6 type">Pa6</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa7.html" title="atsamd_hal::gpio::v1::Pa7 type">Pa7</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa8.html" title="atsamd_hal::gpio::v1::Pa8 type">Pa8</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa9.html" title="atsamd_hal::gpio::v1::Pa9 type">Pa9</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa10.html" title="atsamd_hal::gpio::v1::Pa10 type">Pa10</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa11.html" title="atsamd_hal::gpio::v1::Pa11 type">Pa11</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa12.html" title="atsamd_hal::gpio::v1::Pa12 type">Pa12</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa13.html" title="atsamd_hal::gpio::v1::Pa13 type">Pa13</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa14.html" title="atsamd_hal::gpio::v1::Pa14 type">Pa14</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa15.html" title="atsamd_hal::gpio::v1::Pa15 type">Pa15</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa16.html" title="atsamd_hal::gpio::v1::Pa16 type">Pa16</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa17.html" title="atsamd_hal::gpio::v1::Pa17 type">Pa17</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa18.html" title="atsamd_hal::gpio::v1::Pa18 type">Pa18</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa19.html" title="atsamd_hal::gpio::v1::Pa19 type">Pa19</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa20.html" title="atsamd_hal::gpio::v1::Pa20 type">Pa20</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa21.html" title="atsamd_hal::gpio::v1::Pa21 type">Pa21</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa22.html" title="atsamd_hal::gpio::v1::Pa22 type">Pa22</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa23.html" title="atsamd_hal::gpio::v1::Pa23 type">Pa23</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa24.html" title="atsamd_hal::gpio::v1::Pa24 type">Pa24</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa25.html" title="atsamd_hal::gpio::v1::Pa25 type">Pa25</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa27.html" title="atsamd_hal::gpio::v1::Pa27 type">Pa27</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa28.html" title="atsamd_hal::gpio::v1::Pa28 type">Pa28</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa30.html" title="atsamd_hal::gpio::v1::Pa30 type">Pa30</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pa31.html" title="atsamd_hal::gpio::v1::Pa31 type">Pa31</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb0.html" title="atsamd_hal::gpio::v1::Pb0 type">Pb0</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb1.html" title="atsamd_hal::gpio::v1::Pb1 type">Pb1</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb2.html" title="atsamd_hal::gpio::v1::Pb2 type">Pb2</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb3.html" title="atsamd_hal::gpio::v1::Pb3 type">Pb3</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb4.html" title="atsamd_hal::gpio::v1::Pb4 type">Pb4</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb5.html" title="atsamd_hal::gpio::v1::Pb5 type">Pb5</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb6.html" title="atsamd_hal::gpio::v1::Pb6 type">Pb6</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb7.html" title="atsamd_hal::gpio::v1::Pb7 type">Pb7</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb8.html" title="atsamd_hal::gpio::v1::Pb8 type">Pb8</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb9.html" title="atsamd_hal::gpio::v1::Pb9 type">Pb9</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb10.html" title="atsamd_hal::gpio::v1::Pb10 type">Pb10</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb11.html" title="atsamd_hal::gpio::v1::Pb11 type">Pb11</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb12.html" title="atsamd_hal::gpio::v1::Pb12 type">Pb12</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb13.html" title="atsamd_hal::gpio::v1::Pb13 type">Pb13</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb14.html" title="atsamd_hal::gpio::v1::Pb14 type">Pb14</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb15.html" title="atsamd_hal::gpio::v1::Pb15 type">Pb15</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb16.html" title="atsamd_hal::gpio::v1::Pb16 type">Pb16</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb17.html" title="atsamd_hal::gpio::v1::Pb17 type">Pb17</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb22.html" title="atsamd_hal::gpio::v1::Pb22 type">Pb22</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb23.html" title="atsamd_hal::gpio::v1::Pb23 type">Pb23</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb30.html" title="atsamd_hal::gpio::v1::Pb30 type">Pb30</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.Pb31.html" title="atsamd_hal::gpio::v1::Pb31 type">Pb31</a></td><td class="docblock-short"><p>Represents the IO pin with the matching name</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PfB.html" title="atsamd_hal::gpio::v1::PfB type">PfB</a></td><td class="docblock-short"><p>Peripheral Function B</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PfC.html" title="atsamd_hal::gpio::v1::PfC type">PfC</a></td><td class="docblock-short"><p>Peripheral Function C</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PfD.html" title="atsamd_hal::gpio::v1::PfD type">PfD</a></td><td class="docblock-short"><p>Peripheral Function D</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PfE.html" title="atsamd_hal::gpio::v1::PfE type">PfE</a></td><td class="docblock-short"><p>Peripheral Function E</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PfF.html" title="atsamd_hal::gpio::v1::PfF type">PfF</a></td><td class="docblock-short"><p>Peripheral Function F</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PfG.html" title="atsamd_hal::gpio::v1::PfG type">PfG</a></td><td class="docblock-short"><p>Peripheral Function G</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PfH.html" title="atsamd_hal::gpio::v1::PfH type">PfH</a></td><td class="docblock-short"><p>Peripheral Function H</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PullDown.html" title="atsamd_hal::gpio::v1::PullDown type">PullDown</a></td><td class="docblock-short"><p>Pulled down Input</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PullUp.html" title="atsamd_hal::gpio::v1::PullUp type">PullUp</a></td><td class="docblock-short"><p>Pulled up Input</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.PushPull.html" title="atsamd_hal::gpio::v1::PushPull type">PushPull</a></td><td class="docblock-short"><p>Totem Pole aka Push-Pull</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.ReadableOpenDrain.html" title="atsamd_hal::gpio::v1::ReadableOpenDrain type">ReadableOpenDrain</a></td><td class="docblock-short"><p>Open drain output, which can be read when not driven
+The SAMD5x/E5x chips don’t actually have open drain outputs.
+This option actually represents a readable <code>PushPull</code> output</p>
+</td></tr><tr class="module-item"><td><a class="type" href="type.SpecificPin.html" title="atsamd_hal::gpio::v1::SpecificPin type">SpecificPin</a></td><td class="docblock-short"><p>Type alias to recover the specific <code>v1</code> <a href="struct.Pin.html" title="Pin"><code>Pin</code></a> type from an implementation
+of <a href="../v2/pin/trait.AnyPin.html" title="AnyPin"><code>AnyPin</code></a></p>
+</td></tr></table></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="atsamd_hal" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
+    <script src="../../../main.js"></script></body></html>

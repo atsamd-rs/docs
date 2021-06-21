@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DTCVAL_W","Write proxy for field `DTCVAL`"]],"type":[["DTCVAL_R","Reader of field `DTCVAL`"],["R","Reader of register TCR"],["W","Writer for register TCR"]]});

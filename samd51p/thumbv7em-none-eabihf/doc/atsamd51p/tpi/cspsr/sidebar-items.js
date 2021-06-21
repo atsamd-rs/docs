@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["R","Reader of register CSPSR"],["W","Writer for register CSPSR"]]});

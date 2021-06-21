@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FASTWKUP_A","Fast Wakeup"],["RAMCFG_A","Ram Configuration"]],"struct":[["FASTWKUP_W","Write proxy for field `FASTWKUP`"],["RAMCFG_W","Write proxy for field `RAMCFG`"]],"type":[["FASTWKUP_R","Reader of field `FASTWKUP`"],["R","Reader of register STDBYCFG"],["RAMCFG_R","Reader of field `RAMCFG`"],["W","Writer for register STDBYCFG"]]});

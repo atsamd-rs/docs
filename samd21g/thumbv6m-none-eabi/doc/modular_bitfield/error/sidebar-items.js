@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["InvalidBitPattern","The bitfield contained an invalid bit pattern."],["OutOfBounds","The given value was out of range for the bitfield."]]});

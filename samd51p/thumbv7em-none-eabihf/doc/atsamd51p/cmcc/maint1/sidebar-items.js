@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WAY_AW","Invalidate Way"]],"struct":[["INDEX_W","Write proxy for field `INDEX`"],["WAY_W","Write proxy for field `WAY`"]],"type":[["W","Writer for register MAINT1"]]});

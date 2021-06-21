@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["atsamd11c","atsamd_hal","bare_metal","bitfield","bitflags","embedded_hal","modular_bitfield","num_traits","rand_core","replace_with","static_assertions","typenum","vcell","void"];

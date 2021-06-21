@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["NOREF_A","No Separate Reference Clock"],["SKEW_A","TENMS is rounded from non-integer ratio"]],"type":[["NOREF_R","Reader of field `NOREF`"],["R","Reader of register CALIB"],["SKEW_R","Reader of field `SKEW`"],["TENMS_R","Reader of field `TENMS`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["WP_W","Write proxy for field `WP`"]],"type":[["R","Reader of register WPSET"],["W","Writer for register WPSET"],["WP_R","Reader of field `WP`"]]});

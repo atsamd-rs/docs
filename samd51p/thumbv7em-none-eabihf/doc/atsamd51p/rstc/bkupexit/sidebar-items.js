@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["BBPS_R","Reader of field `BBPS`"],["HIB_R","Reader of field `HIB`"],["R","Reader of register BKUPEXIT"],["RTC_R","Reader of field `RTC`"]]});

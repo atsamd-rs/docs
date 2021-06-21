@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WINMODE_A","Window Monitor Mode"]],"struct":[["WINMODE_W","Write proxy for field `WINMODE`"]],"type":[["R","Reader of register WINCTRL"],["W","Writer for register WINCTRL"],["WINMODE_R","Reader of field `WINMODE`"]]});

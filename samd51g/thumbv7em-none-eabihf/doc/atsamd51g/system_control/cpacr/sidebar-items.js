@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CP10_A","Access privileges for coprocessor 10"],["CP11_A","Access privileges for coprocessor 11"]],"struct":[["CP10_W","Write proxy for field `CP10`"],["CP11_W","Write proxy for field `CP11`"]],"type":[["CP10_R","Reader of field `CP10`"],["CP11_R","Reader of field `CP11`"],["R","Reader of register CPACR"],["W","Writer for register CPACR"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["RTCSEL_A","RTC Clock Selection"]],"struct":[["RTCSEL_W","Write proxy for field `RTCSEL`"]],"type":[["R","Reader of register RTCCTRL"],["RTCSEL_R","Reader of field `RTCSEL`"],["W","Writer for register RTCCTRL"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["IDLE_A","Idle Mode Configuration"]],"struct":[["IDLE_W","Write proxy for field `IDLE`"]],"type":[["IDLE_R","Reader of field `IDLE`"],["R","Reader of register SLEEP"],["W","Writer for register SLEEP"]]});

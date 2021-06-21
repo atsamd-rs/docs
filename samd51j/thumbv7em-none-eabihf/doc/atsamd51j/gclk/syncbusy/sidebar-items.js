@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GENCTRL_A","Generic Clock Generator Control n Synchronization Busy bits"]],"type":[["GENCTRL_R","Reader of field `GENCTRL`"],["R","Reader of register SYNCBUSY"],["SWRST_R","Reader of field `SWRST`"]]});

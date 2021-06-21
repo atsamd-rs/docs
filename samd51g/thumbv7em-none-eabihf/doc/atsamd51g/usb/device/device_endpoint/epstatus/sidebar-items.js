@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["BK0RDY_R","Reader of field `BK0RDY`"],["BK1RDY_R","Reader of field `BK1RDY`"],["CURBK_R","Reader of field `CURBK`"],["DTGLIN_R","Reader of field `DTGLIN`"],["DTGLOUT_R","Reader of field `DTGLOUT`"],["R","Reader of register EPSTATUS"],["STALLRQ0_R","Reader of field `STALLRQ0`"],["STALLRQ1_R","Reader of field `STALLRQ1`"]]});

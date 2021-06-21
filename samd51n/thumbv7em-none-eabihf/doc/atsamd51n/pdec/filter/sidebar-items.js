@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FILTER_W","Write proxy for field `FILTER`"]],"type":[["FILTER_R","Reader of field `FILTER`"],["R","Reader of register FILTER"],["W","Writer for register FILTER"]]});

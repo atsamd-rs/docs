@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WAVEGEN_A","Waveform Generation Mode"]],"struct":[["WAVEGEN_W","Write proxy for field `WAVEGEN`"]],"type":[["R","Reader of register WAVE"],["W","Writer for register WAVE"],["WAVEGEN_R","Reader of field `WAVEGEN`"]]});

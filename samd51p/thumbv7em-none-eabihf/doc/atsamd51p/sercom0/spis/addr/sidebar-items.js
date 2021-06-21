@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ADDRMASK_W","Write proxy for field `ADDRMASK`"],["ADDR_W","Write proxy for field `ADDR`"]],"type":[["ADDRMASK_R","Reader of field `ADDRMASK`"],["ADDR_R","Reader of field `ADDR`"],["R","Reader of register ADDR"],["W","Writer for register ADDR"]]});

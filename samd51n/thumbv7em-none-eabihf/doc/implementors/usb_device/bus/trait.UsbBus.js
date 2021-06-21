@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["atsamd_hal"] = [{"text":"impl <a class=\"trait\" href=\"usb_device/bus/trait.UsbBus.html\" title=\"trait usb_device::bus::UsbBus\">UsbBus</a> for <a class=\"struct\" href=\"atsamd_hal/thumbv7em/usb/struct.UsbBus.html\" title=\"struct atsamd_hal::thumbv7em::usb::UsbBus\">UsbBus</a>","synthetic":false,"types":["atsamd_hal::thumbv7em::usb::bus::UsbBus"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

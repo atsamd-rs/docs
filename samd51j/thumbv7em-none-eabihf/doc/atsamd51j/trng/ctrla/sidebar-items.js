@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ENABLE_W","Write proxy for field `ENABLE`"],["RUNSTDBY_W","Write proxy for field `RUNSTDBY`"]],"type":[["ENABLE_R","Reader of field `ENABLE`"],["R","Reader of register CTRLA"],["RUNSTDBY_R","Reader of field `RUNSTDBY`"],["W","Writer for register CTRLA"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TYPEH_A","High Double-Word Error Type"],["TYPEL_A","Low Double-Word Error Type"]],"type":[["ADDR_R","Reader of field `ADDR`"],["R","Reader of register ECCERR"],["TYPEH_R","Reader of field `TYPEH`"],["TYPEL_R","Reader of field `TYPEL`"]]});

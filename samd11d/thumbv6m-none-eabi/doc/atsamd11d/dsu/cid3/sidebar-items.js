@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["PREAMBLEB3_R","Reader of field `PREAMBLEB3`"],["R","Reader of register CID3"]]});

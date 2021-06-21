@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BMAX_A","AHB Maximum Burst"]],"struct":[["BMAX_W","Write proxy for field `BMAX`"]],"type":[["BMAX_R","Reader of field `BMAX`"],["R","Reader of register ACR"],["W","Writer for register ACR"]]});

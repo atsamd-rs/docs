@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["PENDCH0_R","Reader of field `PENDCH0`"],["PENDCH1_R","Reader of field `PENDCH1`"],["PENDCH2_R","Reader of field `PENDCH2`"],["PENDCH3_R","Reader of field `PENDCH3`"],["PENDCH4_R","Reader of field `PENDCH4`"],["PENDCH5_R","Reader of field `PENDCH5`"],["R","Reader of register PENDCH"]]});

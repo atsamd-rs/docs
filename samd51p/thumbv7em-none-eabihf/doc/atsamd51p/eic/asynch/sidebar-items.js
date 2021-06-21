@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ASYNCH_A","Asynchronous Edge Detection Mode"]],"struct":[["ASYNCH_W","Write proxy for field `ASYNCH`"]],"type":[["ASYNCH_R","Reader of field `ASYNCH`"],["R","Reader of register ASYNCH"],["W","Writer for register ASYNCH"]]});

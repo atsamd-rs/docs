@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["pras","Priority A for Slave"],["prbs","Priority B for Slave"],["sfr","Special Function"]],"struct":[["RegisterBlock","Register block"]],"type":[["PRAS","Priority A for Slave"],["PRBS","Priority B for Slave"],["SFR","Special Function"]]});

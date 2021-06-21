@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["FLINPROG_R","Reader of field `FlInProg`"],["FTNONSTOP_R","Reader of field `FtNonStop`"],["FTSTOPPED_R","Reader of field `FtStopped`"],["R","Reader of register FFSR"],["TCPRESENT_R","Reader of field `TCPresent`"]]});

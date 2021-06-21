@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["R","Reader of register TRIGGER"],["TRIGGER_R","Reader of field `TRIGGER`"]]});

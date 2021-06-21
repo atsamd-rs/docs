@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DIV_A","CPU Clock Division Factor"]],"type":[["DIV_R","Reader of field `DIV`"],["R","Reader of register HSDIV"]]});

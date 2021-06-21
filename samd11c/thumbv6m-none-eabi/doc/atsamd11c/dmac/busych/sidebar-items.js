@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["BUSYCH0_R","Reader of field `BUSYCH0`"],["BUSYCH1_R","Reader of field `BUSYCH1`"],["BUSYCH2_R","Reader of field `BUSYCH2`"],["BUSYCH3_R","Reader of field `BUSYCH3`"],["BUSYCH4_R","Reader of field `BUSYCH4`"],["BUSYCH5_R","Reader of field `BUSYCH5`"],["R","Reader of register BUSYCH"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WINTSEL0_A","Window 0 Interrupt Selection"]],"struct":[["WEN0_W","Write proxy for field `WEN0`"],["WINTSEL0_W","Write proxy for field `WINTSEL0`"]],"type":[["R","Reader of register WINCTRL"],["W","Writer for register WINCTRL"],["WEN0_R","Reader of field `WEN0`"],["WINTSEL0_R","Reader of field `WINTSEL0`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DLYVAL_W","Write proxy for field `DLYVAL`"],["IGNACK_W","Write proxy for field `IGNACK`"]],"type":[["DLYVAL_R","Reader of field `DLYVAL`"],["IGNACK_R","Reader of field `IGNACK`"],["R","Reader of register PWSAKDLY"],["W","Writer for register PWSAKDLY"]]});

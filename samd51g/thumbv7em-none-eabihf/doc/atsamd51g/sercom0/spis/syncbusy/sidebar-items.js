@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["CTRLB_R","Reader of field `CTRLB`"],["ENABLE_R","Reader of field `ENABLE`"],["LENGTH_R","Reader of field `LENGTH`"],["R","Reader of register SYNCBUSY"],["SWRST_R","Reader of field `SWRST`"]]});

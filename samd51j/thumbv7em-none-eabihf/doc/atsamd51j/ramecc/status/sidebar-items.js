@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["ECCDIS_R","Reader of field `ECCDIS`"],["R","Reader of register STATUS"]]});

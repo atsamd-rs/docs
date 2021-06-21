@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["APBCDIV_A","APBC Prescaler Selection"]],"struct":[["APBCDIV_W","Write proxy for field `APBCDIV`"]],"type":[["APBCDIV_R","Reader of field `APBCDIV`"],["R","Reader of register APBCSEL"],["W","Writer for register APBCSEL"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PRESC_A","Prescaler Value"]],"struct":[["PRESC_W","Write proxy for field `PRESC`"]],"type":[["PRESC_R","Reader of field `PRESC`"],["R","Reader of register PRESC"],["W","Writer for register PRESC"]]});

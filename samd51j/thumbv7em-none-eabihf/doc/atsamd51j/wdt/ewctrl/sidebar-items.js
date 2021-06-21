@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EWOFFSET_A","Early Warning Interrupt Time Offset"]],"struct":[["EWOFFSET_W","Write proxy for field `EWOFFSET`"]],"type":[["EWOFFSET_R","Reader of field `EWOFFSET`"],["R","Reader of register EWCTRL"],["W","Writer for register EWCTRL"]]});

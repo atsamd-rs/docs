@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CALIB_W","Write proxy for field `CALIB`"],["WRTLOCK_W","Write proxy for field `WRTLOCK`"]],"type":[["CALIB_R","Reader of field `CALIB`"],["R","Reader of register OSCULP32K"],["W","Writer for register OSCULP32K"],["WRTLOCK_R","Reader of field `WRTLOCK`"]]});

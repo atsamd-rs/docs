@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SDBPWR_A","SD Bus Power"],["SDBVSEL_A","SD Bus Voltage Select"]],"struct":[["SDBPWR_W","Write proxy for field `SDBPWR`"],["SDBVSEL_W","Write proxy for field `SDBVSEL`"]],"type":[["R","Reader of register PCR"],["SDBPWR_R","Reader of field `SDBPWR`"],["SDBVSEL_R","Reader of field `SDBVSEL`"],["W","Writer for register PCR"]]});

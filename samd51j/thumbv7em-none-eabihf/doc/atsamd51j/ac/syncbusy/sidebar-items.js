@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["COMPCTRL0_R","Reader of field `COMPCTRL0`"],["COMPCTRL1_R","Reader of field `COMPCTRL1`"],["ENABLE_R","Reader of field `ENABLE`"],["R","Reader of register SYNCBUSY"],["SWRST_R","Reader of field `SWRST`"],["WINCTRL_R","Reader of field `WINCTRL`"]]});

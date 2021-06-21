@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BOUNDARY_A","SDMA Buffer Boundary"]],"struct":[["BLOCKSIZE_W","Write proxy for field `BLOCKSIZE`"],["BOUNDARY_W","Write proxy for field `BOUNDARY`"]],"type":[["BLOCKSIZE_R","Reader of field `BLOCKSIZE`"],["BOUNDARY_R","Reader of field `BOUNDARY`"],["R","Reader of register BSR"],["W","Writer for register BSR"]]});

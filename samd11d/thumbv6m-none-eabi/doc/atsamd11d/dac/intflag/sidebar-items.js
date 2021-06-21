@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EMPTY_W","Write proxy for field `EMPTY`"],["SYNCRDY_W","Write proxy for field `SYNCRDY`"],["UNDERRUN_W","Write proxy for field `UNDERRUN`"]],"type":[["EMPTY_R","Reader of field `EMPTY`"],["R","Reader of register INTFLAG"],["SYNCRDY_R","Reader of field `SYNCRDY`"],["UNDERRUN_R","Reader of field `UNDERRUN`"],["W","Writer for register INTFLAG"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Gain","The gain level"],["Prescaler","Clock frequency relative to the system clock"],["Reference","Reference voltage (or its source)"],["Resolution","Reading resolution in bits"],["SampleRate","Samples per reading"]],"struct":[["Adc","`Adc` encapsulates the device ADC"]]});

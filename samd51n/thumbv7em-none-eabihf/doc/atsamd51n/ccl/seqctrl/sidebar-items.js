@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SEQSEL_A","Sequential Selection"]],"struct":[["SEQSEL_W","Write proxy for field `SEQSEL`"]],"type":[["R","Reader of register SEQCTRL[%s]"],["SEQSEL_R","Reader of field `SEQSEL`"],["W","Writer for register SEQCTRL[%s]"]]});

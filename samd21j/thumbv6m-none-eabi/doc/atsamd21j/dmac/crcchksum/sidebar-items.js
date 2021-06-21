@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CRCCHKSUM_W","Write proxy for field `CRCCHKSUM`"]],"type":[["CRCCHKSUM_R","Reader of field `CRCCHKSUM`"],["R","Reader of register CRCCHKSUM"],["W","Writer for register CRCCHKSUM"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"attr":[["bitfield","Applicable to structs to turn their fields into compact bitfields."]],"derive":[["BitfieldSpecifier","Derive macro for Rust `enums` to implement `Specifier` trait."]]});

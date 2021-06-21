@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["REFSEL_A","Reference Selection"]],"struct":[["REFCOMP_W","Write proxy for field `REFCOMP`"],["REFSEL_W","Write proxy for field `REFSEL`"]],"type":[["R","Reader of register REFCTRL"],["REFCOMP_R","Reader of field `REFCOMP`"],["REFSEL_R","Reader of field `REFSEL`"],["W","Writer for register REFCTRL"]]});

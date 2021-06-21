@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DIV_A","Low-Power Clock Division Factor"]],"struct":[["DIV_W","Write proxy for field `DIV`"]],"type":[["DIV_R","Reader of field `DIV`"],["R","Reader of register CPUDIV"],["W","Writer for register CPUDIV"]]});

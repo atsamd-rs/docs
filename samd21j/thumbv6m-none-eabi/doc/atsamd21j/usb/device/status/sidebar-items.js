@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LINESTATE_A","USB Line State Status"],["SPEED_A","Speed Status"]],"type":[["LINESTATE_R","Reader of field `LINESTATE`"],["R","Reader of register STATUS"],["SPEED_R","Reader of field `SPEED`"]]});

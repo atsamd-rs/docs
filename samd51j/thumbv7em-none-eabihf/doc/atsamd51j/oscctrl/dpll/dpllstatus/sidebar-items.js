@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["CLKRDY_R","Reader of field `CLKRDY`"],["LOCK_R","Reader of field `LOCK`"],["R","Reader of register DPLLSTATUS"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CAPWREN_W","Write proxy for field `CAPWREN`"],["KEY_W","Write proxy for field `KEY`"]],"type":[["CAPWREN_R","Reader of field `CAPWREN`"],["KEY_R","Reader of field `KEY`"],["R","Reader of register CACR"],["W","Writer for register CACR"]]});

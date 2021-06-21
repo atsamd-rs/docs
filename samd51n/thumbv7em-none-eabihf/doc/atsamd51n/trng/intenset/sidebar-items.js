@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DATARDY_W","Write proxy for field `DATARDY`"]],"type":[["DATARDY_R","Reader of field `DATARDY`"],["R","Reader of register INTENSET"],["W","Writer for register INTENSET"]]});

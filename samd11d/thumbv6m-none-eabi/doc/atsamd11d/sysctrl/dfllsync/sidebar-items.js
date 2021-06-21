@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["READREQ_W","Write proxy for field `READREQ`"]],"type":[["W","Writer for register DFLLSYNC"]]});

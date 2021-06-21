@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ENCCMP_W","Write proxy for field `ENCCMP`"],["GFMCMP_W","Write proxy for field `GFMCMP`"]],"type":[["ENCCMP_R","Reader of field `ENCCMP`"],["GFMCMP_R","Reader of field `GFMCMP`"],["R","Reader of register INTENCLR"],["W","Writer for register INTENCLR"]]});

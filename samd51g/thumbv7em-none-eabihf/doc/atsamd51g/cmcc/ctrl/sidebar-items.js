@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CEN_W","Write proxy for field `CEN`"]],"type":[["W","Writer for register CTRL"]]});

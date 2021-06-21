@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["ETM_ATVALID_R","Reader of field `ETM_ATVALID`"],["ETM_BYTECOUNT_R","Reader of field `ETM_bytecount`"],["ITM0_R","Reader of field `ITM0`"],["ITM1_R","Reader of field `ITM1`"],["ITM2_R","Reader of field `ITM2`"],["ITM_ATVALID_R","Reader of field `ITM_ATVALID`"],["ITM_BYTECOUNT_R","Reader of field `ITM_bytecount`"],["R","Reader of register FIFO1"]]});

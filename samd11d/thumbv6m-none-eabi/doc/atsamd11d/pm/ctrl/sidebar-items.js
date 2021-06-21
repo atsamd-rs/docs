@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BKUPCLK_W","Write proxy for field `BKUPCLK`"],["CFDEN_W","Write proxy for field `CFDEN`"]],"type":[["BKUPCLK_R","Reader of field `BKUPCLK`"],["CFDEN_R","Reader of field `CFDEN`"],["R","Reader of register CTRL"],["W","Writer for register CTRL"]]});

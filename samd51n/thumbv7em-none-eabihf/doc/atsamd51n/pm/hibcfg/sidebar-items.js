@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BRAMCFG_A","Backup Ram Configuration"],["RAMCFG_A","Ram Configuration"]],"struct":[["BRAMCFG_W","Write proxy for field `BRAMCFG`"],["RAMCFG_W","Write proxy for field `RAMCFG`"]],"type":[["BRAMCFG_R","Reader of field `BRAMCFG`"],["R","Reader of register HIBCFG"],["RAMCFG_R","Reader of field `RAMCFG`"],["W","Writer for register HIBCFG"]]});

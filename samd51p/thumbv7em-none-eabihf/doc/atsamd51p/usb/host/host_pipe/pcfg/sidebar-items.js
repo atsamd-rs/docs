@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BK_W","Write proxy for field `BK`"],["PTOKEN_W","Write proxy for field `PTOKEN`"],["PTYPE_W","Write proxy for field `PTYPE`"]],"type":[["BK_R","Reader of field `BK`"],["PTOKEN_R","Reader of field `PTOKEN`"],["PTYPE_R","Reader of field `PTYPE`"],["R","Reader of register PCFG"],["W","Writer for register PCFG"]]});

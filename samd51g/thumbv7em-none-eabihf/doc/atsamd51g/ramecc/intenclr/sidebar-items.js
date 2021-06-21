@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DUALE_W","Write proxy for field `DUALE`"],["SINGLEE_W","Write proxy for field `SINGLEE`"]],"type":[["DUALE_R","Reader of field `DUALE`"],["R","Reader of register INTENCLR"],["SINGLEE_R","Reader of field `SINGLEE`"],["W","Writer for register INTENCLR"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EMPTYEO_W","Write proxy for field `EMPTYEO`"],["STARTEI_W","Write proxy for field `STARTEI`"]],"type":[["EMPTYEO_R","Reader of field `EMPTYEO`"],["R","Reader of register EVCTRL"],["STARTEI_R","Reader of field `STARTEI`"],["W","Writer for register EVCTRL"]]});

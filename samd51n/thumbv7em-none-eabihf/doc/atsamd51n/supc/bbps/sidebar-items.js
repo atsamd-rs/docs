@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CONF_A","Battery Backup Configuration"]],"struct":[["CONF_W","Write proxy for field `CONF`"],["WAKEEN_W","Write proxy for field `WAKEEN`"]],"type":[["CONF_R","Reader of field `CONF`"],["R","Reader of register BBPS"],["W","Writer for register BBPS"],["WAKEEN_R","Reader of field `WAKEEN`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["B33SRDY_R","Reader of field `B33SRDY`"],["BOD33DET_R","Reader of field `BOD33DET`"],["BOD33RDY_R","Reader of field `BOD33RDY`"],["R","Reader of register STATUS"],["VCORERDY_R","Reader of field `VCORERDY`"],["VREGRDY_R","Reader of field `VREGRDY`"]]});

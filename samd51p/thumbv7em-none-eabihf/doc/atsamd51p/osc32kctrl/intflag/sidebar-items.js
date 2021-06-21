@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["XOSC32KFAIL_W","Write proxy for field `XOSC32KFAIL`"],["XOSC32KRDY_W","Write proxy for field `XOSC32KRDY`"]],"type":[["R","Reader of register INTFLAG"],["W","Writer for register INTFLAG"],["XOSC32KFAIL_R","Reader of field `XOSC32KFAIL`"],["XOSC32KRDY_R","Reader of field `XOSC32KRDY`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WSTATE0_A","Window 0 Current State"]],"type":[["R","Reader of register STATUSA"],["STATE0_R","Reader of field `STATE0`"],["STATE1_R","Reader of field `STATE1`"],["WSTATE0_R","Reader of field `WSTATE0`"]]});

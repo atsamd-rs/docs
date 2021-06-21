@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CPUDIV_A","CPU Prescaler Selection"]],"struct":[["CPUDIV_W","Write proxy for field `CPUDIV`"]],"type":[["CPUDIV_R","Reader of field `CPUDIV`"],["R","Reader of register CPUSEL"],["W","Writer for register CPUSEL"]]});

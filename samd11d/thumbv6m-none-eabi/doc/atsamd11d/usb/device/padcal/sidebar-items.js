@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TRANSN_W","Write proxy for field `TRANSN`"],["TRANSP_W","Write proxy for field `TRANSP`"],["TRIM_W","Write proxy for field `TRIM`"]],"type":[["R","Reader of register PADCAL"],["TRANSN_R","Reader of field `TRANSN`"],["TRANSP_R","Reader of field `TRANSP`"],["TRIM_R","Reader of field `TRIM`"],["W","Writer for register PADCAL"]]});

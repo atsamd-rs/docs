@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TimerParams","Helper type for computing cycles and divider given frequency"]]});

@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["atsamd_hal"] = [{"text":"impl <a class=\"trait\" href=\"atsamd_hal/prelude/trait._embedded_hal_blocking_rng_Read.html\" title=\"trait atsamd_hal::prelude::_embedded_hal_blocking_rng_Read\">Read</a> for <a class=\"struct\" href=\"atsamd_hal/thumbv7em/trng/struct.Trng.html\" title=\"struct atsamd_hal::thumbv7em::trng::Trng\">Trng</a>","synthetic":false,"types":["atsamd_hal::thumbv7em::trng::Trng"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

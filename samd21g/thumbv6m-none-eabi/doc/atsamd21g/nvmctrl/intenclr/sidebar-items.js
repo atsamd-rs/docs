@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ERROR_W","Write proxy for field `ERROR`"],["READY_W","Write proxy for field `READY`"]],"type":[["ERROR_R","Reader of field `ERROR`"],["R","Reader of register INTENCLR"],["READY_R","Reader of field `READY`"],["W","Writer for register INTENCLR"]]});

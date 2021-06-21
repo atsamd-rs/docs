@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["R","Reader of register TRACEIDR"],["W","Writer for register TRACEIDR"]]});

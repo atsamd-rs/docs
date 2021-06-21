@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["REFNUM_W","Write proxy for field `REFNUM`"]],"type":[["R","Reader of register CFGA"],["REFNUM_R","Reader of field `REFNUM`"],["W","Writer for register CFGA"]]});

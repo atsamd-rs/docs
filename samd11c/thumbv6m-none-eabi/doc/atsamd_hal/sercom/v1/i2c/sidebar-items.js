@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["I2CError",""]],"struct":[["I2CMaster0","Represents the Sercom instance configured to act as an I2C Master. The embedded_hal blocking I2C traits are implemented by this instance."],["I2CMaster1","Represents the Sercom instance configured to act as an I2C Master. The embedded_hal blocking I2C traits are implemented by this instance."]]});

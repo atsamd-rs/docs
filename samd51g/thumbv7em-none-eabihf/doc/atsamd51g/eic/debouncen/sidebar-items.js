@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DEBOUNCEN_W","Write proxy for field `DEBOUNCEN`"]],"type":[["DEBOUNCEN_R","Reader of field `DEBOUNCEN`"],["R","Reader of register DEBOUNCEN"],["W","Writer for register DEBOUNCEN"]]});

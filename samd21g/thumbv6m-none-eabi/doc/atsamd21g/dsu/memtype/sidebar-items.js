@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["R","Reader of register MEMTYPE"],["SMEMP_R","Reader of field `SMEMP`"]]});

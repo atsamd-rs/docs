@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PRILVL_A","Channel Priority Level"]],"struct":[["PRILVL_W","Write proxy for field `PRILVL`"]],"type":[["PRILVL_R","Reader of field `PRILVL`"],["R","Reader of register CHPRILVL"],["W","Writer for register CHPRILVL"]]});

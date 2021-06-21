@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Configuring the system clock sources. You will typically need to create an instance of `GenericClockController` before you can set up most of the peripherals on the atsamd21 device. The other types in this module are used to enforce at compile time that the peripherals have been correctly configured."><meta name="keywords" content="rust, rustlang, rust-lang, clock"><title>atsamd_hal::thumbv6m::clock - Rust</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../atsamd_hal/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a><p class="location">Module clock</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"><a href="../../index.html">atsamd_hal</a>::<wbr><a href="../index.html">thumbv6m</a></p><div id="sidebar-vars" data-name="clock" data-ty="mod" data-relpath="../"></div><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../../index.html">atsamd_hal</a>::<wbr><a href="../index.html">thumbv6m</a>::<wbr><a class="mod" href="">clock</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../../src/atsamd_hal/thumbv6m/clock.rs.html#1-604" title="goto source code">[src]</a></span></h1><div class="docblock"><p>Configuring the system clock sources.
+You will typically need to create an instance of <code>GenericClockController</code>
+before you can set up most of the peripherals on the atsamd21 device.
+The other types in this module are used to enforce at compile time
+that the peripherals have been correctly configured.</p>
+</div><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
+<table><tr class="module-item"><td><a class="struct" href="struct.AcAnaClock.html" title="atsamd_hal::thumbv6m::clock::AcAnaClock struct">AcAnaClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.AcDigClock.html" title="atsamd_hal::thumbv6m::clock::AcDigClock struct">AcDigClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.AdcClock.html" title="atsamd_hal::thumbv6m::clock::AdcClock struct">AdcClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.DacClock.html" title="atsamd_hal::thumbv6m::clock::DacClock struct">DacClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.EicClock.html" title="atsamd_hal::thumbv6m::clock::EicClock struct">EicClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys0Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys0Clock struct">Evsys0Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys1Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys1Clock struct">Evsys1Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys2Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys2Clock struct">Evsys2Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys3Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys3Clock struct">Evsys3Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys4Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys4Clock struct">Evsys4Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys5Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys5Clock struct">Evsys5Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys6Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys6Clock struct">Evsys6Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys7Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys7Clock struct">Evsys7Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys8Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys8Clock struct">Evsys8Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys9Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys9Clock struct">Evsys9Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys10Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys10Clock struct">Evsys10Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Evsys11Clock.html" title="atsamd_hal::thumbv6m::clock::Evsys11Clock struct">Evsys11Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.GClock.html" title="atsamd_hal::thumbv6m::clock::GClock struct">GClock</a></td><td class="docblock-short"><p>Represents a configured clock generator.
+Can be converted into the effective clock frequency.
+Its primary purpose is to be passed in to methods
+such as <code>GenericClockController::tcc2_tc3</code> to configure
+the clock for a peripheral.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.GenericClockController.html" title="atsamd_hal::thumbv6m::clock::GenericClockController struct">GenericClockController</a></td><td class="docblock-short"><p><code>GenericClockController</code> encapsulates the GCLK hardware.
+It provides a type safe way to configure the system clocks.
+Initializing the <code>GenericClockController</code> instance configures
+the system to run at 48Mhz by setting gclk1 as a 32khz source
+and feeding it into the DFLL48 hardware which in turn drives
+gclk0 at 48Mhz.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.I2S0Clock.html" title="atsamd_hal::thumbv6m::clock::I2S0Clock struct">I2S0Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.I2S1Clock.html" title="atsamd_hal::thumbv6m::clock::I2S1Clock struct">I2S1Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.RtcClock.html" title="atsamd_hal::thumbv6m::clock::RtcClock struct">RtcClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Sercom0CoreClock.html" title="atsamd_hal::thumbv6m::clock::Sercom0CoreClock struct">Sercom0CoreClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Sercom1CoreClock.html" title="atsamd_hal::thumbv6m::clock::Sercom1CoreClock struct">Sercom1CoreClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Sercom2CoreClock.html" title="atsamd_hal::thumbv6m::clock::Sercom2CoreClock struct">Sercom2CoreClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Sercom3CoreClock.html" title="atsamd_hal::thumbv6m::clock::Sercom3CoreClock struct">Sercom3CoreClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Sercom4CoreClock.html" title="atsamd_hal::thumbv6m::clock::Sercom4CoreClock struct">Sercom4CoreClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Sercom5CoreClock.html" title="atsamd_hal::thumbv6m::clock::Sercom5CoreClock struct">Sercom5CoreClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Tc4Tc5Clock.html" title="atsamd_hal::thumbv6m::clock::Tc4Tc5Clock struct">Tc4Tc5Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Tc6Tc7Clock.html" title="atsamd_hal::thumbv6m::clock::Tc6Tc7Clock struct">Tc6Tc7Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Tcc0Tcc1Clock.html" title="atsamd_hal::thumbv6m::clock::Tcc0Tcc1Clock struct">Tcc0Tcc1Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Tcc2Tc3Clock.html" title="atsamd_hal::thumbv6m::clock::Tcc2Tc3Clock struct">Tcc2Tc3Clock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.UsbClock.html" title="atsamd_hal::thumbv6m::clock::UsbClock struct">UsbClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WdtClock.html" title="atsamd_hal::thumbv6m::clock::WdtClock struct">WdtClock</a></td><td class="docblock-short"><p>A typed token that indicates that the clock for the peripheral(s)
+with the matching name has been configured.
+The effective clock frequency is available via the <code>freq</code> method,
+or by converting the object into a <code>Hertz</code> instance.
+The peripheral initialization code will typically require passing
+in this object to prove at compile time that the clock has been
+correctly initialized.</p>
+</td></tr></table><h2 id="constants" class="section-header"><a href="#constants">Constants</a></h2>
+<table><tr class="module-item"><td><a class="constant" href="constant.OSC8M_FREQ.html" title="atsamd_hal::thumbv6m::clock::OSC8M_FREQ constant">OSC8M_FREQ</a></td><td class="docblock-short"><p>The frequency of the 8 Mhz source.</p>
+</td></tr><tr class="module-item"><td><a class="constant" href="constant.OSC32K_FREQ.html" title="atsamd_hal::thumbv6m::clock::OSC32K_FREQ constant">OSC32K_FREQ</a></td><td class="docblock-short"><p>The frequency of the 32Khz source.</p>
+</td></tr><tr class="module-item"><td><a class="constant" href="constant.OSC48M_FREQ.html" title="atsamd_hal::thumbv6m::clock::OSC48M_FREQ constant">OSC48M_FREQ</a></td><td class="docblock-short"><p>The frequency of the 48Mhz source.</p>
+</td></tr></table><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
+<table><tr class="module-item"><td><a class="fn" href="fn.enable_external_32kosc.html" title="atsamd_hal::thumbv6m::clock::enable_external_32kosc fn">enable_external_32kosc</a></td><td class="docblock-short"><p>Turn on the external 32hkz oscillator</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.enable_internal_32kosc.html" title="atsamd_hal::thumbv6m::clock::enable_internal_32kosc fn">enable_internal_32kosc</a></td><td class="docblock-short"><p>Turn on the internal 32hkz oscillator</p>
+</td></tr></table><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
+<table><tr class="module-item"><td><a class="type" href="type.ClockGenId.html" title="atsamd_hal::thumbv6m::clock::ClockGenId type">ClockGenId</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="type" href="type.ClockId.html" title="atsamd_hal::thumbv6m::clock::ClockId type">ClockId</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="type" href="type.ClockSource.html" title="atsamd_hal::thumbv6m::clock::ClockSource type">ClockSource</a></td><td class="docblock-short"></td></tr></table></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="atsamd_hal" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
+    <script src="../../../main.js"></script></body></html>

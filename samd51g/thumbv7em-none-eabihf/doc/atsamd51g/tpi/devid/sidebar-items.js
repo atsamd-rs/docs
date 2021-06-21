@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["ASYNCLKIN_R","Reader of field `AsynClkIn`"],["MANCVALID_R","Reader of field `MANCVALID`"],["MINBUFSZ_R","Reader of field `MinBufSz`"],["NRTRACEINPUT_R","Reader of field `NrTraceInput`"],["NRZVALID_R","Reader of field `NRZVALID`"],["PTINVALID_R","Reader of field `PTINVALID`"],["R","Reader of register DEVID"]]});

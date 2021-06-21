@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TXMODE_W","Write proxy for field `TXMODE`"]],"type":[["R","Reader of register SPPR"],["TXMODE_R","Reader of field `TXMODE`"],["W","Writer for register SPPR"]]});

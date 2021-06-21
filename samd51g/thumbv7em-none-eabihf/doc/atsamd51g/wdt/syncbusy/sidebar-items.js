@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["ALWAYSON_R","Reader of field `ALWAYSON`"],["CLEAR_R","Reader of field `CLEAR`"],["ENABLE_R","Reader of field `ENABLE`"],["R","Reader of register SYNCBUSY"],["WEN_R","Reader of field `WEN`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CHANNEL_A","Channel Event Selection"]],"struct":[["CHANNEL_W","Write proxy for field `CHANNEL`"],["USER_W","Write proxy for field `USER`"]],"type":[["CHANNEL_R","Reader of field `CHANNEL`"],["R","Reader of register USER"],["USER_R","Reader of field `USER`"],["W","Writer for register USER"]]});

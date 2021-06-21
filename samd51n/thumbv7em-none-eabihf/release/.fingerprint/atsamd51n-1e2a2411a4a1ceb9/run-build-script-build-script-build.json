@@ -1,0 +1,1 @@
+{"rustc":10026429466883849012,"features":"","target":0,"profile":0,"path":0,"deps":[[4434314149177494785,"build_script_build",false,10356180251045522969]],"local":[{"RerunIfChanged":{"output":"thumbv7em-none-eabihf/release/build/atsamd51n-1e2a2411a4a1ceb9/output","paths":["build.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

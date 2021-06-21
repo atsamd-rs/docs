@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BITINTERVAL_W","Write proxy for field `BITINTERVAL`"]],"type":[["BITINTERVAL_R","Reader of field `BITINTERVAL`"],["R","Reader of register BINTERVAL%s"],["W","Writer for register BINTERVAL%s"]]});

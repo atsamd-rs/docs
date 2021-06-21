@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["IORET_W","Write proxy for field `IORET`"]],"type":[["IORET_R","Reader of field `IORET`"],["R","Reader of register CTRLA"],["W","Writer for register CTRLA"]]});

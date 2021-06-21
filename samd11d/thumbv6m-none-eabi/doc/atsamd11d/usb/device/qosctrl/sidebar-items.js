@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CQOS_W","Write proxy for field `CQOS`"],["DQOS_W","Write proxy for field `DQOS`"]],"type":[["CQOS_R","Reader of field `CQOS`"],["DQOS_R","Reader of field `DQOS`"],["R","Reader of register QOSCTRL"],["W","Writer for register QOSCTRL"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ENABLE_W","Write proxy for field `ENABLE`"],["LASTXFER_W","Write proxy for field `LASTXFER`"],["SWRST_W","Write proxy for field `SWRST`"]],"type":[["ENABLE_R","Reader of field `ENABLE`"],["LASTXFER_R","Reader of field `LASTXFER`"],["R","Reader of register CTRLA"],["SWRST_R","Reader of field `SWRST`"],["W","Writer for register CTRLA"]]});

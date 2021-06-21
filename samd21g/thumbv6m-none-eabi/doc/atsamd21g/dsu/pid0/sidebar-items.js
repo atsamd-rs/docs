@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["PARTNBL_R","Reader of field `PARTNBL`"],["R","Reader of register PID0"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["ABUSY_R","Reader of field `ABUSY`"],["BTCNT_R","Reader of field `BTCNT`"],["ID_R","Reader of field `ID`"],["LVLEX0_R","Reader of field `LVLEX0`"],["LVLEX1_R","Reader of field `LVLEX1`"],["LVLEX2_R","Reader of field `LVLEX2`"],["LVLEX3_R","Reader of field `LVLEX3`"],["R","Reader of register ACTIVE"]]});
