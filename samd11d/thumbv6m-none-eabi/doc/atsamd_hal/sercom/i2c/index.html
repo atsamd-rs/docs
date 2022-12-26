@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Use the SERCOM peripheral for I2C communications"><meta name="keywords" content="rust, rustlang, rust-lang, i2c"><title>atsamd_hal::sercom::i2c - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module i2c</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Module <a href="../../index.html">atsamd_hal</a>::<wbr><a href="../index.html">sercom</a>::<wbr><a class="mod" href="#">i2c</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../../src/atsamd_hal/sercom/i2c.rs.html#1-424">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Use the SERCOM peripheral for I2C communications</p>
+<p>Configuring an I2C peripheral occurs in three steps. First, you must create
+a set of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a> for use by the peripheral. Next, you assemble pieces into
+a <a href="struct.Config.html" title="Config"><code>Config</code></a> struct. After configuring the peripheral, you then <a href="struct.Config.html#method.enable"><code>enable</code></a>
+it, yielding a functional <a href="struct.I2c.html" title="I2c"><code>I2c</code></a> struct.
+Transactions are performed using the <a href="../../../embedded_hal/blocking/i2c/index.html"><code>i2c</code></a>
+traits from embedded HAL.</p>
+<h2 id="pads"><a href="#pads"><code>Pads</code></a></h2>
+<p>A <a href="../trait.Sercom.html"><code>Sercom</code></a> uses two <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>s as peripheral <a href="../pad/type.Pad.html"><code>Pad</code></a>s, but only
+certain <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a> combinations are acceptable. In particular, all <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>s
+must be mapped to the same <a href="../trait.Sercom.html"><code>Sercom</code></a>, and SDA is always <a href="../pad/enum.Pad0.html"><code>Pad0</code></a>, while SCL
+is always <a href="../pad/enum.Pad1.html"><code>Pad1</code></a> (see the datasheet). This HAL makes it impossible to use
+invalid <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>/<a href="../pad/type.Pad.html"><code>Pad</code></a> combinations, and the <a href="struct.Pads.html" title="Pads"><code>Pads</code></a> struct is responsible
+for enforcing these constraints.</p>
+<p>A <a href="struct.Pads.html" title="Pads"><code>Pads</code></a> type takes three or four type parameters, depending on the chip.
+The first type always specifies the <a href="../trait.Sercom.html"><code>Sercom</code></a>. On SAMx5x chips, the second
+type specifies the <code>IoSet</code>. The remaining two, <code>SDA</code> and <code>SCL</code> represent the
+SDA and SCL pads respectively. A <a href="../pad/type.Pad.html"><code>Pad</code></a> is just a <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a> configured in the
+correct <a href="../../gpio/pin/trait.PinMode.html"><code>PinMode</code></a> that implements <a href="../pad/trait.IsPad.html"><code>IsPad</code></a>. The
+<a href="../../macro.bsp_pins.html"><code>bsp_pins!</code></a> macro can be used to define convenient type
+aliases for <a href="../pad/type.Pad.html"><code>Pad</code></a> types.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::gpio::{PA08, PA09, AlternateC};
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, i2c};
+<span class="kw">use </span>atsamd_hal::typelevel::NoneT;
+
+<span class="comment">// SAMx5x-specific imports
+</span><span class="kw">use </span>atsamd_hal::sercom::pad::IoSet1;
+
+<span class="kw">type </span>Sda = Pin&lt;PA08, AlternateC&gt;;
+<span class="kw">type </span>Scl = Pin&lt;PA09, AlternateC&gt;;
+
+<span class="comment">// SAMD11/SAMD21 version
+</span><span class="kw">type </span>Pads = i2c::Pads&lt;Sercom0, Sda, Scl&gt;;
+<span class="comment">// SAMx5x version
+</span><span class="kw">type </span>Pads = i2c::Pads&lt;Sercom0, IoSet1, Sda, Scl&gt;;</code></pre></div>
+<p>Alternatively, you can use the <a href="type.PadsFromIds.html" title="PadsFromIds"><code>PadsFromIds</code></a> alias to define a set of
+<code>Pads</code> in terms of <a href="../../gpio/pin/trait.PinId.html"><code>PinId</code></a>s instead of <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>s. This is useful when you
+don’t have <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a> aliases pre-defined.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::gpio::{PA08, PA09};
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, i2c};
+
+<span class="kw">type </span>Pads = i2c::PadsFromIds&lt;Sercom0, PA08, PA09&gt;;</code></pre></div>
+<p>Instances of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a> are created using the <a href="struct.Pads.html#method.new"><code>new</code></a> method.</p>
+<p>On SAMD21 and SAMx5x chips, <a href="struct.Pads.html#method.new"><code>new</code></a> method automatically convert
+each pin to the correct <a href="../../gpio/pin/trait.PinMode.html"><code>PinMode</code></a>. But for SAMD11 chips, users must
+manually convert each pin before calling the builder methods. This is a
+consequence of inherent ambiguities in the SAMD11 SERCOM pad definitions.
+Specifically, the same <a href="../../gpio/pin/trait.PinId.html"><code>PinId</code></a> can correspond to two different <a href="../pad/trait.PadNum.html"><code>PadNum</code></a>s
+for the <em>same</em> <code>Sercom</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::pac::Peripherals;
+<span class="kw">use </span>atsamd_hal::gpio::Pins;
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, i2c};
+
+<span class="kw">let </span><span class="kw-2">mut </span>peripherals = Peripherals::take().unwrap();
+<span class="kw">let </span>pins = Pins::new(peripherals.PORT);
+<span class="kw">let </span>pads = i2c::Pads::&lt;Sercom0&gt;::new(pins.pa08, pins.pa09);</code></pre></div>
+<h2 id="config"><a href="#config"><code>Config</code></a></h2>
+<p>Next, create a <a href="struct.Config.html" title="Config"><code>Config</code></a> struct, which represents the I2C peripheral in
+its disabled state. A <a href="struct.Config.html" title="Config"><code>Config</code></a> is specified with one type parameters, the
+<a href="struct.Pads.html" title="Pads"><code>Pads</code></a> type.</p>
+<p>Upon creation, the <a href="struct.Config.html" title="Config"><code>Config</code></a> takes ownership of both the <a href="struct.Pads.html" title="Pads"><code>Pads</code></a> struct
+and the PAC <a href="../trait.Sercom.html"><code>Sercom</code></a> struct. It takes a reference to the PM, so that it
+can enable the APB clock, and it takes a frequency to indicate the GCLK
+configuration. Users are responsible for correctly configuring the GCLK.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::gpio::{PA08, PA09};
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, i2c};
+
+<span class="kw">type </span>Pads = i2c::PadsFromIds&lt;Sercom0, PA08, PA09&gt;;
+<span class="kw">type </span>Config = i2c::Config&lt;Pads&gt;;
+
+<span class="kw">let </span>pm = peripherals.PM;
+<span class="kw">let </span>sercom = peripherals.SERCOM0;
+<span class="comment">// Configure GCLK for 10 MHz
+</span><span class="kw">let </span>freq = <span class="number">10</span>.mhz();
+<span class="kw">let </span>config = i2c::Config::new(<span class="kw-2">&amp;</span>pm, sercom, pads, freq);</code></pre></div>
+<p>The <a href="struct.Config.html" title="Config"><code>Config</code></a> struct can configure the peripheral in one of two ways:</p>
+<ul>
+<li>A set of methods is provided to use in a builder pattern: for example
+<a href="struct.Config.html#method.baud"><code>baud</code></a>, <a href="struct.Config.html#method.run_in_standby"><code>run_in_standby</code></a>, etc.
+These methods take <code>self</code> and return <code>Self</code>.</li>
+<li>A set of methods is provided to use as setters: for example
+<a href="struct.Config.html#method.set_baud"><code>set_baud</code></a>,
+<a href="struct.Config.html#method.set_run_in_standby"><code>set_run_in_standby</code></a>, etc. These methods
+take <code>&amp;mut self</code> and return nothing.</li>
+</ul>
+<p>In any case, the peripheral setup ends with a call to <a href="struct.Config.html#method.enable"><code>enable</code></a>, which
+consumes the <a href="struct.Config.html" title="Config"><code>Config</code></a> and returns an enabled <a href="struct.I2c.html" title="I2c"><code>I2c</code></a> peripheral.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>i2c = i2c::Config::new(<span class="kw-2">&amp;</span>pm, sercom, pads, freq)
+    .baud(<span class="number">1</span>.mhz())
+    .enable();</code></pre></div>
+<p>Alternatively,</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>i2c = i2c::Config::new(<span class="kw-2">&amp;</span>mclk, sercom, pads, freq);
+    i2c.set_baud(<span class="number">1</span>.mhz());
+    <span class="kw">let </span>i2c = i2c.enable();</code></pre></div>
+<h3 id="reading-the-current-configuration"><a href="#reading-the-current-configuration">Reading the current configuration</a></h3>
+<p>It is possible to read the current configuration by using the getter methods
+provided: for example <a href="struct.Config.html#method.get_baud"><code>get_baud</code></a>,
+<a href="struct.Config.html#method.get_run_in_standby"><code>get_run_in_standby</code></a>, etc.</p>
+<h2 id="i2c"><a href="#i2c"><code>I2c</code></a></h2>
+<p><a href="struct.I2c.html" title="I2c"><code>I2c</code></a> structs can only be created from a <a href="struct.Config.html" title="Config"><code>Config</code></a>. They have one type
+parameter, representing the underlying <a href="struct.Config.html" title="Config"><code>Config</code></a>.</p>
+<p>Only the <a href="struct.I2c.html" title="I2c"><code>I2c</code></a> struct can actually perform
+transactions. To do so, use the embedded HAL traits, like
+<a href="../../prelude/trait._embedded_hal_blocking_i2c_WriteRead.html"><code>i2c::WriteRead</code></a>, <a href="../../prelude/trait._embedded_hal_blocking_i2c_Read.html"><code>i2c::Read</code></a> and <a href="../../prelude/trait._embedded_hal_blocking_i2c_Write.html"><code>i2c::Write</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>embedded_hal::blocking::i2c::Write;
+
+i2c.write(<span class="number">0x54</span>, <span class="number">0x0fe</span>)</code></pre></div>
+<h2 id="reading-the-current-configuration-1"><a href="#reading-the-current-configuration-1">Reading the current configuration</a></h2>
+<p>The <code>AsRef&lt;Config&lt;P&gt;&gt;</code> trait is implemented for <code>I2c&lt;Config&lt;P&gt;&gt;</code>.
+This means you can use the <code>get_</code> methods implemented for <code>Config</code>, since
+they take an <code>&amp;self</code> argument.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Assume i2c is a I2c&lt;C&lt;P&gt;&gt;
+</span><span class="kw">let </span>baud = i2c.as_ref().get_baud();</code></pre></div>
+<h2 id="reconfiguring"><a href="#reconfiguring">Reconfiguring</a></h2>
+<p>The <a href="struct.I2c.html#method.reconfigure"><code>reconfigure</code></a> method gives out an <code>&amp;mut Config</code> reference, which can
+then use the <code>set_*</code> methods.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::sercom::i2c::I2c;
+<span class="kw">use </span>atsamd_hal::time::<span class="kw-2">*</span>;
+
+<span class="comment">// Assume config is a valid Duplex I2C Config struct
+</span><span class="kw">let </span>i2c = config.enable();
+
+<span class="comment">// Send/receive data...
+
+// Reconfigure I2C peripheral
+</span>i2c.reconfigure(|c| c.set_run_in_standby(<span class="bool-val">false</span>));
+
+<span class="comment">// Disable I2C peripheral
+</span><span class="kw">let </span>config = i2c.disable();</code></pre></div>
+<h2 id="non-supported-features"><a href="#non-supported-features">Non-supported features</a></h2>
+<ul>
+<li>Slave mode is not supported at this time.</li>
+<li>High-speed mode is not supported.</li>
+<li>4-wire mode is not supported.</li>
+<li>32-bit extension mode is not supported (SAMx5x). If you need to transfer
+slices, consider using the DMA methods instead. The <code>dma</code> Cargo feature
+must be enabled.</li>
+</ul>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Config.html" title="atsamd_hal::sercom::i2c::Config struct">Config</a></div><div class="item-right docblock-short">A configurable, disabled I2C peripheral</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Flags.html" title="atsamd_hal::sercom::i2c::Flags struct">Flags</a></div><div class="item-right docblock-short">Interrupt bitflags for I2C transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.I2c.html" title="atsamd_hal::sercom::i2c::I2c struct">I2c</a></div><div class="item-right docblock-short">Abstraction over a I2C peripheral, allowing to perform I2C transactions.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Pads.html" title="atsamd_hal::sercom::i2c::Pads struct">Pads</a></div><div class="item-right docblock-short">Container for a set of SERCOM <a href="../pad/type.Pad.html" title="Pad"><code>Pad</code></a>s</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Status.html" title="atsamd_hal::sercom::i2c::Status struct">Status</a></div><div class="item-right docblock-short">Status flags for I2C transactions</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.BusState.html" title="atsamd_hal::sercom::i2c::BusState enum">BusState</a></div><div class="item-right docblock-short">Type representing the current bus state</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Error.html" title="atsamd_hal::sercom::i2c::Error enum">Error</a></div><div class="item-right docblock-short">Errors available for I2C transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.InactiveTimeout.html" title="atsamd_hal::sercom::i2c::InactiveTimeout enum">InactiveTimeout</a></div><div class="item-right docblock-short">Inactive timeout configuration</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AnyConfig.html" title="atsamd_hal::sercom::i2c::AnyConfig trait">AnyConfig</a></div><div class="item-right docblock-short">Type class for all possible <a href="struct.Config.html" title="Config"><code>Config</code></a> types</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.PadSet.html" title="atsamd_hal::sercom::i2c::PadSet trait">PadSet</a></div><div class="item-right docblock-short">Type-level function to recover the <a href="../pad/type.Pad.html" title="Pad"><code>Pad</code></a> types from a generic set
+of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a></div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.ConfigSercom.html" title="atsamd_hal::sercom::i2c::ConfigSercom type">ConfigSercom</a></div><div class="item-right docblock-short">Type alias to recover the specific <a href="../trait.Sercom.html" title="Sercom"><code>Sercom</code></a> type from an implementation of
+<a href="trait.AnyConfig.html" title="AnyConfig"><code>AnyConfig</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.PadsFromIds.html" title="atsamd_hal::sercom::i2c::PadsFromIds type">PadsFromIds</a></div><div class="item-right docblock-short">Define a set of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a> using <a href="../../gpio/pin/trait.PinId.html"><code>PinId</code></a>s instead of <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>s</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.SpecificConfig.html" title="atsamd_hal::sercom::i2c::SpecificConfig type">SpecificConfig</a></div><div class="item-right docblock-short">Type alias to recover the specific <a href="struct.Config.html" title="Config"><code>Config</code></a> type from an implementation of
+<a href="trait.AnyConfig.html" title="AnyConfig"><code>AnyConfig</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.Word.html" title="atsamd_hal::sercom::i2c::Word type">Word</a></div><div class="item-right docblock-short">Word size for an I2C message</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

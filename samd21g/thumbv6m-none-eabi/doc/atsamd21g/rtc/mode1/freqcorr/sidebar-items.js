@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["FREQCORR_SPEC","Frequency Correction"],["R","Register `FREQCORR` reader"],["SIGN_R","Field `SIGN` reader - Correction Sign"],["SIGN_W","Field `SIGN` writer - Correction Sign"],["VALUE_R","Field `VALUE` reader - Correction Value"],["VALUE_W","Field `VALUE` writer - Correction Value"],["W","Register `FREQCORR` writer"]]};

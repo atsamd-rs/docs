@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="AES - Advanced Encryption Standard"><meta name="keywords" content="rust, rustlang, rust-lang, aes"><title>atsamd_hal::aes - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module aes</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Module <a href="../index.html">atsamd_hal</a>::<wbr><a class="mod" href="#">aes</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/atsamd_hal/thumbv7em/aes.rs.html#1-698">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="aes---advanced-encryption-standard"><a href="#aes---advanced-encryption-standard">AES - Advanced Encryption Standard</a></h2><h2 id="hardware-features"><a href="#hardware-features">Hardware Features</a></h2>
+<ul>
+<li>Compliant with FIPS Publication 197, Advanced Encryption Standard (AES)</li>
+<li>128/192/256 bit cryptographic key supported</li>
+<li>Encryption time of 57/67/77 cycles with 128-bit/192-bit/256-bit
+cryptographic key</li>
+<li>Five confidentiality modes of operation as recommended in NIST Special
+Publication 800-38A</li>
+<li>Electronic Code Book (ECB)</li>
+<li>Cipher Block Chaining (CBC)</li>
+<li>Cipher Feedback (CFB)</li>
+<li>Output Feedback (OFB)</li>
+<li>Counter (CTR)</li>
+<li>Supports Counter with CBC-MAC (CCM/CCM*) mode for authenticated encryption</li>
+<li>8,16, 32, 64, 128-bit data sizes possible in CFB mode</li>
+<li>Galois Counter mode (GCM) encryption and authentication</li>
+</ul>
+<h3 id="throughput"><a href="#throughput">Throughput</a></h3>
+<p>The relationship between the module’s clock frequency and throughput (in
+bytes per second) is given by:</p>
+<p>Clock Frequency = (Throughput/2) * (Nr+1) for 2 byte parallel processing
+Clock Frequency = (Throughput/4) * (Nr+1) for 4 byte parallel processing</p>
+<h2 id="start-modes"><a href="#start-modes">Start modes</a></h2>
+<ul>
+<li>Manual
+<ul>
+<li>Manually configuring all registers and processing starts when
+<code>CTRLB.START</code> is set</li>
+</ul>
+</li>
+<li>Automatic (DMA)
+<ul>
+<li>Similar to manual mode, but starts automatically when correct number of
+input data registers is written, used by DMA.</li>
+</ul>
+</li>
+<li>Last Output Data Mode (LOD)
+<ul>
+<li>Used to generate Message Authentication Code (MAC) on data in CCM mode.
+CCM combines counter mode for encryption and CBC-MAC generation for
+authentication.</li>
+</ul>
+</li>
+</ul>
+<h2 id="basic-operation"><a href="#basic-operation">Basic operation</a></h2><h3 id="peripheral-setup"><a href="#peripheral-setup">Peripheral setup</a></h3>
+<ol>
+<li>Enable <code>CLK_AES_APB</code> (default disabled) to clock AES peripheral</li>
+<li>If required, setup interrupts via NVIC</li>
+</ol>
+<p>Note: Register Control A (CTRLA) is Enabled-protected,
+thus in order to modify CTRLA register AES must be disabled first.</p>
+<h2 id="rustcrypto-backend"><a href="#rustcrypto-backend">RustCrypto backend</a></h2>
+<p>Implements RustCrypto BlockCiphers traits for AES</p>
+<blockquote>
+<p><strong>WARNING</strong></p>
+<p>AES Hardware peripheral is directly accessed, for each
+call to <code>encrypt</code> and <code>decrypt</code> the peripheral is reset and reconfigured.</p>
+<p>User must ensure that these two interfaces are not simultaneously used</p>
+</blockquote>
+<p>If high performance is required this might not be the most
+efficient way, then using the hardware directly might be better.</p>
+<p>This provides the ability to use other ciphers of the RustCrypto family,
+such as</p>
+<ul>
+<li><a href="https://docs.rs/ctr/">Counter (CTR)</a></li>
+<li><a href="https://docs.rs/cmac">Cipher-based Message Authentication Code (CMAC)</a></li>
+<li><a href="https://docs.rs/cfb-mode">Cipher Feedback (CFB)</a></li>
+</ul>
+<p>The examples from these crates can directly be run
+provided that the Aes128, Aes192 or Aes256 type
+comes from this implementation.</p>
+<p>See example directly from RustCrypto AES ECB:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>    <span class="kw">use </span>atsamd_hal::aes::<span class="kw-2">*</span>;
+
+    <span class="comment">// AES RustCrypto Example
+
+    </span><span class="kw">let </span>key = GenericArray::from_slice(<span class="kw-2">&amp;</span>[<span class="number">0u8</span>; <span class="number">16</span>]);
+    <span class="kw">let </span><span class="kw-2">mut </span>block = aes::Block::default();
+
+    <span class="comment">// Initialize cipher
+    </span><span class="kw">let </span>cipher = atsamd_hal::aes::Aes128::new(key);
+
+    <span class="kw">let </span>block_copy = block;
+
+    <span class="comment">// Encrypt block in-place
+    </span>cipher.encrypt_block(<span class="kw-2">&amp;mut </span>block);
+
+    <span class="comment">// And decrypt it back
+    </span>cipher.decrypt_block(<span class="kw-2">&amp;mut </span>block);
+    <span class="macro">assert_eq!</span>(block, block_copy);</code></pre></div>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Aes.html" title="atsamd_hal::aes::Aes struct">Aes</a></div><div class="item-right docblock-short">AES Peripheral</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.CtrlaConf.html" title="atsamd_hal::aes::CtrlaConf struct">CtrlaConf</a></div><div class="item-right docblock-short">AES-&gt;CTRLA Register</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Ctype.html" title="atsamd_hal::aes::Ctype struct">Ctype</a></div><div class="item-right docblock-short">Hardware Countermeasures against Differential Power Analysis Attacks</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.AESMODE_A.html" title="atsamd_hal::aes::AESMODE_A enum">AESMODE_A</a></div><div class="item-right docblock-short">AES Modes of operation</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.CFBS_A.html" title="atsamd_hal::aes::CFBS_A enum">CFBS_A</a></div><div class="item-right docblock-short">Cipher Feedback Block Size</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.CIPHER_A.html" title="atsamd_hal::aes::CIPHER_A enum">CIPHER_A</a></div><div class="item-right docblock-short">Cipher Mode</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.KEYSIZE_A.html" title="atsamd_hal::aes::KEYSIZE_A enum">KEYSIZE_A</a></div><div class="item-right docblock-short">Encryption Key Size</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.LOD_A.html" title="atsamd_hal::aes::LOD_A enum">LOD_A</a></div><div class="item-right docblock-short">Last Output Data Mode</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.STARTMODE_A.html" title="atsamd_hal::aes::STARTMODE_A enum">STARTMODE_A</a></div><div class="item-right docblock-short">Start Mode Select</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.XORKEY_A.html" title="atsamd_hal::aes::XORKEY_A enum">XORKEY_A</a></div><div class="item-right docblock-short">XOR Key Operation</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

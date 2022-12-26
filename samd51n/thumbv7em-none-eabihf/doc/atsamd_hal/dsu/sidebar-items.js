@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["Error","Error from within the DSU"],["PeripheralError","Errors from hardware"]],"struct":[["Dsu","Device Service Unit"]],"type":[["Result","NVM result type"]]};

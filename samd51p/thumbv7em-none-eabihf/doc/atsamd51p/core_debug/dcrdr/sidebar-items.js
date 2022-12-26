@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DCRDR_SPEC","Debug Core Register Data Register"],["R","Register `DCRDR` reader"],["W","Register `DCRDR` writer"]]};

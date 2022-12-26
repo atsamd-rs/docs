@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["DynRtcSourceId","Value-level enum of possible clock sources for the [`RtcOsc`]"]],"struct":[["RtcOsc","Oscillator for the `Rtc`"],["RtcOscToken","Token used to retrieve the RTC oscillator Singleton token that can be exchanged for the [`RtcOsc`]"]],"trait":[["RtcSourceId","Type-level `enum` for the RTC oscillator clock source"]]};

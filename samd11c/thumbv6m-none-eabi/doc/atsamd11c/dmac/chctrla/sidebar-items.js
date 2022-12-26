@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CHCTRLA_SPEC","Channel Control A"],["ENABLE_R","Field `ENABLE` reader - Channel Enable"],["ENABLE_W","Field `ENABLE` writer - Channel Enable"],["R","Register `CHCTRLA` reader"],["SWRST_R","Field `SWRST` reader - Channel Software Reset"],["SWRST_W","Field `SWRST` writer - Channel Software Reset"],["W","Register `CHCTRLA` writer"]]};

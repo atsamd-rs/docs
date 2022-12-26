@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DIRCLR_R","Field `DIRCLR` reader - Port Data Direction Clear"],["DIRCLR_SPEC","Data Direction Clear"],["DIRCLR_W","Field `DIRCLR` writer - Port Data Direction Clear"],["R","Register `DIRCLR` reader"],["W","Register `DIRCLR` writer"]]};

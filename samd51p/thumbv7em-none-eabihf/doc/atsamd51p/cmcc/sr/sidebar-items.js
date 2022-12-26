@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CSTS_R","Field `CSTS` reader - Cache Controller Status"],["R","Register `SR` reader"],["SR_SPEC","Cache Status Register"]]};

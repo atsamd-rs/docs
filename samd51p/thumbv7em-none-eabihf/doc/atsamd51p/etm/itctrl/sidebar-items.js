@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["INTEGRATION_R","Field `INTEGRATION` reader - "],["INTEGRATION_W","Field `INTEGRATION` writer - "],["ITCTRL_SPEC","ETM Integration Mode Control Register"],["R","Register `ITCTRL` reader"],["W","Register `ITCTRL` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["HCVR_SPEC","Host Controller Version"],["R","Register `HCVR` reader"],["SVER_R","Field `SVER` reader - Spec Version"],["VVER_R","Field `VVER` reader - Vendor Version"]]};

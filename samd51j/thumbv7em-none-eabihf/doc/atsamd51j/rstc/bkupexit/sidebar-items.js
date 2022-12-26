@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BBPS_R","Field `BBPS` reader - Battery Backup Power Switch"],["BKUPEXIT_SPEC","Backup Exit Source"],["HIB_R","Field `HIB` reader - Hibernate"],["R","Register `BKUPEXIT` reader"],["RTC_R","Field `RTC` reader - Real Timer Counter Interrupt"]]};

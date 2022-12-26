@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["FSDCLKD_A","Force SDCK Disabled"]],"struct":[["CC2R_SPEC","Clock Control 2"],["FSDCLKD_R","Field `FSDCLKD` reader - Force SDCK Disabled"],["FSDCLKD_W","Field `FSDCLKD` writer - Force SDCK Disabled"],["R","Register `CC2R` reader"],["W","Register `CC2R` writer"]]};

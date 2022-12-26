@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["INDATA_SPEC","Indata"],["R","Register `INDATA` reader"],["W","Register `INDATA` writer"]]};

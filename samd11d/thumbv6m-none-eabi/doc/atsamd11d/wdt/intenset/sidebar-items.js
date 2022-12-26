@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["EW_R","Field `EW` reader - Early Warning Interrupt Enable"],["EW_W","Field `EW` writer - Early Warning Interrupt Enable"],["INTENSET_SPEC","Interrupt Enable Set"],["R","Register `INTENSET` reader"],["W","Register `INTENSET` writer"]]};

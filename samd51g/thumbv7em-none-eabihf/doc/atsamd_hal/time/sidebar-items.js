@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["Bps","Bits per second"],["Hertz","Hertz"],["KiloHertz","KiloHertz"],["MegaHertz","MegaHertz"],["Microseconds","Microseconds"],["Milliseconds","Milliseconds"],["Nanoseconds","Nanoseconds"],["Seconds","Seconds"]],"trait":[["U32Ext","Extension trait that adds convenience methods to the `u32` type"]]};

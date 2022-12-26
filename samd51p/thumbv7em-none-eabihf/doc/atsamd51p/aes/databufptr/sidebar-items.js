@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DATABUFPTR_SPEC","Data buffer pointer"],["INDATAPTR_R","Field `INDATAPTR` reader - Input Data Pointer"],["INDATAPTR_W","Field `INDATAPTR` writer - Input Data Pointer"],["R","Register `DATABUFPTR` reader"],["W","Register `DATABUFPTR` writer"]]};

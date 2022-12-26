@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DEBOUNCEN_R","Field `DEBOUNCEN` reader - Debouncer Enable"],["DEBOUNCEN_SPEC","Debouncer Enable"],["DEBOUNCEN_W","Field `DEBOUNCEN` writer - Debouncer Enable"],["R","Register `DEBOUNCEN` reader"],["W","Register `DEBOUNCEN` writer"]]};

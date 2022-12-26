@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["Command",""],["Error",""]],"struct":[["OneShot","Qspi used for read/write of fixed-size octet buffers"],["Qspi",""],["XIP","Qspi is memory-mapped as read/execute"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["KEYWORD_SPEC","Keyword n"],["W","Register `KEYWORD[%s]` writer"]]};

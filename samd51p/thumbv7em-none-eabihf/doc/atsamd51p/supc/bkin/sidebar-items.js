@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BKIN0_R","Field `BKIN0` reader - Backup Input 0"],["BKIN1_R","Field `BKIN1` reader - Backup Input 1"],["BKIN_SPEC","Backup Input Control"],["R","Register `BKIN` reader"]]};

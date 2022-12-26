@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CLAIMSET_SPEC","MTB Claim Set"],["R","Register `CLAIMSET` reader"],["W","Register `CLAIMSET` writer"]]};

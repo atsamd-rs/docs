@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DFR_SPEC","Debug Feature Register"],["R","Register `DFR` reader"]]};

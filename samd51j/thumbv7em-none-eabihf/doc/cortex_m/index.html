@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Low level access to Cortex-M processors"><meta name="keywords" content="rust, rustlang, rust-lang, cortex_m"><title>cortex_m - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../normalize.css"><link rel="stylesheet" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../ayu.css" disabled><link rel="stylesheet" href="../dark.css" disabled><link rel="stylesheet" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script defer src="../crates.js"></script><script defer src="../main.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../cortex_m/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../cortex_m/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Crate cortex_m</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.7.6</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Crate <a class="mod" href="#">cortex_m</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/cortex_m/lib.rs.html#1-102">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Low level access to Cortex-M processors</p>
+<p>This crate provides:</p>
+<ul>
+<li>Access to core peripherals like NVIC, SCB and SysTick.</li>
+<li>Access to core registers like CONTROL, MSP and PSR.</li>
+<li>Interrupt manipulation mechanisms</li>
+<li>Safe wrappers around Cortex-M specific instructions like <code>bkpt</code></li>
+</ul>
+<h2 id="optional-features"><a href="#optional-features">Optional features</a></h2><h3 id="inline-asm"><a href="#inline-asm"><code>inline-asm</code></a></h3>
+<p>When this feature is enabled the implementation of all the functions inside the <code>asm</code> and
+<code>register</code> modules use inline assembly (<code>asm!</code>) instead of external assembly (FFI into separate
+assembly files pre-compiled using <code>arm-none-eabi-gcc</code>). The advantages of enabling <code>inline-asm</code>
+are:</p>
+<ul>
+<li>
+<p>Reduced overhead. FFI eliminates the possibility of inlining so all operations include a
+function call overhead when <code>inline-asm</code> is not enabled.</p>
+</li>
+<li>
+<p>Some of the <code>register</code> API only becomes available only when <code>inline-asm</code> is enabled. Check the
+API docs for details.</p>
+</li>
+</ul>
+<p>The disadvantage is that <code>inline-asm</code> requires a Rust version at least 1.59 to use the <code>asm!()</code>
+macro. In the future 0.8 and above versions of <code>cortex-m</code>, this feature will always be enabled.</p>
+<h3 id="cm7-r0p1"><a href="#cm7-r0p1"><code>cm7-r0p1</code></a></h3>
+<p>This feature enables workarounds for errata found on Cortex-M7 chips with revision r0p1. Some
+functions in this crate only work correctly on those chips if this Cargo feature is enabled
+(the functions are documented accordingly).</p>
+<h3 id="linker-plugin-lto"><a href="#linker-plugin-lto"><code>linker-plugin-lto</code></a></h3>
+<p>This feature links against prebuilt assembly blobs that are compatible with <a href="https://doc.rust-lang.org/stable/rustc/linker-plugin-lto.html">Linker-Plugin LTO</a>.
+This allows inlining assembly routines into the caller, even without the <code>inline-asm</code> feature,
+and works on stable Rust (but note the drawbacks below!).</p>
+<p>If you want to use this feature, you need to be aware of a few things:</p>
+<ul>
+<li>
+<p>You need to make sure that <code>-Clinker-plugin-lto</code> is passed to rustc. Please refer to the
+<a href="https://doc.rust-lang.org/stable/rustc/linker-plugin-lto.html">Linker-Plugin LTO</a> documentation for details.</p>
+</li>
+<li>
+<p>You have to use a Rust version whose LLVM version is compatible with the toolchain in
+<code>asm-toolchain</code>.</p>
+</li>
+<li>
+<p>Due to a <a href="https://github.com/rust-lang/rust/issues/75940">Rust bug</a> in compiler versions <strong>before 1.49</strong>, this option
+does not work with optimization levels <code>s</code> and <code>z</code>.</p>
+</li>
+</ul>
+<h2 id="minimum-supported-rust-version-msrv"><a href="#minimum-supported-rust-version-msrv">Minimum Supported Rust Version (MSRV)</a></h2>
+<p>This crate is guaranteed to compile on stable Rust 1.38 and up. It <em>might</em>
+compile with older versions but that may change in any new patch release.</p>
+</div></details><h2 id="reexports" class="small-section-header"><a href="#reexports">Re-exports</a></h2><div class="item-table"><div class="item-row"><div class="item-left import-item" id="reexport.Peripherals"><code>pub use crate::peripheral::<a class="struct" href="peripheral/struct.Peripherals.html" title="struct cortex_m::peripheral::Peripherals">Peripherals</a>;</code></div></div></div><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="asm/index.html" title="cortex_m::asm mod">asm</a></div><div class="item-right docblock-short">Miscellaneous assembly instructions</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="delay/index.html" title="cortex_m::delay mod">delay</a></div><div class="item-right docblock-short">A delay driver based on SysTick.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="interrupt/index.html" title="cortex_m::interrupt mod">interrupt</a></div><div class="item-right docblock-short">Interrupts</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="itm/index.html" title="cortex_m::itm mod">itm</a></div><div class="item-right docblock-short">Instrumentation Trace Macrocell</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="peripheral/index.html" title="cortex_m::peripheral mod">peripheral</a></div><div class="item-right docblock-short">Core peripherals.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="prelude/index.html" title="cortex_m::prelude mod">prelude</a></div><div class="item-right docblock-short">Prelude</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="register/index.html" title="cortex_m::register mod">register</a></div><div class="item-right docblock-short">Processor core registers</div></div></div><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.iprint.html" title="cortex_m::iprint macro">iprint</a></div><div class="item-right docblock-short">Macro for sending a formatted string through an ITM channel</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.iprintln.html" title="cortex_m::iprintln macro">iprintln</a></div><div class="item-right docblock-short">Macro for sending a formatted string through an ITM channel, with a newline.</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.singleton.html" title="cortex_m::singleton macro">singleton</a></div><div class="item-right docblock-short">Macro to create a mutable reference to a statically allocated value</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="cortex_m" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

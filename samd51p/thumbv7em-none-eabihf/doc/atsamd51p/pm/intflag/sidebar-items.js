@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["INTFLAG_SPEC","Interrupt Flag Status and Clear"],["R","Register `INTFLAG` reader"],["SLEEPRDY_R","Field `SLEEPRDY` reader - Sleep Mode Entry Ready"],["SLEEPRDY_W","Field `SLEEPRDY` writer - Sleep Mode Entry Ready"],["W","Register `INTFLAG` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CCR_SPEC","ETM Configuration Code Register"],["R","Register `CCR` reader"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CKRDY_R","Field `CKRDY` reader - Clock Ready"],["CKRDY_W","Field `CKRDY` writer - Clock Ready"],["INTFLAG_SPEC","Interrupt Flag Status and Clear"],["R","Register `INTFLAG` reader"],["W","Register `INTFLAG` writer"]]};

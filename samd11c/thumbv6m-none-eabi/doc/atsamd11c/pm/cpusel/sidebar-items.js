@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["CPUDIV_A","CPU Prescaler Selection"]],"struct":[["CPUDIV_R","Field `CPUDIV` reader - CPU Prescaler Selection"],["CPUDIV_W","Field `CPUDIV` writer - CPU Prescaler Selection"],["CPUSEL_SPEC","CPU Clock Select"],["R","Register `CPUSEL` reader"],["W","Register `CPUSEL` writer"]]};

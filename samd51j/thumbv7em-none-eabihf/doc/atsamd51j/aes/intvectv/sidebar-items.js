@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["INTVECTV_SPEC","Initialisation Vector n"],["W","Register `INTVECTV[%s]` writer"]]};

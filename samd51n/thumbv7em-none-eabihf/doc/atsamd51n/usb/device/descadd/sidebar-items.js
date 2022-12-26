@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DESCADD_R","Field `DESCADD` reader - Descriptor Address Value"],["DESCADD_SPEC","Descriptor Address"],["DESCADD_W","Field `DESCADD` writer - Descriptor Address Value"],["R","Register `DESCADD` reader"],["W","Register `DESCADD` writer"]]};

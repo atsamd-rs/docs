@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/work/atsamd/atsamd/pac/atsamd51p/src/usb/device.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../atsamd51p/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+</pre><pre class="rust"><code><span class="attribute">#[doc = <span class="string">&quot;CTRLA register accessor: an alias for `Reg&lt;CTRLA_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CTRLA = <span class="kw">crate</span>::Reg&lt;ctrla::CTRLA_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Control A&quot;</span>]
+</span><span class="kw">pub mod </span>ctrla;
+<span class="attribute">#[doc = <span class="string">&quot;SYNCBUSY register accessor: an alias for `Reg&lt;SYNCBUSY_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>SYNCBUSY = <span class="kw">crate</span>::Reg&lt;syncbusy::SYNCBUSY_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Synchronization Busy&quot;</span>]
+</span><span class="kw">pub mod </span>syncbusy;
+<span class="attribute">#[doc = <span class="string">&quot;QOSCTRL register accessor: an alias for `Reg&lt;QOSCTRL_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>QOSCTRL = <span class="kw">crate</span>::Reg&lt;qosctrl::QOSCTRL_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;USB Quality Of Service&quot;</span>]
+</span><span class="kw">pub mod </span>qosctrl;
+<span class="attribute">#[doc = <span class="string">&quot;CTRLB register accessor: an alias for `Reg&lt;CTRLB_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CTRLB = <span class="kw">crate</span>::Reg&lt;ctrlb::CTRLB_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;DEVICE Control B&quot;</span>]
+</span><span class="kw">pub mod </span>ctrlb;
+<span class="attribute">#[doc = <span class="string">&quot;DADD register accessor: an alias for `Reg&lt;DADD_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>DADD = <span class="kw">crate</span>::Reg&lt;dadd::DADD_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;DEVICE Device Address&quot;</span>]
+</span><span class="kw">pub mod </span>dadd;
+<span class="attribute">#[doc = <span class="string">&quot;STATUS register accessor: an alias for `Reg&lt;STATUS_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>STATUS = <span class="kw">crate</span>::Reg&lt;status::STATUS_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;DEVICE Status&quot;</span>]
+</span><span class="kw">pub mod </span>status;
+<span class="attribute">#[doc = <span class="string">&quot;FSMSTATUS register accessor: an alias for `Reg&lt;FSMSTATUS_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>FSMSTATUS = <span class="kw">crate</span>::Reg&lt;fsmstatus::FSMSTATUS_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Finite State Machine Status&quot;</span>]
+</span><span class="kw">pub mod </span>fsmstatus;
+<span class="attribute">#[doc = <span class="string">&quot;FNUM register accessor: an alias for `Reg&lt;FNUM_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>FNUM = <span class="kw">crate</span>::Reg&lt;fnum::FNUM_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;DEVICE Device Frame Number&quot;</span>]
+</span><span class="kw">pub mod </span>fnum;
+<span class="attribute">#[doc = <span class="string">&quot;INTENCLR register accessor: an alias for `Reg&lt;INTENCLR_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>INTENCLR = <span class="kw">crate</span>::Reg&lt;intenclr::INTENCLR_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;DEVICE Device Interrupt Enable Clear&quot;</span>]
+</span><span class="kw">pub mod </span>intenclr;
+<span class="attribute">#[doc = <span class="string">&quot;INTENSET register accessor: an alias for `Reg&lt;INTENSET_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>INTENSET = <span class="kw">crate</span>::Reg&lt;intenset::INTENSET_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;DEVICE Device Interrupt Enable Set&quot;</span>]
+</span><span class="kw">pub mod </span>intenset;
+<span class="attribute">#[doc = <span class="string">&quot;INTFLAG register accessor: an alias for `Reg&lt;INTFLAG_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>INTFLAG = <span class="kw">crate</span>::Reg&lt;intflag::INTFLAG_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;DEVICE Device Interrupt Flag&quot;</span>]
+</span><span class="kw">pub mod </span>intflag;
+<span class="attribute">#[doc = <span class="string">&quot;EPINTSMRY register accessor: an alias for `Reg&lt;EPINTSMRY_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>EPINTSMRY = <span class="kw">crate</span>::Reg&lt;epintsmry::EPINTSMRY_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;DEVICE End Point Interrupt Summary&quot;</span>]
+</span><span class="kw">pub mod </span>epintsmry;
+<span class="attribute">#[doc = <span class="string">&quot;DESCADD register accessor: an alias for `Reg&lt;DESCADD_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>DESCADD = <span class="kw">crate</span>::Reg&lt;descadd::DESCADD_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Descriptor Address&quot;</span>]
+</span><span class="kw">pub mod </span>descadd;
+<span class="attribute">#[doc = <span class="string">&quot;PADCAL register accessor: an alias for `Reg&lt;PADCAL_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PADCAL = <span class="kw">crate</span>::Reg&lt;padcal::PADCAL_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;USB PAD Calibration&quot;</span>]
+</span><span class="kw">pub mod </span>padcal;
+<span class="attribute">#[doc = <span class="string">r&quot;Register block&quot;</span>]
+#[repr(C)]
+</span><span class="kw">pub struct </span>DEVICE_ENDPOINT {
+    <span class="attribute">#[doc = <span class="string">&quot;0x00 - DEVICE_ENDPOINT End Point Configuration&quot;</span>]
+    </span><span class="kw">pub </span>epcfg: <span class="kw">crate</span>::Reg&lt;<span class="self">self</span>::device_endpoint::epcfg::EPCFG_SPEC&gt;,
+    _reserved1: [u8; <span class="number">0x03</span>],
+    <span class="attribute">#[doc = <span class="string">&quot;0x04 - DEVICE_ENDPOINT End Point Pipe Status Clear&quot;</span>]
+    </span><span class="kw">pub </span>epstatusclr: <span class="kw">crate</span>::Reg&lt;<span class="self">self</span>::device_endpoint::epstatusclr::EPSTATUSCLR_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x05 - DEVICE_ENDPOINT End Point Pipe Status Set&quot;</span>]
+    </span><span class="kw">pub </span>epstatusset: <span class="kw">crate</span>::Reg&lt;<span class="self">self</span>::device_endpoint::epstatusset::EPSTATUSSET_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x06 - DEVICE_ENDPOINT End Point Pipe Status&quot;</span>]
+    </span><span class="kw">pub </span>epstatus: <span class="kw">crate</span>::Reg&lt;<span class="self">self</span>::device_endpoint::epstatus::EPSTATUS_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x07 - DEVICE_ENDPOINT End Point Interrupt Flag&quot;</span>]
+    </span><span class="kw">pub </span>epintflag: <span class="kw">crate</span>::Reg&lt;<span class="self">self</span>::device_endpoint::epintflag::EPINTFLAG_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x08 - DEVICE_ENDPOINT End Point Interrupt Clear Flag&quot;</span>]
+    </span><span class="kw">pub </span>epintenclr: <span class="kw">crate</span>::Reg&lt;<span class="self">self</span>::device_endpoint::epintenclr::EPINTENCLR_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x09 - DEVICE_ENDPOINT End Point Interrupt Set Flag&quot;</span>]
+    </span><span class="kw">pub </span>epintenset: <span class="kw">crate</span>::Reg&lt;<span class="self">self</span>::device_endpoint::epintenset::EPINTENSET_SPEC&gt;,
+}
+<span class="attribute">#[doc = <span class="string">r&quot;Register block&quot;</span>]
+#[doc = <span class="string">&quot;DEVICE_ENDPOINT\\[%s\\]&quot;</span>]
+</span><span class="kw">pub mod </span>device_endpoint;
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="atsamd51p" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

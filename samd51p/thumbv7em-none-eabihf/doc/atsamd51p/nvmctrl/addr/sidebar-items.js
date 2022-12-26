@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADDR_R","Field `ADDR` reader - NVM Address"],["ADDR_SPEC","Address"],["ADDR_W","Field `ADDR` writer - NVM Address"],["R","Register `ADDR` reader"],["W","Register `ADDR` writer"]]};

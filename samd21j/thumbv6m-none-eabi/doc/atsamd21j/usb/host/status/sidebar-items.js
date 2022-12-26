@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["LINESTATE_R","Field `LINESTATE` reader - USB Line State Status"],["R","Register `STATUS` reader"],["SPEED_R","Field `SPEED` reader - Speed Status"],["SPEED_W","Field `SPEED` writer - Speed Status"],["STATUS_SPEC","HOST Status"],["W","Register `STATUS` writer"]]};

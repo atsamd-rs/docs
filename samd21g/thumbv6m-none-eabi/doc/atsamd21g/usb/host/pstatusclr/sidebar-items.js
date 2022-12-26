@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BK0RDY_W","Field `BK0RDY` writer - Bank 0 Ready Clear"],["BK1RDY_W","Field `BK1RDY` writer - Bank 1 Ready Clear"],["CURBK_W","Field `CURBK` writer - Curren Bank clear"],["PFREEZE_W","Field `PFREEZE` writer - Pipe Freeze Clear"],["PSTATUSCLR_SPEC","HOST End Point Pipe Status Clear"],["W","Register `PSTATUSCLR%s` writer"]]};

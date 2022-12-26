@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `WPSET` reader"],["W","Register `WPSET` writer"],["WPSET_SPEC","Write Protection Set"],["WP_R","Field `WP` reader - Write Protection Set"],["WP_W","Field `WP` writer - Write Protection Set"]]};

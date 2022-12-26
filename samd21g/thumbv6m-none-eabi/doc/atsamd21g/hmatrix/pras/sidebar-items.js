@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PRAS_SPEC","Priority A for Slave"],["R","Register `PRAS%s` reader"],["W","Register `PRAS%s` writer"]]};

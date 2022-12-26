@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["FLENHIGH_R","Field `FLENHIGH` reader - Frame Length"],["FLENHIGH_SPEC","HOST Host Frame Length"],["R","Register `FLENHIGH` reader"]]};

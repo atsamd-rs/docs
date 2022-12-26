@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CRCCHKSUM_R","Field `CRCCHKSUM` reader - CRC Checksum"],["CRCCHKSUM_SPEC","CRC Checksum"],["CRCCHKSUM_W","Field `CRCCHKSUM` writer - CRC Checksum"],["R","Register `CRCCHKSUM` reader"],["W","Register `CRCCHKSUM` writer"]]};

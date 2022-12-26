@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DATA_R","Field `DATA` reader - Page Buffer Data"],["PBLDATA_SPEC","Page Buffer Load Data x"],["R","Register `PBLDATA[%s]` reader"]]};

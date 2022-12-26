@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["LOCKSTATUS_SPEC","MTB Lock Status"],["R","Register `LOCKSTATUS` reader"]]};

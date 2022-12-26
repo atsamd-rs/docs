@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DIV_R","Field `DIV` reader - Division Factor"],["DIV_W","Field `DIV` writer - Division Factor"],["GENDIV_SPEC","Generic Clock Generator Division"],["ID_R","Field `ID` reader - Generic Clock Generator Selection"],["ID_W","Field `ID` writer - Generic Clock Generator Selection"],["R","Register `GENDIV` reader"],["W","Register `GENDIV` writer"]]};

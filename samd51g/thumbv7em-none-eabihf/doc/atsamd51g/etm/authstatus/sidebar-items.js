@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["AUTHSTATUS_SPEC","ETM Authentication Status Register"],["R","Register `AUTHSTATUS` reader"]]};

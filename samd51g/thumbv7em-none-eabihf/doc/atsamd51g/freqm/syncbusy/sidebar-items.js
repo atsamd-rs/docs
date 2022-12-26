@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ENABLE_R","Field `ENABLE` reader - Enable"],["R","Register `SYNCBUSY` reader"],["SWRST_R","Field `SWRST` reader - Software Reset"],["SYNCBUSY_SPEC","Synchronization Busy Register"]]};

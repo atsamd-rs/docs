@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["FLUSH_R","Field `FLUSH` reader - ADC Conversion Flush"],["FLUSH_W","Field `FLUSH` writer - ADC Conversion Flush"],["R","Register `SWTRIG` reader"],["START_R","Field `START` reader - Start ADC Conversion"],["START_W","Field `START` writer - Start ADC Conversion"],["SWTRIG_SPEC","Software Trigger"],["W","Register `SWTRIG` writer"]]};

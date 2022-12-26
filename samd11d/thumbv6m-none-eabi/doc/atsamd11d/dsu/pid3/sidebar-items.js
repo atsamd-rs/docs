@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CUSMOD_R","Field `CUSMOD` reader - ARM CUSMOD"],["PID3_SPEC","Peripheral Identification 3"],["R","Register `PID3` reader"],["REVAND_R","Field `REVAND` reader - Revision Number"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BAUD_FRAC_MODE_SPEC","USART Baud Rate"],["BAUD_R","Field `BAUD` reader - Baud Rate Value"],["BAUD_W","Field `BAUD` writer - Baud Rate Value"],["FP_R","Field `FP` reader - Fractional Part"],["FP_W","Field `FP` writer - Fractional Part"],["R","Register `BAUD_FRAC_MODE` reader"],["W","Register `BAUD_FRAC_MODE` writer"]]};

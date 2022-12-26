@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["CurveVerificationFailure","An error type representing failure modes for a [`Curve::verify_curve`] function"],["Nist256p","A type representing a standard curve defined by National Institute of Standards and Technology (variant 256p)"]],"trait":[["Curve","A trait that generalizes over a curve concept."]]};

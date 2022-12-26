@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `SYNCFR` reader"],["SYNCFR_SPEC","ETM Synchronization Frequency Register"]]};

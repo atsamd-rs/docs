@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `WINUT` reader"],["W","Register `WINUT` writer"],["WINUT_R","Field `WINUT` reader - Window Upper Threshold"],["WINUT_SPEC","Window Monitor Upper Threshold"],["WINUT_W","Field `WINUT` writer - Window Upper Threshold"]]};

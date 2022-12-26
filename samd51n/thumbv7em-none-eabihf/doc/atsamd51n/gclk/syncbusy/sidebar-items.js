@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["GENCTRL_A","Generic Clock Generator Control n Synchronization Busy bits"]],"struct":[["GENCTRL_R","Field `GENCTRL` reader - Generic Clock Generator Control n Synchronization Busy bits"],["R","Register `SYNCBUSY` reader"],["SWRST_R","Field `SWRST` reader - Software Reset Synchroniation Busy bit"],["SYNCBUSY_SPEC","Synchronization Busy"]]};

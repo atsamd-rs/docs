@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BUSYCH_R","Field `BUSYCH` reader - Busy Channel"],["CHSTATUS_SPEC","Channel n Status"],["R","Register `CHSTATUS` reader"],["RDYUSR_R","Field `RDYUSR` reader - Ready User"]]};

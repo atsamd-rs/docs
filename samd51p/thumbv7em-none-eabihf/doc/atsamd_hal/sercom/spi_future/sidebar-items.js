@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["SpiFuture","A `Future`-like interface for SPI transactions"]],"trait":[["CheckBufLen","Trait used to verify the [`SpiFuture`] buffer length"],["ControlSS","Trait used to control the SS line during an [`SpiFuture`] transaction"]]};

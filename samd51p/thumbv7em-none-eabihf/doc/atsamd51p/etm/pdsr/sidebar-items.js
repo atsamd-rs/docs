@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PDSR_SPEC","ETM Device Power-Down Status Register"],["R","Register `PDSR` reader"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DIRSET_R","Field `DIRSET` reader - Port Data Direction Set"],["DIRSET_SPEC","Data Direction Set"],["DIRSET_W","Field `DIRSET` writer - Port Data Direction Set"],["R","Register `DIRSET%s` reader"],["W","Register `DIRSET%s` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["LOCKACCESS_SPEC","MTB Lock Access"],["R","Register `LOCKACCESS` reader"],["W","Register `LOCKACCESS` writer"]]};

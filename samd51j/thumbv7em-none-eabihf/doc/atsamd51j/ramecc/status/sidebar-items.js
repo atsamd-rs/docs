@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ECCDIS_R","Field `ECCDIS` reader - ECC Disable"],["R","Register `STATUS` reader"],["STATUS_SPEC","Status"]]};

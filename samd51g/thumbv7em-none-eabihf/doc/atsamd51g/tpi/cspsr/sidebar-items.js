@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CSPSR_SPEC","Current Parallel Port Size Register"],["R","Register `CSPSR` reader"],["W","Register `CSPSR` writer"]]};

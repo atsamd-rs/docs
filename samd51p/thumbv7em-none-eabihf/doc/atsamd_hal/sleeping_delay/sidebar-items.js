@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["SleepingDelay","Delay and sleep while we do (WFI) using a timer"]]};

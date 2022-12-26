@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["AFSR_SPEC","Auxiliary Fault Status Register"],["IMPDEF_R","Field `IMPDEF` reader - AUXFAULT input signals"],["IMPDEF_W","Field `IMPDEF` writer - AUXFAULT input signals"],["R","Register `AFSR` reader"],["W","Register `AFSR` writer"]]};

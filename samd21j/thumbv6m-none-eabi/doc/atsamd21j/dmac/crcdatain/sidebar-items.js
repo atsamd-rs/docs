@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CRCDATAIN_R","Field `CRCDATAIN` reader - CRC Data Input"],["CRCDATAIN_SPEC","CRC Data Input"],["CRCDATAIN_W","Field `CRCDATAIN` writer - CRC Data Input"],["R","Register `CRCDATAIN` reader"],["W","Register `CRCDATAIN` writer"]]};

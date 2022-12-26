@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `WPSR` reader"],["WPSR_SPEC","Write Protection Status Register"],["WPVSRC_R","Field `WPVSRC` reader - Write Protection Violation Status"],["WPVS_R","Field `WPVS` reader - Write Protection Violation Source"]]};

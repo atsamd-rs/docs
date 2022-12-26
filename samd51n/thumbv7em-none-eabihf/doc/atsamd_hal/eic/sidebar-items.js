@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["init_with_ulp32k","init_with_ulp32k initializes the EIC and wires it up to the ultra-low-power 32kHz clock source. finalize() must be called before the EIC is ready for use."]],"mod":[["pin",""]],"struct":[["ConfigurableEIC","An External Interrupt Controller which is being configured."],["EIC","A configured External Interrupt Controller."]]};

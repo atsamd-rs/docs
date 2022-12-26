@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["GP_R","Field `GP` reader - General Purpose"],["GP_SPEC","General Purpose"],["GP_W","Field `GP` writer - General Purpose"],["R","Register `GP[%s]` reader"],["W","Register `GP[%s]` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `SFR%s` reader"],["SFR_R","Field `SFR` reader - Special Function Register"],["SFR_SPEC","Special Function"],["SFR_W","Field `SFR` writer - Special Function Register"],["W","Register `SFR%s` writer"]]};

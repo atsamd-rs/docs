@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PIDR7_SPEC","ETM Peripheral Identification Register #7"],["R","Register `PIDR7` reader"]]};

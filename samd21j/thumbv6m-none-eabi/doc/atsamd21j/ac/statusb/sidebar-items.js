@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `STATUSB` reader"],["READY0_R","Field `READY0` reader - Comparator 0 Ready"],["READY1_R","Field `READY1` reader - Comparator 1 Ready"],["STATUSB_SPEC","Status B"],["SYNCBUSY_R","Field `SYNCBUSY` reader - Synchronization Busy"]]};

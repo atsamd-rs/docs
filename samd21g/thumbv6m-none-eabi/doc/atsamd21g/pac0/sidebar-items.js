@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["wpclr","Write Protection Clear"],["wpset","Write Protection Set"]],"struct":[["RegisterBlock","Register block"]],"type":[["WPCLR","WPCLR register accessor: an alias for `Reg<WPCLR_SPEC>`"],["WPSET","WPSET register accessor: an alias for `Reg<WPSET_SPEC>`"]]};

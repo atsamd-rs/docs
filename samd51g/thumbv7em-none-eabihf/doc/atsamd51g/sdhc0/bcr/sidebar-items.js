@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BCNT_R","Field `BCNT` reader - Blocks Count for Current Transfer"],["BCNT_W","Field `BCNT` writer - Blocks Count for Current Transfer"],["BCR_SPEC","Block Count"],["R","Register `BCR` reader"],["W","Register `BCR` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `RESS` reader"],["RESS_R","Field `RESS` reader - Last ADC conversion result"],["RESS_SPEC","Last Sample Result"]]};

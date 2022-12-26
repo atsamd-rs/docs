@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CLAIMSET_SPEC","ETM Claim Tag Set Register"],["R","Register `CLAIMSET` reader"],["W","Register `CLAIMSET` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["LINESTATE_A","USB Line State Status"],["SPEED_A","Speed Status"]],"struct":[["LINESTATE_R","Field `LINESTATE` reader - USB Line State Status"],["R","Register `STATUS` reader"],["SPEED_R","Field `SPEED` reader - Speed Status"],["STATUS_SPEC","DEVICE Status"]]};

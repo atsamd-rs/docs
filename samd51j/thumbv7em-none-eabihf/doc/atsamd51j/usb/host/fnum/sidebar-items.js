@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["FNUM_R","Field `FNUM` reader - Frame Number"],["FNUM_SPEC","HOST Host Frame Number"],["FNUM_W","Field `FNUM` writer - Frame Number"],["MFNUM_R","Field `MFNUM` reader - Micro Frame Number"],["MFNUM_W","Field `MFNUM` writer - Micro Frame Number"],["R","Register `FNUM` reader"],["W","Register `FNUM` writer"]]};

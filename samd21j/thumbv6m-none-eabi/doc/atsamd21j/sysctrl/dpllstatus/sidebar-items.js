@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CLKRDY_R","Field `CLKRDY` reader - Output Clock Ready"],["DIV_R","Field `DIV` reader - Divider Enable"],["DPLLSTATUS_SPEC","DPLL Status"],["ENABLE_R","Field `ENABLE` reader - DPLL Enable"],["LOCK_R","Field `LOCK` reader - DPLL Lock Status"],["R","Register `DPLLSTATUS` reader"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["PSZ_A","Page Size"]],"struct":[["NVMP_R","Field `NVMP` reader - NVM Pages"],["PARAM_SPEC","NVM Parameter"],["PSZ_R","Field `PSZ` reader - Page Size"],["R","Register `PARAM` reader"],["SEE_R","Field `SEE` reader - SmartEEPROM Supported"]]};

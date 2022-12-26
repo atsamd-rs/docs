@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `RXPL` reader"],["RXPL_R","Field `RXPL` reader - Receive Pulse Length"],["RXPL_SPEC","USART_INT Receive Pulse Length"],["RXPL_W","Field `RXPL` writer - Receive Pulse Length"],["W","Register `RXPL` writer"]]};

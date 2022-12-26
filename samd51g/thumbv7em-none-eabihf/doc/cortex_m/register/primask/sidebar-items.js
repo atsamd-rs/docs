@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["Primask","All exceptions with configurable priority are …"]],"fn":[["read","Reads the CPU register"]]};

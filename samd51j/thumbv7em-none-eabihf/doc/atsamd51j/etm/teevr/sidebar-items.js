@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `TEEVR` reader"],["TEEVR_SPEC","ETM TraceEnable Event Register"],["W","Register `TEEVR` writer"]]};

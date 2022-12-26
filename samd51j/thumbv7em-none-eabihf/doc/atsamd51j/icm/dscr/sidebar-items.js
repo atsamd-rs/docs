@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DASA_R","Field `DASA` reader - Descriptor Area Start Address"],["DASA_W","Field `DASA` writer - Descriptor Area Start Address"],["DSCR_SPEC","Region Descriptor Area Start Address"],["R","Register `DSCR` reader"],["W","Register `DSCR` writer"]]};

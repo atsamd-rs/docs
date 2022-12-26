@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PERBUF_R","Field `PERBUF` reader - Period Buffer Value"],["PERBUF_SPEC","Period Buffer"],["PERBUF_W","Field `PERBUF` writer - Period Buffer Value"],["R","Register `PERBUF` reader"],["W","Register `PERBUF` writer"]]};

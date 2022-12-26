@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADDR_R","Field `ADDR` reader - Address"],["ADDR_SPEC","Address"],["ADDR_W","Field `ADDR` writer - Address"],["AMOD_R","Field `AMOD` reader - Access Mode"],["AMOD_W","Field `AMOD` writer - Access Mode"],["R","Register `ADDR` reader"],["W","Register `ADDR` writer"]]};

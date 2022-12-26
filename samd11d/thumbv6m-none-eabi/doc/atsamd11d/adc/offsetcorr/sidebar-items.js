@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["OFFSETCORR_R","Field `OFFSETCORR` reader - Offset Correction Value"],["OFFSETCORR_SPEC","Offset Correction"],["OFFSETCORR_W","Field `OFFSETCORR` writer - Offset Correction Value"],["R","Register `OFFSETCORR` reader"],["W","Register `OFFSETCORR` writer"]]};

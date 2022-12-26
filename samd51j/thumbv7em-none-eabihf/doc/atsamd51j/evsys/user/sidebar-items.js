@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CHANNEL_R","Field `CHANNEL` reader - Channel Event Selection"],["CHANNEL_W","Field `CHANNEL` writer - Channel Event Selection"],["R","Register `USER[%s]` reader"],["USER_SPEC","User Multiplexer n"],["W","Register `USER[%s]` writer"]]};

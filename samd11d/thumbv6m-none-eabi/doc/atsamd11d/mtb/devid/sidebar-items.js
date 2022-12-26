@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DEVID_SPEC","MTB Device Configuration"],["R","Register `DEVID` reader"]]};

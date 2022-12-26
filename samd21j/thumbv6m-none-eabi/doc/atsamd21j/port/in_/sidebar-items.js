@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["IN_R","Field `IN` reader - Port Data Input Value"],["IN_SPEC","Data Input Value"],["R","Register `IN%s` reader"]]};

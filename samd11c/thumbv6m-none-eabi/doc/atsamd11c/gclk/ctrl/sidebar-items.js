@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CTRL_SPEC","Control"],["R","Register `CTRL` reader"],["SWRST_R","Field `SWRST` reader - Software Reset"],["SWRST_W","Field `SWRST` writer - Software Reset"],["W","Register `CTRL` writer"]]};

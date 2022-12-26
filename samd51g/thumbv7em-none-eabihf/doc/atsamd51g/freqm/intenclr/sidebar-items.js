@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DONE_R","Field `DONE` reader - Measurement Done Interrupt Enable"],["DONE_W","Field `DONE` writer - Measurement Done Interrupt Enable"],["INTENCLR_SPEC","Interrupt Enable Clear Register"],["R","Register `INTENCLR` reader"],["W","Register `INTENCLR` writer"]]};

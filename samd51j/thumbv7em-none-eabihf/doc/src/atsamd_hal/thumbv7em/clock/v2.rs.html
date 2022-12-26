@@ -1,0 +1,2030 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/thumbv7em/clock/v2.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>v2.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../../normalize.css"><link rel="stylesheet" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../../ayu.css" disabled><link rel="stylesheet" href="../../../../dark.css" disabled><link rel="stylesheet" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../../atsamd_hal/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
+<span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
+<span id="561">561</span>
+<span id="562">562</span>
+<span id="563">563</span>
+<span id="564">564</span>
+<span id="565">565</span>
+<span id="566">566</span>
+<span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
+<span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
+<span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
+<span id="675">675</span>
+<span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
+<span id="681">681</span>
+<span id="682">682</span>
+<span id="683">683</span>
+<span id="684">684</span>
+<span id="685">685</span>
+<span id="686">686</span>
+<span id="687">687</span>
+<span id="688">688</span>
+<span id="689">689</span>
+<span id="690">690</span>
+<span id="691">691</span>
+<span id="692">692</span>
+<span id="693">693</span>
+<span id="694">694</span>
+<span id="695">695</span>
+<span id="696">696</span>
+<span id="697">697</span>
+<span id="698">698</span>
+<span id="699">699</span>
+<span id="700">700</span>
+<span id="701">701</span>
+<span id="702">702</span>
+<span id="703">703</span>
+<span id="704">704</span>
+<span id="705">705</span>
+<span id="706">706</span>
+<span id="707">707</span>
+<span id="708">708</span>
+<span id="709">709</span>
+<span id="710">710</span>
+<span id="711">711</span>
+<span id="712">712</span>
+<span id="713">713</span>
+<span id="714">714</span>
+<span id="715">715</span>
+<span id="716">716</span>
+<span id="717">717</span>
+<span id="718">718</span>
+<span id="719">719</span>
+<span id="720">720</span>
+<span id="721">721</span>
+<span id="722">722</span>
+<span id="723">723</span>
+<span id="724">724</span>
+<span id="725">725</span>
+<span id="726">726</span>
+<span id="727">727</span>
+<span id="728">728</span>
+<span id="729">729</span>
+<span id="730">730</span>
+<span id="731">731</span>
+<span id="732">732</span>
+<span id="733">733</span>
+<span id="734">734</span>
+<span id="735">735</span>
+<span id="736">736</span>
+<span id="737">737</span>
+<span id="738">738</span>
+<span id="739">739</span>
+<span id="740">740</span>
+<span id="741">741</span>
+<span id="742">742</span>
+<span id="743">743</span>
+<span id="744">744</span>
+<span id="745">745</span>
+<span id="746">746</span>
+<span id="747">747</span>
+<span id="748">748</span>
+<span id="749">749</span>
+<span id="750">750</span>
+<span id="751">751</span>
+<span id="752">752</span>
+<span id="753">753</span>
+<span id="754">754</span>
+<span id="755">755</span>
+<span id="756">756</span>
+<span id="757">757</span>
+<span id="758">758</span>
+<span id="759">759</span>
+<span id="760">760</span>
+<span id="761">761</span>
+<span id="762">762</span>
+<span id="763">763</span>
+<span id="764">764</span>
+<span id="765">765</span>
+<span id="766">766</span>
+<span id="767">767</span>
+<span id="768">768</span>
+<span id="769">769</span>
+<span id="770">770</span>
+<span id="771">771</span>
+<span id="772">772</span>
+<span id="773">773</span>
+<span id="774">774</span>
+<span id="775">775</span>
+<span id="776">776</span>
+<span id="777">777</span>
+<span id="778">778</span>
+<span id="779">779</span>
+<span id="780">780</span>
+<span id="781">781</span>
+<span id="782">782</span>
+<span id="783">783</span>
+<span id="784">784</span>
+<span id="785">785</span>
+<span id="786">786</span>
+<span id="787">787</span>
+<span id="788">788</span>
+<span id="789">789</span>
+<span id="790">790</span>
+<span id="791">791</span>
+<span id="792">792</span>
+<span id="793">793</span>
+<span id="794">794</span>
+<span id="795">795</span>
+<span id="796">796</span>
+<span id="797">797</span>
+<span id="798">798</span>
+<span id="799">799</span>
+<span id="800">800</span>
+<span id="801">801</span>
+<span id="802">802</span>
+<span id="803">803</span>
+<span id="804">804</span>
+<span id="805">805</span>
+<span id="806">806</span>
+<span id="807">807</span>
+<span id="808">808</span>
+<span id="809">809</span>
+<span id="810">810</span>
+<span id="811">811</span>
+<span id="812">812</span>
+<span id="813">813</span>
+<span id="814">814</span>
+<span id="815">815</span>
+<span id="816">816</span>
+<span id="817">817</span>
+<span id="818">818</span>
+<span id="819">819</span>
+<span id="820">820</span>
+<span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
+<span id="826">826</span>
+<span id="827">827</span>
+<span id="828">828</span>
+<span id="829">829</span>
+<span id="830">830</span>
+<span id="831">831</span>
+<span id="832">832</span>
+<span id="833">833</span>
+<span id="834">834</span>
+<span id="835">835</span>
+<span id="836">836</span>
+<span id="837">837</span>
+<span id="838">838</span>
+<span id="839">839</span>
+<span id="840">840</span>
+<span id="841">841</span>
+<span id="842">842</span>
+<span id="843">843</span>
+<span id="844">844</span>
+<span id="845">845</span>
+<span id="846">846</span>
+<span id="847">847</span>
+<span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
+<span id="855">855</span>
+<span id="856">856</span>
+<span id="857">857</span>
+<span id="858">858</span>
+<span id="859">859</span>
+<span id="860">860</span>
+<span id="861">861</span>
+<span id="862">862</span>
+<span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
+<span id="866">866</span>
+<span id="867">867</span>
+<span id="868">868</span>
+<span id="869">869</span>
+<span id="870">870</span>
+<span id="871">871</span>
+<span id="872">872</span>
+<span id="873">873</span>
+<span id="874">874</span>
+<span id="875">875</span>
+<span id="876">876</span>
+<span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
+<span id="880">880</span>
+<span id="881">881</span>
+<span id="882">882</span>
+<span id="883">883</span>
+<span id="884">884</span>
+<span id="885">885</span>
+<span id="886">886</span>
+<span id="887">887</span>
+<span id="888">888</span>
+<span id="889">889</span>
+<span id="890">890</span>
+<span id="891">891</span>
+<span id="892">892</span>
+<span id="893">893</span>
+<span id="894">894</span>
+<span id="895">895</span>
+<span id="896">896</span>
+<span id="897">897</span>
+<span id="898">898</span>
+<span id="899">899</span>
+<span id="900">900</span>
+<span id="901">901</span>
+<span id="902">902</span>
+<span id="903">903</span>
+<span id="904">904</span>
+<span id="905">905</span>
+<span id="906">906</span>
+<span id="907">907</span>
+<span id="908">908</span>
+<span id="909">909</span>
+<span id="910">910</span>
+<span id="911">911</span>
+<span id="912">912</span>
+<span id="913">913</span>
+<span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
+<span id="919">919</span>
+<span id="920">920</span>
+<span id="921">921</span>
+<span id="922">922</span>
+<span id="923">923</span>
+<span id="924">924</span>
+<span id="925">925</span>
+<span id="926">926</span>
+<span id="927">927</span>
+<span id="928">928</span>
+<span id="929">929</span>
+<span id="930">930</span>
+<span id="931">931</span>
+<span id="932">932</span>
+<span id="933">933</span>
+<span id="934">934</span>
+<span id="935">935</span>
+<span id="936">936</span>
+<span id="937">937</span>
+<span id="938">938</span>
+<span id="939">939</span>
+<span id="940">940</span>
+<span id="941">941</span>
+<span id="942">942</span>
+<span id="943">943</span>
+<span id="944">944</span>
+<span id="945">945</span>
+<span id="946">946</span>
+<span id="947">947</span>
+<span id="948">948</span>
+<span id="949">949</span>
+<span id="950">950</span>
+<span id="951">951</span>
+<span id="952">952</span>
+<span id="953">953</span>
+<span id="954">954</span>
+<span id="955">955</span>
+<span id="956">956</span>
+<span id="957">957</span>
+<span id="958">958</span>
+<span id="959">959</span>
+<span id="960">960</span>
+<span id="961">961</span>
+<span id="962">962</span>
+<span id="963">963</span>
+<span id="964">964</span>
+<span id="965">965</span>
+<span id="966">966</span>
+<span id="967">967</span>
+<span id="968">968</span>
+<span id="969">969</span>
+<span id="970">970</span>
+<span id="971">971</span>
+<span id="972">972</span>
+<span id="973">973</span>
+<span id="974">974</span>
+<span id="975">975</span>
+<span id="976">976</span>
+<span id="977">977</span>
+<span id="978">978</span>
+<span id="979">979</span>
+<span id="980">980</span>
+<span id="981">981</span>
+<span id="982">982</span>
+<span id="983">983</span>
+<span id="984">984</span>
+<span id="985">985</span>
+<span id="986">986</span>
+<span id="987">987</span>
+<span id="988">988</span>
+<span id="989">989</span>
+<span id="990">990</span>
+<span id="991">991</span>
+<span id="992">992</span>
+<span id="993">993</span>
+<span id="994">994</span>
+<span id="995">995</span>
+<span id="996">996</span>
+<span id="997">997</span>
+<span id="998">998</span>
+<span id="999">999</span>
+<span id="1000">1000</span>
+<span id="1001">1001</span>
+<span id="1002">1002</span>
+<span id="1003">1003</span>
+<span id="1004">1004</span>
+<span id="1005">1005</span>
+<span id="1006">1006</span>
+<span id="1007">1007</span>
+<span id="1008">1008</span>
+<span id="1009">1009</span>
+<span id="1010">1010</span>
+<span id="1011">1011</span>
+<span id="1012">1012</span>
+<span id="1013">1013</span>
+<span id="1014">1014</span>
+</pre><pre class="rust"><code><span class="doccomment">//! # Version 2 of the `clock` module
+//!
+//! ## Overview
+//!
+//! This module provides a simple, ergonomic, and most of all **safe** API to
+//! create and manage the clock tree in ATSAMD5x and E5x devices. It uses
+//! [type-level programming techniques](crate::typelevel) to prevent users from
+//! creating invalid or unsound clocking configurations.
+//!
+//! &lt;p style=&quot;background:rgba(255,181,77,0.16);padding:0.75em;&quot;&gt;
+//! &lt;strong&gt; Note: &lt;/strong&gt; Using a type-level API does place some limitations
+//! on how the clocks can be configured. The types must be checked at
+//! compile-time, which means the state of a given clock must also be known at
+//! compile-time. This is exceedingly reasonable for most clocking
+//! configurations, because most users set up their clocks once and never change
+//! them again. However, if you need to dynamically change the clocking
+//! configuration at run-time, you may find this API less ergonomic. A future,
+//! fully dynamic API has been discussed, but nothing has been developed so far.
+//! &lt;/p&gt;
+//!
+//! The sections that follow provide an explanation of key concepts in the
+//! module. We highly recommend users read through them to better understand the
+//! `clock` module API. A [complete example](self#getting-started) is also
+//! provided.
+//!
+//! ## Clock safety
+//!
+//! A clock tree represents dependencies among clocks, where producer clocks
+//! feed consumer clocks. Root clocks are the original producers, as they are
+//! derived from oscillators or external clocks. Branch clocks are both
+//! producers and consumers, since they modify and distribute clocks. And leaf
+//! clocks are consumers only; they drive peripherals or external clock outputs
+//! but do not feed other clocks.
+//!
+//! To safely create and use a clock tree, it is critical that producer clocks
+//! not be modified or disabled while their consumer clocks are still in active
+//! use. Stated differently, if clock `B` consumes clock `A`, then clock `A`
+//! **must not** be modified or disabled while clock `B` is still in use.
+//!
+//! Notice that this requirement mimics the principle of &quot;aliased XOR mutable&quot;
+//! underlying the Rust borrow checker. A producer clock can only be modified if
+//! it is not &quot;borrowed&quot; (consumed) by any other clocks.
+//!
+//! The following sections will review the various type-level programming
+//! techniques used to enforce this principle in the `clock` module.
+//!
+//! ## Clock state machines
+//!
+//! Each available clock is represented in Rust as a unique, singleton object.
+//! Users cannot create two instances of the same clock without using `unsafe`.
+//!
+//! However, a given clock is not always represented with the same **type**.
+//! Specifically, each clock has at least two representations, one for the
+//! configured and enabled clock, and another for the unconfigured and disabled
+//! clock.
+//!
+//! These states are represented in Rust using distinct types, forming a
+//! type-level state machine. Moreover, the disabled state is always represented
+//! by a `Token` type. As the name implies, `Token`s have no functionality on
+//! their own; they can only be exchanged for a different type representing
+//! another state.
+//!
+//! ## Clock relationships
+//!
+//! In general, there are two classes of clock in ATSAMD chips. Some clocks map
+//! one-to-one (1:1) to a specific bus or peripheral. This is true for the AHB
+//! clocks ([`AhbClk`]s), APB clocks ([`ApbClk`]s), GCLK outputs ([`GclkOut`]s),
+//! peripheral channel clocks ([`Pclk`]s), and RTC oscillator ([`RtcOsc`]).
+//! Other clocks form one-to-many (1:N) relationships, like the external crystal
+//! oscillator ([`Xosc`]), the 48 MHz DFLL ([`Dfll`]) or the two DPLLs
+//! ([`Dpll`]).
+//!
+//! The `clock` module uses a distinct approach for each class.
+//!
+//! ### 1:1 clocks
+//!
+//! One-to-one relationships are easily modelled in Rust using move semantics.
+//! For example, an enabled peripheral channel clock is represented as a
+//! [`Pclk`] object. The respective peripheral API can move the `Pclk` and take
+//! ownership of it. In that case, the `Pclk` acts as proof that the peripheral
+//! clock is enabled, and the transfer of ownership prevents users from
+//! modifying or disabling the `Pclk` while it is in use by the peripheral.
+//!
+//! One-to-one clocks generally have little to no configuration. They are
+//! typically converted directly from disabled `Token` types to fully enabled
+//! clock types. For example, the `Pclk` type has only two methods,
+//! [`Pclk::enable`] and [`Pclk::disable`], which convert [`PclkToken`]s to
+//! `Pclk`s and vice versa.
+//!
+//! ### 1:N clocks
+//!
+//! One-to-many relationships are more difficult to model in Rust.
+//!
+//! As discussed above, we are trying to create something akin to &quot;aliased XOR
+//! mutable&quot;, where producer clocks cannot be modified while used by consumer
+//! clocks. A natural approach would be to use the Rust borrow checker directly.
+//! In that case, consumer clocks would hold `&amp;Producer` references to the
+//! `Producer` clock object. The existence of outstanding shared borrows would
+//! naturally prevent users from calling `Producer` methods taking `&amp;mut self`.
+//!
+//! Unfortunately, while this approach could work, there is a critical problem
+//! with disastrous consequences for ergonomics. To satisfy the Rust borrow
+//! checker, `Producer` clock objects *could not be moved* while `&amp;Producer`
+//! references were still held by consumer clocks.
+//!
+//! However, this restriction is unnecessary. A `Producer` clock object is
+//! merely a semantic object representing the &quot;idea&quot; of a producer clock. And
+//! &quot;borrowing&quot; the producer is not meant to protect memory from corruption.
+//! Rather, our goal is only to restrict the `Producer` API, to prevent it from
+//! being modified or disabled once it has been connected to a consumer. We
+//! don&#39;t need to permanently hold the `Producer` object in place to do that.
+//!
+//! It is possible to build a `clock` API based on the borrow checker, but it
+//! would be extremely frustrating to use in practice, because of restrictions
+//! on the movement of `Producer` objects.
+//!
+//! Instead, the `clock` module takes a different approach. It uses type-level
+//! programming to track, at compile-time, the number of consumer clocks, N,
+//! fed by a particular producer clock. With this approach, we can move
+//! `Producer` objects while still making them impossible to modify if N &gt; 0.
+//!
+//! The following sections will describe the implementation of this strategy.
+//!
+//! ## Tracking N at compile-time for 1:N clocks
+//!
+//! We have two specific goals. We need to both track the number of consumer
+//! clocks, N, that are actively using a given producer clock. And we need to
+//! restrict the producer clock API when N &gt; 0.
+//!
+//! ### A compile-time counter
+//!
+//! First, we need to develop some way to track the number of consumer clocks,
+//! N, within the type system. To accomplish this, we need both a way to
+//! represent N in the type system and a way to increase or decrease N when
+//! making or breaking connections in the clock tree.
+//!
+//! To represent N, we can use type-level, [`Unsigned`] integers from the
+//! [`typenum`] crate (i.e. [`U0`], [`U1`], etc). And we can use a type
+//! *parameter*, `N`, to represent some unknown, type-level number.
+//!
+//! Next, we need a way to increase or decrease the type parameter `N`. The
+//! [`typenum`] crate provides type aliases [`Add1`] and [`Sub1`] that map from
+//! each [`Unsigned`] integer to its successor and predecessor types,
+//! respectively. We can leverage these to create our own type with a counter
+//! that we [`Increment`] or [`Decrement`] at compile-time. These two traits
+//! form the foundation for our strategy for handling 1:N clocks in this module.
+//!
+//! ### The `Enabled` wrapper
+//!
+//! Our representation of a 1:N producer clock is [`Enabled&lt;T, N&gt;`], which is a
+//! wrapper struct that pairs some *enabled* clock type `T` with a type `N`
+//! representing a consumer count. The wrapper restricts access to the
+//! underlying clock type, `T`, allowing us to selectively define methods when
+//! `N = U0`, that is, when there are no consumers of a given producer clock.
+//!
+//! The [`Enabled`] type itself implements [`Increment`] and [`Decrement`] as
+//! well, which allows type-level transformations to increment or decrement the
+//! counter, e.g. `Enabled&lt;T, U0&gt;` to `Enabled&lt;T, U1&gt;`. Such transformations can
+//! only be performed within the HAL; so users cannot change the consumer count
+//! arbitrarily.
+//!
+//! ### Acting as a clock `Source`
+//!
+//! Finally, we need to define some generic interface for interacting with 1:N
+//! producer clocks. However, when designing this interface, we need to be
+//! careful not to lose information during type-level transformations.
+//!
+//! In particular, the `Enabled` counter type alone is not enough for proper
+//! clock safety. If we used consumer `A` to `Increment` producer `P` from
+//! `Enabled&lt;P, U0&gt;` to `Enabled&lt;P, U1&gt;`, but then used consumer `B` to
+//! `Decrement` the producer back to `Enabled&lt;P, U0&gt;`, we would leave consumer
+//! `A` dangling.
+//!
+//! To solve this problem, we need some way to guarantee that a given consumer
+//! can only `Decrement` the same producer it `Increment`ed. Stated differently,
+//! we need a way to track the identity of each consumer&#39;s clock source.
+//!
+//! The [`Source`] trait is designed for this purpose. It marks
+//! [`Enabled&lt;T, N&gt;`] producer clocks, and it&#39;s associated type, [`Id`], is the
+//! identity type that should be stored by consumers.
+//!
+//! Given that all implementers of `Source` are instances of `Enabled&lt;T, N&gt;`,
+//! the naïve choice for [`Source::Id`] would be `T`. However, in a moment, we
+//! will see why this choice is not ideal.
+//!
+//! ### `Id` types
+//!
+//! Many of the clock types in this module have additional type parameters that
+//! track the clock&#39;s configuration. For instance, [`Xosc0&lt;M&gt;`] represents one
+//! of the external crystal oscillators. Here, the type parameter `M` represents
+//! the XOSC&#39;s [`Mode`](xosc::Mode), which can either be [`CrystalMode`] or
+//! [`ClockMode`]. Accordingly, methods to adjust the crystal current, etc. are
+//! only available on `Xosc0&lt;CrystalMode&gt;`.
+//!
+//! While these type parameters are important and necessary for configuration of
+//! a given producer clock, they are not relevant to consumer clocks. A consumer
+//! clock does not need to know or care which `Mode` the XOSC is using, but
+//! it *does* need to track that its clock [`Source`] is XOSC0.
+//!
+//! From this, we can see that `Enabled&lt;Xosc0&lt;M&gt;, N&gt;` should not implement
+//! `Source` with `Source::Id = Xosc0&lt;M&gt;`, because that would require consumers
+//! to needlessly track the XOSC `Mode`.
+//!
+//! Instead, this module defines a series of `Id` types representing the
+//! *identity* of a given clock, rather than the clock itself. This is like the
+//! distinction between a passport and a person. A passport identifies a person,
+//! regardless of changes to their clothes or hair. The `Id` types serve to
+//! erase configuration information, representing only the clock&#39;s identity.
+//!
+//! For `Xosc0&lt;M&gt;`, the corresponding `Id` type is [`Xosc0Id`]. Thus,
+//! `Enabled&lt;Xosc0&lt;M&gt;, N&gt;` implements `Source` with `Source::Id = Xosc0Id`.
+//!
+//! ## Notes on memory safety
+//!
+//! ### Register interfaces
+//!
+//! Although HAL users see `Token` types as merely opaque objects, internally
+//! they serve a dual purpose as the primary register interface to control the
+//! corresponding clock. Moreover, they also fundamentally restructure the way
+//! registers are accessed relative to the [PAC].
+//!
+//! Each of the four PAC clocking structs ([`OSCCTRL`], [`OSC32KCTRL`], [`GCLK`]
+//! and [`MCLK`]) is a singleton object that controls a set of MMIO registers.
+//! It is impossible to create two instances of any PAC object without `unsafe`.
+//! However, each object controls a large set of registers that can be further
+//! sub-divided into smaller sets for individual clocks. For example, the
+//! [`GCLK`] object controls registers for 12 different clock generators and 48
+//! peripheral channel clocks.
+//!
+//! `Token` types serve to break up the large PAC objects into smaller,
+//! more-targetted pieces. And in the process, they also remove the PAC objects&#39;
+//! [interior mutability]. But this is only possible because each `Token` is
+//! *also* a singleton, and because individual clocks are configured through
+//! *mutually exclusive* sets of registers.
+//!
+//! ### Bus clocks
+//!
+//! Bus clocks are fundamentally different from the other clock types in this
+//! module, because they do not use mutually exclusive registers for
+//! configuration. For instance, the registers that control [`Dpll0`] are
+//! mutually exclusive to those that control [`Dpll1`], but `ApbClk&lt;Sercom0&gt;`
+//! and `ApbClk&lt;Sercom1&gt;` share a single register.
+//!
+//! This presents a challenge for memory safety, because we need some way to
+//! guarantee that there are no data races. For example, if both
+//! `ApbClk&lt;Sercom0&gt;` and `ApbClk&lt;Sercom1&gt;` tried to modify the `APBAMASK`
+//! register from two different execution contexts, a read/modify/write
+//! operation could be preempted, leading to memory corruption.
+//!
+//! To prevent data races when controlling bus clocks, we introduce two new
+//! types to mediate access to the shared registers. For [`AhbClk`]s, this is
+//! the [`Ahb`] type; and for [`ApbClk`]s, this is the [`Apb`] type. In a sense,
+//! the `Ahb` and `Apb` types represent the actual corresponding buses. Thus,
+//! enabling an APB clock by converting an [`ApbToken`] into an `ApbClk`
+//! requires exclusive access to the `Apb` in the form of `&amp;mut Apb`.
+//!
+//! ## Getting started
+//!
+//! To set up a clock tree, start by trading the [PAC](crate::pac)-level
+//! clocking structs for their HAL equivalents. Right now, the only way to do so
+//! safely is using the [`clock_system_at_reset`] function, which assumes all
+//! clocks are in their default state at power-on reset. If this is not the
+//! case, because, for example, a bootloader has modified the clocks, then you
+//! may need to manually create the matching configuration using `unsafe` code.
+//!
+//! ```no_run
+//! use atsamd_hal::clock::v2::clock_system_at_reset;
+//! use atsamd_hal::pac::Peripherals;
+//! let mut pac = Peripherals::take().unwrap();
+//! let (buses, clocks, tokens) = clock_system_at_reset(
+//!     pac.OSCCTRL,
+//!     pac.OSC32KCTRL,
+//!     pac.GCLK,
+//!     pac.MCLK,
+//!     &amp;mut pac.NVMCTRL,
+//! );
+//! ```
+//!
+//! At this point, you may notice that the function returned three different
+//! objects, the [`Buses`], [`Clocks`] and [`Tokens`].
+//!
+//! The [`Buses`] struct contains the [`Ahb`] and [`Apb`] objects, which
+//! represent the corresponding AHB and APB buses. See the [notes on memory
+//! safety](self#notes-on-memory-safety) for more details on these types.
+//!
+//! The [`Clocks`] struct contains all of the clocks that are enabled and
+//! running at power-on reset, specifically:
+//! - All of the [`AhbClks`]
+//! - Some of the [`ApbClks`]
+//! - The 48 MHz [`Dfll`], running in open-loop mode, represented as as
+//!   `Enabled&lt;Dfll, U1&gt;`. `N = U1` here because [`Gclk0`] consumes it. See
+//!   [above](self#tracking-n-at-compile-time-for-1n-clocks) for details on
+//!   [`Enabled&lt;T, N&gt;`].
+//! - [`Gclk0`], sourced by the `Dfll` and represented as
+//!   `Enabled&lt;Gclk0&lt;DfllId&gt;, U1&gt;`. Note the use of [`DfllId`] as an [`Id`
+//!   type](self#id-types) here. Although `Gclk0` is not consumed by any clock
+//!   represented in this module, it *is* consumed by the processor&#39;s main
+//!   clock. We represent this by setting `N = U1`, which we use to restrict the
+//!   available API. Specifically, [`EnabledGclk0`] has special methods not
+//!   available to other [`Gclk`]s.
+//! - The [`OscUlp32kBase`] clock, which can act as a [`Source`] for the
+//!   [`OscUlp1k`] and [`OscUlp32k`] clocks. It has no consumers at power-on
+//!   reset, so it is represented as `Enabled&lt;OscUlp32kBase, U0&gt;`. However, it
+//!   can never be disabled, so we provide no `.disable()` method.
+//!
+//! The [`Tokens`] struct contains all of the available `Token`s, which
+//! [represent clocks that are disabled](self#clock-state-machines) at power-on
+//! reset. Each `Token` can be exchanged for a corresponding clock object.
+//!
+//! ## Example clock tree
+//!
+//! Finally, we will walk through the creation of a simple clock tree to
+//! illustrate some of the remaining concepts inherent to this module.
+//!
+//! Starting from the previous snippet, we have the [`Buses`], [`Clocks`] and
+//! [`Tokens`] to work with, and our clock tree at power-on reset looks like
+//! this.
+//!
+//! ```text
+//! DFLL (48 MHz)
+//! └── GCLK0 (48 MHz)
+//!     └── Main clock (48 MHz)
+//! ```
+//!
+//! Our goal will be a clock tree that looks like this:
+//!
+//! ```text
+//! XOSC0 (8 MHz)
+//! └── DPLL0 (100 MHz)
+//!     └── GCLK0 (100 MHz)
+//!         ├── Main clock (100 MHz)
+//!         ├── SERCOM0 peripheral clock
+//!         └── Output to GPIO pin
+//! ```
+//!
+//! We will use an external crystal oscillator running at 8 MHz to feed a DPLL,
+//! which will increase the clock frequency to 100 MHz. Then, we will
+//! reconfigure GCLK0 to use the 100 MHz DPLL clock instead of the 48 MHz DFLL
+//! clock.
+//!
+//! First, let&#39;s import some of the necessary types. We will see what each type
+//! represents in turn.
+//!
+//! ```no_run
+//! use atsamd_hal::{
+//!     clock::v2::{
+//!         clock_system_at_reset,
+//!         dpll::Dpll,
+//!         pclk::Pclk,
+//!         xosc::Xosc,
+//!     },
+//!     gpio::Pins,
+//!     pac::Peripherals,
+//!     time::U32Ext,
+//! };
+//! ```
+//!
+//! To create an instance of [`Xosc`], we will first need to identify which of
+//! the two XOSC clocks we will use. Suppose an external crystal is attached to
+//! pins `PA14` and `PA15`. These pins feed the XOSC0 clock, so we will want to
+//! create an instance of [`Xosc0`]. Note that `Xosc0&lt;M&gt;` is merely an alias for
+//! `Xosc&lt;Xosc0Id, M&gt;`. Here, [`Xosc0Id`] represents the
+//! [*identity*](self#id-types) of the XOSC0 clock, rather than the clock
+//! itself, and `M` represents the XOSC [`Mode`](xosc::Mode).
+//!
+//! Next, we access the [`Tokens`] struct to extract the corresponding
+//! [`XoscToken`] for XOSC0, and we trade the PAC `PORT` struct for the
+//! [`gpio::Pins`] struct to access the GPIO pins. We can then call
+//! [`Xosc::from_crystal`] to trade the token and [`Pin`]s to yield an instance
+//! of [`Xosc0`]. In doing so, we also provide the oscillator frequency.
+//!
+//! Finally, we can chain a call to the [`Xosc::enable`] method to enable the
+//! XOSC and return an instance of [`EnabledXosc0&lt;M, N&gt;`], which is simply an
+//! alias for `Enabled&lt;Xosc0&lt;M&gt;, N&gt;`. In this case, we get
+//! `EnabledXosc0&lt;CrystalMode, U0&gt;`.
+//!
+//! ```no_run
+//! # use atsamd_hal::{
+//! #     clock::v2::{
+//! #         clock_system_at_reset,
+//! #         xosc::Xosc,
+//! #     },
+//! #     gpio::Pins,
+//! #     pac::Peripherals,
+//! #     time::U32Ext,
+//! # };
+//! # let mut pac = Peripherals::take().unwrap();
+//! # let (buses, clocks, tokens) = clock_system_at_reset(
+//! #     pac.OSCCTRL,
+//! #     pac.OSC32KCTRL,
+//! #     pac.GCLK,
+//! #     pac.MCLK,
+//! #     &amp;mut pac.NVMCTRL,
+//! # );
+//! let pins = Pins::new(pac.PORT);
+//! let xosc0 = Xosc::from_crystal(
+//!     tokens.xosc0,
+//!     pins.pa14,
+//!     pins.pa15,
+//!     8.mhz(),
+//! ).enable();
+//! ```
+//!
+//! Next, we want to use a DPLL to multiply the 8 MHz crystal clock up to 100
+//! MHz. Once again, we need to decide between two instances of a clock, because
+//! each chip has two [`Dpll`]s. This time, however, our decision between
+//! [`Dpll0`] and [`Dpll1`] is arbitrary.
+//!
+//! Also note that, like before, `Dpll0&lt;I&gt;` and `Dpll1&lt;I&gt;` are aliases for
+//! `Dpll&lt;Dpll0Id, I&gt;` and `Dpll&lt;Dpll1Id, I&gt;`. [`Dpll0Id`] and [`Dpll1Id`]
+//! represent the *identity* of the respective DPLL, while `I` represents the
+//! [`Id` type](self#id-types) for the [`Source`] driving the DPLL. In this
+//! particular case, we aim to create an instance of `Dpll0&lt;Xosc0Id&gt;`.
+//!
+//! Only certain clocks can drive the DPLL, so `I` is constrained by the
+//! [`DpllSourceId`] trait. Specifically, only the [`Xosc0Id`], [`Xosc1Id`],
+//! [`Xosc32kId`] and [`GclkId`] types implement this trait.
+//!
+//! As before, we access the [`Tokens`] struct and use the corresponding
+//! [`DpllToken`] when creating an instance of `Dpll`. However, unlike before,
+//! we are creating a new clock-tree relationship that must be tracked by the
+//! type system. Because DPLL0 will now consume XOSC0, we must [`Increment`]
+//! the [`Enabled`] counter for [`EnabledXosc0`].
+//!
+//! Thus, to create an instance of `Dpll0&lt;XoscId0&gt;`, we must provide the
+//! `EnabledXosc0`, so that its `U0` type parameter can be incremented to `U1`.
+//! The `Dpll::from_xosc` method takes ownership of the `EnabledXosc0` and
+//! returns it with this modified type parameter.
+//!
+//! This is the essence of clock safety in this module. Once the counter type
+//! has been incremeneted to `U1`, the `EnabledXosc0` can no longer be modified
+//! or disabled. All further code can guarantee this invariant is upheld. To
+//! modify the `EnabledXosc0`, we would first have to use `Dpll::free_source` to
+//! disable the DPLL and [`Decrement`] the counter back to `U0`.
+//!
+//! ```no_run
+//! # use atsamd_hal::{
+//! #     clock::v2::{
+//! #         clock_system_at_reset,
+//! #         dpll::Dpll,
+//! #         xosc::Xosc,
+//! #     },
+//! #     gpio::Pins,
+//! #     pac::Peripherals,
+//! #     time::U32Ext,
+//! # };
+//! # let mut pac = Peripherals::take().unwrap();
+//! # let (buses, clocks, tokens) = clock_system_at_reset(
+//! #     pac.OSCCTRL,
+//! #     pac.OSC32KCTRL,
+//! #     pac.GCLK,
+//! #     pac.MCLK,
+//! #     &amp;mut pac.NVMCTRL,
+//! # );
+//! # let pins = Pins::new(pac.PORT);
+//! # let xosc0 = Xosc::from_crystal(
+//! #     tokens.xosc0,
+//! #     pins.pa14,
+//! #     pins.pa15,
+//! #     8.mhz(),
+//! # ).enable();
+//! let (dpll0, xosc0) = Dpll::from_xosc(tokens.dpll0, xosc0);
+//! ```
+//! Next, we set the DPLL pre-divider and loop divider. We must pre-divide
+//! the XOSC clock down from 8 MHz to 2 MHz, so that it is within the valid
+//! input frequency range for the DPLL. Then, we set the DPLL loop divider, so
+//! that it will multiply the 2 MHz clock by 50 for a 100 MHz output. We do not
+//! need fractional mutiplication here, so the fractional loop divider is zero.
+//! Finally, we can enable the `Dpll`, yielding an instance of
+//! `EnabledDpll0&lt;XoscId0&gt;`.
+//!
+//! ```no_run
+//! # use atsamd_hal::{
+//! #     clock::v2::{
+//! #         clock_system_at_reset,
+//! #         dpll::Dpll,
+//! #         xosc::Xosc,
+//! #     },
+//! #     gpio::Pins,
+//! #     pac::Peripherals,
+//! #     time::U32Ext,
+//! # };
+//! # let mut pac = Peripherals::take().unwrap();
+//! # let (buses, clocks, tokens) = clock_system_at_reset(
+//! #     pac.OSCCTRL,
+//! #     pac.OSC32KCTRL,
+//! #     pac.GCLK,
+//! #     pac.MCLK,
+//! #     &amp;mut pac.NVMCTRL,
+//! # );
+//! # let pins = Pins::new(pac.PORT);
+//! # let xosc0 = Xosc::from_crystal(
+//! #     tokens.xosc0,
+//! #     pins.pa14,
+//! #     pins.pa15,
+//! #     8.mhz(),
+//! # ).enable();
+//! # let (dpll0, xosc0) = Dpll::from_xosc(tokens.dpll0, xosc0);
+//! let dpll0 = dpll0.prediv(4).loop_div(50, 0).enable();
+//! ```
+//!
+//! So far, our clock tree looks like this
+//!
+//! ```text
+//! DFLL (48 MHz)
+//! └── GCLK0 (48 MHz)
+//!     └── Main clock (48 MHz)
+//!
+//! XOSC0 (8 MHz)
+//! └── DPLL0 (100 MHz)
+//! ```
+//!
+//! Our next task will be to swap GCLK0 from the 48 MHz DFLL to the 100 MHz
+//! DPLL. To do that, we will use the special [`swap_sources`] method on
+//! [`EnabledGclk0`] to change the base clock without disabling GCLK0 or the
+//! main clock.
+//!
+//! This time we will be modifying two [`Enabled`] counters simultaneously.
+//! We will [`Decrement`] the [`EnabledDfll`] count from `U1` to `U0`, and
+//! we will [`Increment`] the [`EnabledDpll0`] count from `U0` to `U1`.
+//! Again, we need to provide both the DFLL and DPLL clocks, so that their
+//! type parameters can be changed.
+//!
+//! ```no_run
+//! # use atsamd_hal::{
+//! #     clock::v2::{
+//! #         clock_system_at_reset,
+//! #         dpll::Dpll,
+//! #         xosc::Xosc,
+//! #     },
+//! #     gpio::Pins,
+//! #     pac::Peripherals,
+//! #     time::U32Ext,
+//! # };
+//! # let mut pac = Peripherals::take().unwrap();
+//! # let (buses, clocks, tokens) = clock_system_at_reset(
+//! #     pac.OSCCTRL,
+//! #     pac.OSC32KCTRL,
+//! #     pac.GCLK,
+//! #     pac.MCLK,
+//! #     &amp;mut pac.NVMCTRL,
+//! # );
+//! # let pins = Pins::new(pac.PORT);
+//! # let xosc0 = Xosc::from_crystal(
+//! #     tokens.xosc0,
+//! #     pins.pa14,
+//! #     pins.pa15,
+//! #     8.mhz(),
+//! # ).enable();
+//! # let (dpll0, xosc0) = Dpll::from_xosc(tokens.dpll0, xosc0);
+//! # let dpll0 = dpll0.prediv(4).loop_div(50, 0).enable();
+//! let (gclk0, dfll, dpll0) = clocks.gclk0.swap_sources(clocks.dfll, dpll0);
+//! ```
+//!
+//! At this point, the DFLL is completely unused, so it can be disbled and
+//! deconstructed, leaving only the [`DfllToken`].
+//!
+//! ```no_run
+//! # use atsamd_hal::{
+//! #     clock::v2::{
+//! #         clock_system_at_reset,
+//! #         dpll::Dpll,
+//! #         xosc::Xosc,
+//! #     },
+//! #     gpio::Pins,
+//! #     pac::Peripherals,
+//! #     time::U32Ext,
+//! # };
+//! # let mut pac = Peripherals::take().unwrap();
+//! # let (buses, clocks, tokens) = clock_system_at_reset(
+//! #     pac.OSCCTRL,
+//! #     pac.OSC32KCTRL,
+//! #     pac.GCLK,
+//! #     pac.MCLK,
+//! #     &amp;mut pac.NVMCTRL,
+//! # );
+//! # let pins = Pins::new(pac.PORT);
+//! # let xosc0 = Xosc::from_crystal(
+//! #     tokens.xosc0,
+//! #     pins.pa14,
+//! #     pins.pa15,
+//! #     8.mhz(),
+//! # ).enable();
+//! # let (dpll0, xosc0) = Dpll::from_xosc(tokens.dpll0, xosc0);
+//! # let dpll0 = dpll0.prediv(4).loop_div(50, 0).enable();
+//! # let (gclk0, dfll, dpll0) = clocks.gclk0.swap_sources(clocks.dfll, dpll0);
+//! let dfll_token = dfll.disable().free();
+//! ```
+//!
+//! Our clock tree now looks like this:
+//!
+//! ```text
+//! XOSC0 (8 MHz)
+//! └── DPLL0 (100 MHz)
+//!     └── GCLK0 (100 MHz)
+//!         └── Main clock (100 MHz)
+//! ```
+//!
+//! We have the clocks set up, but we&#39;re not using them for anything other than
+//! the main clock. Our final steps will create SERCOM APB and peripheral
+//! clocks and will output the raw GCLK0 to a GPIO pin.
+//!
+//! To enable the APB clock for SERCOM0, we must access the [`Apb`] bus struct.
+//! We provide an [`ApbToken`] to the [`Apb::enable`] method and receive an
+//! [`ApbClk`] in return. APB clocks are [1:1 clocks](self#clock-relationships),
+//! so the `ApbClk` is not wrapped with [`Enabled`].
+//!
+//! ```no_run
+//! # use atsamd_hal::{
+//! #     clock::v2::{
+//! #         clock_system_at_reset,
+//! #         dpll::Dpll,
+//! #         xosc::Xosc,
+//! #     },
+//! #     gpio::Pins,
+//! #     pac::Peripherals,
+//! #     time::U32Ext,
+//! # };
+//! # let mut pac = Peripherals::take().unwrap();
+//! # let (mut buses, clocks, tokens) = clock_system_at_reset(
+//! #     pac.OSCCTRL,
+//! #     pac.OSC32KCTRL,
+//! #     pac.GCLK,
+//! #     pac.MCLK,
+//! #     &amp;mut pac.NVMCTRL,
+//! # );
+//! # let pins = Pins::new(pac.PORT);
+//! # let xosc0 = Xosc::from_crystal(
+//! #     tokens.xosc0,
+//! #     pins.pa14,
+//! #     pins.pa15,
+//! #     8.mhz(),
+//! # ).enable();
+//! # let (dpll0, xosc0) = Dpll::from_xosc(tokens.dpll0, xosc0);
+//! # let dpll0 = dpll0.prediv(4).loop_div(50, 0).enable();
+//! # let (gclk0, dfll, dpll0) = clocks.gclk0.swap_sources(clocks.dfll, dpll0);
+//! # let dfll_token = dfll.disable().free();
+//! let apb_sercom0 = buses.apb.enable(tokens.apbs.sercom0);
+//! ```
+//!
+//! To enable a peripheral channel clock for SERCOM0, we must provide the
+//! corresponding [`PclkToken`], as well as the instance of [`EnabledGclk0`], so
+//! that its counter can be incremented. The resulting clock has the type
+//! `Pclk&lt;Sercom0, Gclk0Id&gt;`.
+//!
+//! ```no_run
+//! # use atsamd_hal::{
+//! #     clock::v2::{
+//! #         clock_system_at_reset,
+//! #         dpll::Dpll,
+//! #         pclk::Pclk,
+//! #         xosc::Xosc,
+//! #     },
+//! #     gpio::Pins,
+//! #     pac::Peripherals,
+//! #     time::U32Ext,
+//! # };
+//! # let mut pac = Peripherals::take().unwrap();
+//! # let (mut buses, clocks, tokens) = clock_system_at_reset(
+//! #     pac.OSCCTRL,
+//! #     pac.OSC32KCTRL,
+//! #     pac.GCLK,
+//! #     pac.MCLK,
+//! #     &amp;mut pac.NVMCTRL,
+//! # );
+//! # let pins = Pins::new(pac.PORT);
+//! # let xosc0 = Xosc::from_crystal(
+//! #     tokens.xosc0,
+//! #     pins.pa14,
+//! #     pins.pa15,
+//! #     8.mhz(),
+//! # ).enable();
+//! # let (dpll0, xosc0) = Dpll::from_xosc(tokens.dpll0, xosc0);
+//! # let dpll0 = dpll0.prediv(4).loop_div(50, 0).enable();
+//! # let (gclk0, dfll, dpll0) = clocks.gclk0.swap_sources(clocks.dfll, dpll0);
+//! # let dfll_token = dfll.disable().free();
+//! # let apb_sercom0 = buses.apb.enable(tokens.apbs.sercom0);
+//! let (pclk_sercom0, gclk0) = Pclk::enable(tokens.pclks.sercom0, gclk0);
+//! ```
+//!
+//! Like [`Dpll&lt;D, I&gt;`], [`Pclk&lt;P, I&gt;`] also takes two type parameters. The
+//! first represents the corresponding peripheral, while the second is again an
+//! [`Id` type](self#id-types) representing the [`Source`] driving the [`Pclk`],
+//! which is restricted by the [`PclkSourceId`] trait. Because peripheral
+//! channel clocks can only be driven by GCLKs, [`PclkSourceId`] is effectively
+//! synonymous with the [`GclkId`] trait.
+//!
+//! Finally, we would like to output GCLK0 to a GPIO pin. Doing so takes a
+//! slightly different approach. This time, we provide a GPIO [`Pin`] to the
+//! [`Gclk`], which creates a [`GclkOut`] and [`Increment`]s the consumer count
+//! for [`EnabledGclk0`].
+//!
+//! ```no_run
+//! # use atsamd_hal::{
+//! #     clock::v2::{
+//! #         clock_system_at_reset,
+//! #         dpll::Dpll,
+//! #         pclk::Pclk,
+//! #         xosc::Xosc,
+//! #     },
+//! #     gpio::Pins,
+//! #     pac::Peripherals,
+//! #     time::U32Ext,
+//! # };
+//! # let mut pac = Peripherals::take().unwrap();
+//! # let (mut buses, clocks, tokens) = clock_system_at_reset(
+//! #     pac.OSCCTRL,
+//! #     pac.OSC32KCTRL,
+//! #     pac.GCLK,
+//! #     pac.MCLK,
+//! #     &amp;mut pac.NVMCTRL,
+//! # );
+//! # let pins = Pins::new(pac.PORT);
+//! # let xosc0 = Xosc::from_crystal(
+//! #     tokens.xosc0,
+//! #     pins.pa14,
+//! #     pins.pa15,
+//! #     8.mhz(),
+//! # ).enable();
+//! # let (dpll0, xosc0) = Dpll::from_xosc(tokens.dpll0, xosc0);
+//! # let dpll0 = dpll0.prediv(4).loop_div(50, 0).enable();
+//! # let (gclk0, dfll, dpll0) = clocks.gclk0.swap_sources(clocks.dfll, dpll0);
+//! # let dfll_token = dfll.disable().free();
+//! # let apb_sercom0 = buses.apb.enable(tokens.apbs.sercom0);
+//! # let (pclk_sercom0, gclk0) = Pclk::enable(tokens.pclks.sercom0, gclk0);
+//! let (gclk0, gclk0_out) = gclk0.enable_gclk_out(pins.pb14);
+//! ```
+//!
+//! We have arrived at our final, desired clock tree. Putting the whole example
+//! together, we get
+//!
+//! ```no_run
+//! use atsamd_hal::{
+//!     clock::v2::{
+//!         clock_system_at_reset,
+//!         dpll::Dpll,
+//!         pclk::Pclk,
+//!         xosc::Xosc,
+//!     },
+//!     gpio::Pins,
+//!     pac::Peripherals,
+//!     time::U32Ext,
+//! };
+//!
+//! let mut pac = Peripherals::take().unwrap();
+//! let (mut buses, clocks, tokens) = clock_system_at_reset(
+//!     pac.OSCCTRL,
+//!     pac.OSC32KCTRL,
+//!     pac.GCLK,
+//!     pac.MCLK,
+//!     &amp;mut pac.NVMCTRL,
+//! );
+//! let pins = Pins::new(pac.PORT);
+//! let xosc0 = Xosc::from_crystal(
+//!     tokens.xosc0,
+//!     pins.pa14,
+//!     pins.pa15,
+//!     8.mhz(),
+//! )
+//! .enable();
+//! let (dpll0, xosc0) = Dpll::from_xosc(tokens.dpll0, xosc0);
+//! let dpll0 = dpll0.prediv(4).loop_div(50, 0).enable();
+//! let (gclk0, dfll, dpll0) = clocks.gclk0.swap_sources(clocks.dfll, dpll0);
+//! let dfll_token = dfll.disable().free();
+//! let apb_sercom0 = buses.apb.enable(tokens.apbs.sercom0);
+//! let (pclk_sercom0, gclk0) = Pclk::enable(tokens.pclks.sercom0, gclk0);
+//! let (gclk0, gclk0_out) = gclk0.enable_gclk_out(pins.pb14);
+//! ```
+//!
+//! [PAC]: crate::pac
+//! [`OSCCTRL`]: crate::pac::OSCCTRL
+//! [`OSC32KCTRL`]: crate::pac::OSC32KCTRL
+//! [`GCLK`]: crate::pac::GCLK
+//! [`MCLK`]: crate::pac::MCLK
+//! [`Peripherals::steal`]: crate::pac::Peripherals::steal
+//!
+//! [`Ahb`]: ahb::Ahb
+//! [`AhbClk`]: ahb::AhbClk
+//! [`AhbClk&lt;A&gt;`]: ahb::AhbClk
+//! [`AhbClks`]: ahb::AhbClks
+//!
+//! [`Apb`]: apb::Apb
+//! [`Apb::enable`]: apb::Apb::enable
+//! [`ApbClk`]: apb::ApbClk
+//! [`ApbClk&lt;A&gt;`]: apb::ApbClk
+//! [`ApbClk::enable`]: apb::ApbClk::enable
+//! [`ApbClks`]: apb::ApbClks
+//! [`ApbToken`]: apb::ApbToken
+//!
+//! [`Dfll`]: dfll::Dfll
+//! [`Dfll&lt;M&gt;`]: dfll::Dfll
+//! [`DfllId`]: dfll::DfllId
+//! [`DfllToken`]: dfll::DfllToken
+//! [`EnabledDfll`]: dfll::EnabledDfll
+//!
+//! [`Dpll`]: dpll::Dpll
+//! [`Dpll&lt;D, I&gt;`]: dpll::Dpll
+//! [`Dpll0`]: dpll::Dpll0
+//! [`Dpll1`]: dpll::Dpll1
+//! [`Dpll0Id`]: dpll::Dpll0Id
+//! [`Dpll1Id`]: dpll::Dpll1Id
+//! [`DpllSourceId`]: dpll::DpllSourceId
+//! [`DpllToken`]: dpll::DpllToken
+//! [`EnabledDpll0`]: dpll::EnabledDpll0
+//!
+//! [`Gclk0`]: gclk::Gclk0
+//! [`GclkId`]: gclk::GclkId
+//! [`EnabledGclk0`]: gclk::EnabledGclk0
+//! [`swap_sources`]: gclk::EnabledGclk0::swap_sources
+//! [`GclkOut`]: gclk::GclkOut
+//!
+//! [`OscUlp32kBase`]: osculp32k::OscUlp32kBase
+//! [`OscUlp1k`]: osculp32k::OscUlp1k
+//! [`OscUlp32k`]: osculp32k::OscUlp32k
+//!
+//! [`Pclk`]: pclk::Pclk
+//! [`Pclk&lt;P, I&gt;`]: pclk::Pclk
+//! [`Pclk::enable`]: pclk::Pclk::enable
+//! [`Pclk::disable`]: pclk::Pclk::disable
+//! [`PclkSourceId`]: pclk::PclkSourceId
+//! [`PclkToken`]: pclk::PclkToken
+//!
+//! [`RtcOsc`]: rtcosc::RtcOsc
+//!
+//! [`Xosc`]: xosc::Xosc
+//! [`Xosc::from_crystal`]: xosc::Xosc::from_crystal
+//! [`Xosc::enable`]: xosc::Xosc::enable
+//! [`Xosc0`]: xosc::Xosc0
+//! [`Xosc0&lt;M&gt;`]: xosc::Xosc0
+//! [`Xosc0Id`]: xosc::Xosc0Id
+//! [`Xosc1Id`]: xosc::Xosc1Id
+//! [`XoscToken`]: xosc::XoscToken
+//! [`EnabledXosc0`]: xosc::EnabledXosc0
+//! [`EnabledXosc0&lt;M, N&gt;`]: xosc::EnabledXosc0
+//! [`CrystalMode`]: xosc::CrystalMode
+//! [`ClockMode`]: xosc::ClockMode
+//!
+//! [`Xosc32kId`]: xosc32k::Xosc32kId
+//!
+//! [type-level]: crate::typelevel
+//! [`Increment`]: crate::typelevel::Increment
+//! [`Decrement`]: crate::typelevel::Decrement
+//!
+//! [`Id`]: Source::Id
+//!
+//! [`gpio::Pins`]: crate::gpio::Pins
+//! [`Pin`]: crate::gpio::Pin
+//!
+//! [`U1`]: typenum::U1
+//! [`Add1`]: typenum::Add1
+//! [`Sub1`]: typenum::Sub1
+//! [`Unsigned`]: typenum::Unsigned
+//!
+//! [interior mutability]: https://doc.rust-lang.org/reference/interior-mutability.html
+
+</span><span class="kw">use </span>typenum::U0;
+
+<span class="kw">use </span><span class="kw">crate</span>::time::Hertz;
+<span class="kw">use </span><span class="kw">crate</span>::typelevel::{PrivateDecrement, PrivateIncrement, Sealed};
+
+<span class="kw">pub mod </span>ahb;
+<span class="kw">pub mod </span>apb;
+<span class="kw">pub mod </span>dfll;
+<span class="kw">pub mod </span>dpll;
+<span class="kw">pub mod </span>gclk;
+<span class="kw">pub mod </span>osculp32k;
+<span class="kw">pub mod </span>pclk;
+<span class="kw">pub mod </span>rtcosc;
+<span class="kw">pub mod </span>types;
+<span class="kw">pub mod </span>xosc;
+<span class="kw">pub mod </span>xosc32k;
+
+<span class="kw">mod </span>reset;
+<span class="kw">pub use </span>reset::<span class="kw-2">*</span>;
+
+<span class="comment">// `Token` types and memory safety
+//
+// Each of the PAC [`Peripherals`] is a zero-sized, singleton struct that
+// mediates access to the MMIO hardware registers. It is not possible to create
+// two instances of any peripheral without causing a run-time panic. These
+// structs implement [`Deref`] by conjuring a pointer to the corresponding
+// register block, and each register within the block is represented by a
+// `vcell::VolatileCell`. Because each register is wrapped in a `VolatileCell`,
+// it is safe to both read and write them through shared references. However,
+// because a read/modify/write operation is not atomic, the [`Peripherals`]
+// structs do not implement [`Sync`].
+//
+// This is a reasonable approach for the PAC, since it is generated from an
+// SVD file. However, it is not the ideal structure for our HAL API. In
+// particular, each [`Peripherals`] struct represents an entire peripheral,
+// rather than a particular functional unit. In the HAL, we want our API to
+// focus on functional units, so we need to define our own abstraction for
+// registers, which will involve `unsafe` code.
+//
+// In the `clock` module, we represent each functional unit with a
+// corresponding `Token` type. Just like the [`Peripherals`], each `Token` type
+// is meant to be a singleton. However, unlike the PAC, we do not have to
+// allow users to create `Token`s directly. Instead, we can have users exchange
+// [`Peripherals`] for the `Token`s. Because each PAC struct is a singleton, we
+// can guarantee each `Token` will be a singleton as well. With this approach,
+// we don&#39;t need to implement our own run-time panicking; we simply extend the
+// existing guarantees of the PAC.
+//
+// To implement a memory safe API, we must ensure that all `Token` types access
+// mutually exclusive sets of registers. In that way, we guarantee no two
+// `Token` types can access the same register. Moreover, in contrast to the PAC
+// [`Peripherals`], we can make our `Token`s [`Sync`] if we remove all interior
+// mutability and guarantee that writing or modifying a register requires
+// ownership or an `&amp;mut` reference.
+//
+// Thus, our `Token`-based API should be memory safe if we always obey the
+// following requirements:
+//   - It should be `unsafe` to create a `Token` type unless it is created in
+//     exchange for the corresponding PAC peripheral struct.
+//   - Each `Token` type should have access to a mutually exclusive set of
+//     registers relative to the other `Token`s.
+//   - Writing or modifying a register should always require ownership of, or an
+//     `&amp;mut` reference to, the corresponding `Token`.
+//   - When conjuring references to PAC registers or register blocks, we should
+//     *only* use shared, `&amp;` references. There is no need to use exclusive,
+//     `&amp;mut` references, because each register is wrapped in a `VolatileCell`.
+//     Moreover, using `&amp;mut` references could cause UB, if we accidentally
+//     create two simultaneous references to the same register block from
+//     different `Tokens`.
+//
+// [`Peripherals`]: crate::pac::Peripherals
+// [`Deref`]: core::ops::Deref
+
+</span><span class="doccomment">/// Marks [`Enabled`] 1:N producer clocks that can act as a clock source
+///
+/// Implementers of this type act as producer clocks and feed consumer clocks in
+/// the clock tree. All implementors are [`Enabled`], 1:N clocks. The `Id`
+/// associated type maps to the corresponding [`Id` type](self#id-types) of the
+/// implementer.
+///
+/// See the documentation on [`Source` clocks](self#acting-as-a-clock-source)
+/// for more details.
+</span><span class="kw">pub trait </span>Source: Sealed {
+    <span class="doccomment">/// Corresponding `Id` type for the implementer
+    ///
+    /// A given implementer of [`Source`] might have type parameters
+    /// representing its configuration. For instance, [`EnabledXosc0&lt;M&gt;`] has a
+    /// type parameter to track its [`Mode`]. However, a consumer clock
+    /// typically does not care about such configuration. It only needs to
+    /// know *which* upstream clock is its [`Source`].
+    ///
+    /// `Id` types exist to fill this role. They represent the *identity* of a
+    /// given clock, regardless of any configuration. This is like the
+    /// distinction between a passport and a person. A passport identifies a
+    /// person, regardless of changes to their clothes or hair.
+    ///
+    /// Thus, [`EnabledXosc0&lt;M&gt;`] implements [`Source`] with `Id = `[`Xosc0Id`],
+    /// regardless of `M`.
+    ///
+    /// See the documentation on [`Id` types](self#id-types) for more details.
+    ///
+    /// [`EnabledXosc0&lt;M&gt;`]: xosc::EnabledXosc0
+    /// [`Mode`]: xosc::Mode
+    /// [`Xosc0Id`]: xosc::Xosc0Id
+    </span><span class="kw">type </span>Id;
+
+    <span class="doccomment">/// Return the frequency of the clock source
+    </span><span class="kw">fn </span>freq(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Hertz;
+}
+
+<span class="doccomment">/// An enabled, 1:N clock with a compile-time counter for N
+///
+/// This struct is a wrapper around other clock types from this module. It
+/// represents a clock, `T`, that has been enabled, and it maintains a
+/// compile-time counter, `N`, of its consumer clocks in the clock tree.
+///
+/// Compile-time counting allows the API to restrict when clocks may be modified
+/// or disabled. For example, `Enabled` clocks can only be disabled when their
+/// counter is [`U0`].
+///
+/// The type-level counter is implemented using [`Unsigned`] integers from
+/// the [`typenum`] crate, and it is modified using the [`Increment`] and
+/// [`Decrement`] traits.
+///
+/// See the [`Enabled` wrapper documentation](self#the-enabled-wrapper) for more
+/// details.
+///
+/// [`EnabledGclk0`]: gclk::EnabledGclk0
+/// [`Increment`]: crate::typelevel::Increment
+/// [`Decrement`]: crate::typelevel::Decrement
+/// [`Unsigned`]: typenum::Unsigned
+</span><span class="kw">pub struct </span>Enabled&lt;T, N = U0&gt;(<span class="kw">pub</span>(<span class="kw">crate</span>) T, N);
+
+<span class="kw">impl</span>&lt;T, N&gt; Sealed <span class="kw">for </span>Enabled&lt;T, N&gt; {}
+
+<span class="kw">impl</span>&lt;T, N: Default&gt; Enabled&lt;T, N&gt; {
+    <span class="attribute">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(t: T) -&gt; <span class="self">Self </span>{
+        Enabled(t, N::default())
+    }
+}
+
+<span class="kw">impl</span>&lt;T, N: PrivateIncrement&gt; PrivateIncrement <span class="kw">for </span>Enabled&lt;T, N&gt; {
+    <span class="kw">type </span>Inc = Enabled&lt;T, N::Inc&gt;;
+
+    <span class="attribute">#[inline]
+    </span><span class="kw">fn </span>inc(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Inc {
+        Enabled(<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>.inc())
+    }
+}
+
+<span class="kw">impl</span>&lt;T, N: PrivateDecrement&gt; PrivateDecrement <span class="kw">for </span>Enabled&lt;T, N&gt; {
+    <span class="kw">type </span>Dec = Enabled&lt;T, N::Dec&gt;;
+
+    <span class="attribute">#[inline]
+    </span><span class="kw">fn </span>dec(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Dec {
+        Enabled(<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>.dec())
+    }
+}
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

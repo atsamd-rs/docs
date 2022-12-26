@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `VTOR` reader"],["TBLOFF_R","Field `TBLOFF` reader - Vector table base offset"],["TBLOFF_W","Field `TBLOFF` writer - Vector table base offset"],["VTOR_SPEC","Vector Table Offset Register"],["W","Register `VTOR` writer"]]};

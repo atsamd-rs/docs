@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["WAVEGEN_A","Waveform Generation Mode"]],"struct":[["R","Register `WAVE` reader"],["W","Register `WAVE` writer"],["WAVEGEN_R","Field `WAVEGEN` reader - Waveform Generation Mode"],["WAVEGEN_W","Field `WAVEGEN` writer - Waveform Generation Mode"],["WAVE_SPEC","Waveform Generation Control"]]};

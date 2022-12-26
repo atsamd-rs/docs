@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["FILTERBUF_R","Field `FILTERBUF` reader - Filter Buffer Value"],["FILTERBUF_SPEC","Filter Buffer Value"],["FILTERBUF_W","Field `FILTERBUF` writer - Filter Buffer Value"],["R","Register `FILTERBUF` reader"],["W","Register `FILTERBUF` writer"]]};

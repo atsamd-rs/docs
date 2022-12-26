@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DBGCTRL_SPEC","Debug Control"],["ECCDIS_R","Field `ECCDIS` reader - ECC Disable"],["ECCDIS_W","Field `ECCDIS` writer - ECC Disable"],["ECCELOG_R","Field `ECCELOG` reader - ECC Error Log"],["ECCELOG_W","Field `ECCELOG` writer - ECC Error Log"],["R","Register `DBGCTRL` reader"],["W","Register `DBGCTRL` writer"]]};

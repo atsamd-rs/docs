@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ISAR_SPEC","Instruction Set Attributes Register"],["R","Register `ISAR[%s]` reader"]]};

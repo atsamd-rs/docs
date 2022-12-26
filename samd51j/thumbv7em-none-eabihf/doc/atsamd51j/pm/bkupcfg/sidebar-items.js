@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["BRAMCFG_A","Ram Configuration"]],"struct":[["BKUPCFG_SPEC","Backup Configuration"],["BRAMCFG_R","Field `BRAMCFG` reader - Ram Configuration"],["BRAMCFG_W","Field `BRAMCFG` writer - Ram Configuration"],["R","Register `BKUPCFG` reader"],["W","Register `BKUPCFG` writer"]]};

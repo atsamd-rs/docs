@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CRCBUSY_R","Field `CRCBUSY` reader - CRC Module Busy"],["CRCBUSY_W","Field `CRCBUSY` writer - CRC Module Busy"],["CRCSTATUS_SPEC","CRC Status"],["CRCZERO_R","Field `CRCZERO` reader - CRC Zero"],["R","Register `CRCSTATUS` reader"],["W","Register `CRCSTATUS` writer"]]};

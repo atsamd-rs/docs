@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `TRACEIDR` reader"],["TRACEIDR_SPEC","ETM CoreSight Trace ID Register"],["W","Register `TRACEIDR` writer"]]};

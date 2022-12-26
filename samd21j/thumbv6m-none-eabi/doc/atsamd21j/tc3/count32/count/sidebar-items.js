@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["COUNT_R","Field `COUNT` reader - Count Value"],["COUNT_SPEC","COUNT32 Counter Value"],["COUNT_W","Field `COUNT` writer - Count Value"],["R","Register `COUNT` reader"],["W","Register `COUNT` writer"]]};

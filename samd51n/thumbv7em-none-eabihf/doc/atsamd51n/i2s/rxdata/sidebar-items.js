@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DATA_R","Field `DATA` reader - Sample Data"],["R","Register `RXDATA` reader"],["RXDATA_SPEC","Rx Data"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CFGA_SPEC","Config A register"],["R","Register `CFGA` reader"],["REFNUM_R","Field `REFNUM` reader - Number of Reference Clock Cycles"],["REFNUM_W","Field `REFNUM` writer - Number of Reference Clock Cycles"],["W","Register `CFGA` writer"]]};

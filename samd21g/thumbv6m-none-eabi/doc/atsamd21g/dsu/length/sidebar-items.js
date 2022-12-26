@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["LENGTH_R","Field `LENGTH` reader - Length"],["LENGTH_SPEC","Length"],["LENGTH_W","Field `LENGTH` writer - Length"],["R","Register `LENGTH` reader"],["W","Register `LENGTH` writer"]]};

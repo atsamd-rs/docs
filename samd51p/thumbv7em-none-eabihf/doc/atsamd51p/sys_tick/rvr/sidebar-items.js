@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `RVR` reader"],["RELOAD_R","Field `RELOAD` reader - Value to load into the SysTick Current Value Register when the counter reaches 0"],["RELOAD_W","Field `RELOAD` writer - Value to load into the SysTick Current Value Register when the counter reaches 0"],["RVR_SPEC","SysTick Reload Value Register"],["W","Register `RVR` writer"]]};

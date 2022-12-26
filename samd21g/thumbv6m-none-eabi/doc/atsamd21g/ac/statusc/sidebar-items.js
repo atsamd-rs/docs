@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["WSTATE0_A","Window 0 Current State"]],"struct":[["R","Register `STATUSC` reader"],["STATE0_R","Field `STATE0` reader - Comparator 0 Current State"],["STATE1_R","Field `STATE1` reader - Comparator 1 Current State"],["STATUSC_SPEC","Status C"],["WSTATE0_R","Field `WSTATE0` reader - Window 0 Current State"]]};

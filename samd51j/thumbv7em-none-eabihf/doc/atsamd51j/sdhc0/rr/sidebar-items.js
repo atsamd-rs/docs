@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CMDRESP_R","Field `CMDRESP` reader - Command Response"],["R","Register `RR[%s]` reader"],["RR_SPEC","Response"]]};

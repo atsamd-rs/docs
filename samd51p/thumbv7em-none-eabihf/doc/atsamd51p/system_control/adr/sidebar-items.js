@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADR_SPEC","Auxiliary Feature Register"],["R","Register `ADR` reader"]]};

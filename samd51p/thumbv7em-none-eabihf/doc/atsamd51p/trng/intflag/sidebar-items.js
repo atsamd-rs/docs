@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DATARDY_R","Field `DATARDY` reader - Data Ready Interrupt Flag"],["DATARDY_W","Field `DATARDY` writer - Data Ready Interrupt Flag"],["INTFLAG_SPEC","Interrupt Flag Status and Clear"],["R","Register `INTFLAG` reader"],["W","Register `INTFLAG` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["LAR_SPEC","ETM Lock Access Register"],["W","Register `LAR` writer"]]};

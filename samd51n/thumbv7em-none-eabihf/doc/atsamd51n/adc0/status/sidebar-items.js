@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADCBUSY_R","Field `ADCBUSY` reader - ADC Busy Status"],["R","Register `STATUS` reader"],["STATUS_SPEC","Status"],["WCC_R","Field `WCC` reader - Window Comparator Counter"]]};

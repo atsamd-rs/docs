@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ERROR_R","Field `ERROR` reader - Error"],["ERROR_W","Field `ERROR` writer - Error"],["INTFLAG_SPEC","Interrupt Flag Status and Clear"],["R","Register `INTFLAG` reader"],["READY_R","Field `READY` reader - NVM Ready"],["W","Register `INTFLAG` writer"]]};

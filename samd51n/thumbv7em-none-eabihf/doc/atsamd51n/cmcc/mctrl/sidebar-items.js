@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["MCTRL_SPEC","Cache Monitor Control Register"],["SWRST_W","Field `SWRST` writer - Cache Controller Software Reset"],["W","Register `MCTRL` writer"]]};

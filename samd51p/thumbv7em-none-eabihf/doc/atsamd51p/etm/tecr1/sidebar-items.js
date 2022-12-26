@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `TECR1` reader"],["TECR1_SPEC","ETM TraceEnable Control 1 Register"],["W","Register `TECR1` writer"]]};

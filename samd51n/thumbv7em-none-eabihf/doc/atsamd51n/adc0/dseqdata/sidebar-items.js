@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DATA_W","Field `DATA` writer - DMA Sequential Data"],["DSEQDATA_SPEC","DMA Sequencial Data"],["W","Register `DSEQDATA` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BIAS0_R","Field `BIAS0` reader - COMP0/1 Bias Scaling"],["BIAS0_W","Field `BIAS0` writer - COMP0/1 Bias Scaling"],["CALIB_SPEC","Calibration"],["R","Register `CALIB` reader"],["W","Register `CALIB` writer"]]};

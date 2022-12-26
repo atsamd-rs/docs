@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["BMAX_A","AHB Maximum Burst"]],"struct":[["ACR_SPEC","AHB Control"],["BMAX_R","Field `BMAX` reader - AHB Maximum Burst"],["BMAX_W","Field `BMAX` writer - AHB Maximum Burst"],["R","Register `ACR` reader"],["W","Register `ACR` writer"]]};

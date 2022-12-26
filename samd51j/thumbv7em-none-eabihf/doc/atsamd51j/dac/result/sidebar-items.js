@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `RESULT[%s]` reader"],["RESULT_R","Field `RESULT` reader - Filter Result"],["RESULT_SPEC","Filter Result"]]};

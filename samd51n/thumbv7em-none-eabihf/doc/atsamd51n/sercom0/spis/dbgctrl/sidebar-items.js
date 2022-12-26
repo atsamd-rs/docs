@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DBGCTRL_SPEC","SPIS Debug Control"],["DBGSTOP_R","Field `DBGSTOP` reader - Debug Mode"],["DBGSTOP_W","Field `DBGSTOP` writer - Debug Mode"],["R","Register `DBGCTRL` reader"],["W","Register `DBGCTRL` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CTRLA_SPEC","Control A"],["ENABLE_R","Field `ENABLE` reader - Enable DAC Controller"],["ENABLE_W","Field `ENABLE` writer - Enable DAC Controller"],["R","Register `CTRLA` reader"],["SWRST_R","Field `SWRST` reader - Software Reset"],["SWRST_W","Field `SWRST` writer - Software Reset"],["W","Register `CTRLA` writer"]]};

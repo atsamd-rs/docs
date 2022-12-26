@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["JEPIDCH_R","Field `JEPIDCH` reader - JEP-106 Identity Code High"],["JEPU_R","Field `JEPU` reader - JEP-106 Identity Code is used"],["PID2_SPEC","Peripheral Identification 2"],["R","Register `PID2` reader"],["REVISION_R","Field `REVISION` reader - Revision Number"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BUSY_R","Field `BUSY` reader - FREQM Status"],["BUSY_W","Field `BUSY` writer - FREQM Status"],["OVF_R","Field `OVF` reader - Sticky Count Value Overflow"],["OVF_W","Field `OVF` writer - Sticky Count Value Overflow"],["R","Register `STATUS` reader"],["STATUS_SPEC","Status Register"],["W","Register `STATUS` writer"]]};

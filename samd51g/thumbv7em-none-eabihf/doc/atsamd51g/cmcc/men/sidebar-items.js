@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["MENABLE_R","Field `MENABLE` reader - Cache Controller Monitor Enable"],["MENABLE_W","Field `MENABLE` writer - Cache Controller Monitor Enable"],["MEN_SPEC","Cache Monitor Enable Register"],["R","Register `MEN` reader"],["W","Register `MEN` writer"]]};

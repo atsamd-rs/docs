@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["EVENT_CNT_R","Field `EVENT_CNT` reader - Monitor Event Counter"],["MSR_SPEC","Cache Monitor Status Register"],["R","Register `MSR` reader"]]};

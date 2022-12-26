@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["EOC0_R","Field `EOC0` reader - DAC 0 End of Conversion"],["EOC1_R","Field `EOC1` reader - DAC 1 End of Conversion"],["R","Register `STATUS` reader"],["READY0_R","Field `READY0` reader - DAC 0 Startup Ready"],["READY1_R","Field `READY1` reader - DAC 1 Startup Ready"],["STATUS_SPEC","Status"]]};

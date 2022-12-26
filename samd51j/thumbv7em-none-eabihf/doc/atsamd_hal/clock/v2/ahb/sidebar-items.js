@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["DynAhbId","Value-level enum identifying a single AHB clock"]],"struct":[["Ahb","AHB clock controller"],["AhbClk","An enabled AHB clock"],["AhbClks","Set of all [`AhbClk`]s"],["AhbToken","Singleton token that can be exchanged for an [`AhbClk`]"]],"trait":[["AhbId","Type-level enum identifying one of the possible AHB clocks"]]};

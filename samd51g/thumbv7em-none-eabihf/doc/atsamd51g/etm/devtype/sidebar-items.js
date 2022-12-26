@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DEVTYPE_SPEC","ETM CoreSight Device Type Register"],["R","Register `DEVTYPE` reader"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["WINMODE_A","Window Monitor Mode"]],"struct":[["R","Register `WINCTRL` reader"],["W","Register `WINCTRL` writer"],["WINCTRL_SPEC","Window Monitor Control"],["WINMODE_R","Field `WINMODE` reader - Window Monitor Mode"],["WINMODE_W","Field `WINMODE` writer - Window Monitor Mode"]]};

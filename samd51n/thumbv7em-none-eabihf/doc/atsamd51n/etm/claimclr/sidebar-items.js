@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CLAIMCLR_SPEC","ETM Claim Tag Clear Register"],["R","Register `CLAIMCLR` reader"],["W","Register `CLAIMCLR` writer"]]};

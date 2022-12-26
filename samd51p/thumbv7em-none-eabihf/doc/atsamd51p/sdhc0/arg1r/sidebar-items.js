@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ARG1R_SPEC","Argument 1"],["ARG_R","Field `ARG` reader - Argument 1"],["ARG_W","Field `ARG` writer - Argument 1"],["R","Register `ARG1R` reader"],["W","Register `ARG1R` writer"]]};

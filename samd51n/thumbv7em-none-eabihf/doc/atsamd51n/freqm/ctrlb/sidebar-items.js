@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CTRLB_SPEC","Control B Register"],["START_W","Field `START` writer - Start Measurement"],["W","Register `CTRLB` writer"]]};

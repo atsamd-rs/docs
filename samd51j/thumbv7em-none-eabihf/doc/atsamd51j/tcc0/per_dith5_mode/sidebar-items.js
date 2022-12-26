@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DITHER_R","Field `DITHER` reader - Dithering Cycle Number"],["DITHER_W","Field `DITHER` writer - Dithering Cycle Number"],["PER_DITH5_MODE_SPEC","Period"],["PER_R","Field `PER` reader - Period Value"],["PER_W","Field `PER` writer - Period Value"],["R","Register `PER_DITH5_MODE` reader"],["W","Register `PER_DITH5_MODE` writer"]]};

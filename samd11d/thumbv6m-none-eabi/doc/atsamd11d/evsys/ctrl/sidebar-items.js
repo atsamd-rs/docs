@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CTRL_SPEC","Control"],["GCLKREQ_W","Field `GCLKREQ` writer - Generic Clock Requests"],["SWRST_W","Field `SWRST` writer - Software Reset"],["W","Register `CTRL` writer"]]};

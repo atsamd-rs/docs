@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CID0_SPEC","Component Identification 0"],["PREAMBLEB0_R","Field `PREAMBLEB0` reader - Preamble Byte 0"],["R","Register `CID0` reader"]]};

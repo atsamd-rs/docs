@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Digital Frequency Locked Loop"><meta name="keywords" content="rust, rustlang, rust-lang, dfll"><title>atsamd_hal::clock::v2::dfll - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../../normalize.css"><link rel="stylesheet" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../../ayu.css" disabled><link rel="stylesheet" href="../../../../dark.css" disabled><link rel="stylesheet" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module dfll</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Module <a href="../../../index.html">atsamd_hal</a>::<wbr><a href="../../index.html">clock</a>::<wbr><a href="../index.html">v2</a>::<wbr><a class="mod" href="#">dfll</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../../../src/atsamd_hal/thumbv7em/clock/v2/dfll.rs.html#1-1183">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="digital-frequency-locked-loop"><a href="#digital-frequency-locked-loop">Digital Frequency Locked Loop</a></h2>
+<p>The <code>dfll</code> module provides access to the 48 MHz digital frequency locked
+loop (DFLL) within the <code>OSCCTRL</code> peripheral.</p>
+<h3 id="operation-modes"><a href="#operation-modes">Operation modes</a></h3>
+<p>The DFLL can operate in both open-loop and closed-loop modes. In open-loop
+mode, it uses an internal oscillator to produce an unreferenced, 48 MHz
+output clock. While in closed-loop mode, the DFLL multiplies a low-frequency
+input clock to yield a 48 MHz output clock. The reference clock can be
+provided by a GCLK, through the DFLL peripheral channel clock, or it can be
+provided by the USB start-of-frame signal.</p>
+<p>The DFLL is represented by the type <a href="struct.Dfll.html" title="Dfll&lt;M&gt;"><code>Dfll&lt;M&gt;</code></a>, where <code>M</code> is one of three
+<a href="trait.Mode.html" title="Mode"><code>Mode</code></a> types. The default type is <a href="struct.OpenLoop.html" title="OpenLoop"><code>OpenLoop</code></a>, while the other two types,
+<a href="struct.FromPclk.html" title="FromPclk"><code>FromPclk</code></a> and <a href="struct.FromUsb.html" title="FromUsb"><code>FromUsb</code></a>, represent closed-loop <code>Mode</code>s with the
+corresponding <a href="trait.Reference.html" title="Reference"><code>Reference</code></a> clock.</p>
+<h3 id="the-dfll-at-power-on-reset"><a href="#the-dfll-at-power-on-reset">The DFLL at power-on reset</a></h3>
+<p>Because the DFLL can produce a 48 MHz clock from an internal oscillator, it
+is used as the system’s default master clock at power-on reset. While most
+clocks are disabled at reset and represented by items in the <a href="../struct.Tokens.html"><code>Tokens</code></a>
+struct, the <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a> is <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> at reset, so it is found in the
+<a href="../struct.Clocks.html"><code>Clocks</code></a> struct.</p>
+<p>At reset, the <a href="type.EnabledDfll.html" title="EnabledDfll"><code>EnabledDfll</code></a> is in <a href="struct.OpenLoop.html" title="OpenLoop"><code>OpenLoop</code></a> <a href="trait.Mode.html" title="Mode"><code>Mode</code></a> and has one
+consumer clock, so its complete type is <code>EnabledDfll&lt;U1&gt;</code>. The corresponding
+consumer is <a href="../gclk/type.Gclk0.html"><code>Gclk0</code></a>, which is represented as <code>EnabledGclk0&lt;DfllId, U1&gt;</code>.
+Here, the <a href="../gclk/type.EnabledGclk0.html"><code>EnabledGclk0</code></a> has its own consumer as well, which is the
+system’s master clock.</p>
+<h3 id="example"><a href="#example">Example</a></h3>
+<p>Configuring the <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a> proceeds according to the principles outlined in
+the <a href="../index.html"><code>clock</code> module documentation</a>. Suppose we start with the default clock
+tree after power-on reset.</p>
+<div class="example-wrap"><pre class="language-text"><code>DFLL (48 MHz; open-loop mode)
+└── GCLK0 (48 MHz)
+    └── Master clock (48 MHz)
+</code></pre></div>
+<p>We would like to transform it to a clock tree like this:</p>
+<div class="example-wrap"><pre class="language-text"><code>XOSC0 (24 MHz; external clock)
+└── GCLK0 (24 MHz)
+    ├── Master clock (24 MHz)
+    └── DFLL (48 MHz; closed-loop mode)
+</code></pre></div>
+<p>Let’s start by using <a href="../fn.clock_system_at_reset.html"><code>clock_system_at_reset</code></a> to access the HAL clocking
+structs. We’ll also need access to the GPIO <a href="../../../gpio/pin/struct.Pins.html"><code>Pins</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{clock_system_at_reset, dfll::Dfll, xosc::Xosc},
+    gpio::Pins,
+    pac::Peripherals,
+    time::U32Ext,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>pins = Pins::new(pac.PORT);
+<span class="kw">let </span>(buses, clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);</code></pre></div>
+<p>Next, we create a 24 MHz <a href="../xosc/struct.Xosc.html"><code>Xosc</code></a> clock from one of the <a href="../../../gpio/pin/struct.Pins.html"><code>Pins</code></a> and enable
+it.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>xosc0 = Xosc::from_clock(tokens.xosc0, pins.pa14, <span class="number">24</span>.mhz()).enable();</code></pre></div>
+<p>We can then swap <a href="../gclk/type.Gclk0.html"><code>Gclk0</code></a> from the <a href="type.EnabledDfll.html" title="EnabledDfll"><code>EnabledDfll</code></a> to the <a href="../xosc/type.EnabledXosc.html"><code>EnabledXosc</code></a>.
+This releases the <a href="type.EnabledDfll.html" title="EnabledDfll"><code>EnabledDfll</code></a> and <a href="../../../typelevel/trait.Decrement.html"><code>Decrement</code></a>s its consumer count,
+which allows us to disable it and retrieve the underlying <a href="struct.DfllToken.html" title="DfllToken"><code>DfllToken</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>(gclk0, dfll, xosc0) = clocks.gclk0.swap_sources(clocks.dfll, xosc0);
+<span class="kw">let </span>token_dfll = dfll.disable().free();</code></pre></div>
+<p>Next, we can enable the peripheral channel clock, or <a href="../pclk/struct.Pclk.html" title="Pclk"><code>Pclk</code></a>, for the
+<a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a>, sourcing it from <a href="../gclk/type.Gclk0.html"><code>Gclk0</code></a>. With the <code>Pclk</code>, we can then recreate
+the <code>Dfll</code> in closed-loop mode. Finally, we can adjust some of the
+closed-loop parameters before we enable it. The returned <a href="type.EnabledDfll.html" title="EnabledDfll"><code>EnabledDfll</code></a> can
+be used as a clock <a href="../trait.Source.html" title="Source"><code>Source</code></a> elsewhere in the clock tree.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>(pclk_dfll, gclk0) = Pclk::enable(tokens.pclks.dfll, gclk0);
+<span class="kw">let </span>dfll = Dfll::from_pclk(token_dfll, pclk_dfll)
+    .coarse_max_step(<span class="number">1</span>)
+    .fine_max_step(<span class="number">10</span>)
+    .quick_lock(<span class="bool-val">false</span>)
+    .enable();</code></pre></div>
+<p>The entire example is provided below.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{clock_system_at_reset, dfll::Dfll, pclk::Pclk, xosc::Xosc},
+    gpio::Pins,
+    pac::Peripherals,
+    time::U32Ext,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>pins = Pins::new(pac.PORT);
+<span class="kw">let </span>(buses, clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);
+<span class="kw">let </span>xosc0 = Xosc::from_clock(tokens.xosc0, pins.pa14, <span class="number">24</span>.mhz()).enable();
+<span class="kw">let </span>(gclk0, dfll, xosc0) = clocks.gclk0.swap_sources(clocks.dfll, xosc0);
+<span class="kw">let </span>token_dfll = dfll.disable().free();
+<span class="kw">let </span>(pclk_dfll, gclk0) = Pclk::enable(tokens.pclks.dfll, gclk0);
+<span class="kw">let </span>dfll = Dfll::from_pclk(token_dfll, pclk_dfll)
+    .coarse_max_step(<span class="number">1</span>)
+    .fine_max_step(<span class="number">10</span>)
+    .quick_lock(<span class="bool-val">false</span>)
+    .enable();</code></pre></div>
+<h2 id="reconfiguring-an-enableddfll"><a href="#reconfiguring-an-enableddfll">Reconfiguring an <code>EnabledDfll</code></a></h2>
+<p>In some cases, users may want to reconfigure the DFLL while it remains
+enabled. For instance, a user may want to place the DFLL in its closed-loop,
+USB recovery mode while in use by the system’s master clock. It would
+normally be impossible to do so with other clocks in the <code>clock</code> module,
+because changing the clock source would break an invariant of the clock
+tree. However, the DFLL is special, because its output frequency is always
+48 MHz. Moreover, by design, consumers of the DFLL aren’t affected by its
+configuration (see the discussion on <a href="../index.html#id-types"><code>Id</code> types</a>).</p>
+<p>For this reason, we define a special <a href="../struct.Enabled.html#method.into_mode"><code>into_mode</code></a> function on
+<a href="type.EnabledDfll.html" title="EnabledDfll"><code>EnabledDfll</code></a>. It will consume the <code>EnabledDfll</code> and transform it to use
+a different <a href="trait.Mode.html" title="Mode"><code>Mode</code></a>.</p>
+<p>While the <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a> constructors (i.e. <a href="struct.Dfll.html#method.open_loop"><code>open_loop</code></a>, <a href="struct.Dfll.html#method.from_pclk"><code>from_pclk</code></a>, and
+<a href="struct.Dfll.html#method.from_usb"><code>from_usb</code></a>) handle the <a href="trait.Mode.html" title="Mode"><code>Mode</code></a> type for you, <a href="../struct.Enabled.html#method.into_mode"><code>into_mode</code></a> is generic
+over the initial and final <code>Mode</code>, so it takes and returns the corresponding
+<code>Mode</code> types directly. Furthermore, <code>into_mode</code> also accepts a closure,
+allowing you to modify the <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a> before the new <code>Mode</code> is applied.</p>
+<p>Consider the following example. As above, we start with the clocks in their
+default configuration at power-on reset. Remember that the <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a> is used
+by the system’s master clock. At this point, we would like to reconfigure it
+to use an external 32 kHz clock on pin PA10. First, we construct a <a href="../gclk/struct.Gclk.html"><code>Gclk</code></a>
+from the corresponding <a href="../../../gpio/index.html"><code>gpio</code></a> <a href="../../../gpio/pin/struct.Pin.html"><code>Pin</code></a>. Then we enable the <a href="../pclk/struct.Pclk.html" title="Pclk"><code>Pclk</code></a> for the
+DFLL and construct an instance of <a href="struct.FromPclk.html" title="FromPclk"><code>FromPclk</code></a>. Finally, we call
+<code>into_mode</code>, which takes an instance of <a href="struct.FromPclk.html" title="FromPclk"><code>FromPclk</code></a> and returns an instance
+of <a href="struct.OpenLoop.html" title="OpenLoop"><code>OpenLoop</code></a>. Neither <a href="struct.OpenLoop.html" title="OpenLoop"><code>OpenLoop</code></a> nor <a href="struct.FromUsb.html" title="FromUsb"><code>FromUsb</code></a> need to store a
+corresponding resource, so they are both effectively equivalent to the <code>()</code>
+type. We can also change some of the DFLL control loop settings prior to the
+<a href="trait.Mode.html" title="Mode"><code>Mode</code></a> change using the closure argument to <code>into_mode</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{
+        clock_system_at_reset,
+        dfll::{Dfll, FromPclk},
+        gclk::Gclk,
+        pclk::Pclk,
+    },
+    gpio::Pins,
+    pac::Peripherals,
+    time::U32Ext,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>pins = Pins::new(pac.PORT);
+<span class="kw">let </span>(buses, <span class="kw-2">mut </span>clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);
+<span class="kw">let </span>gclk4 = Gclk::from_pin(tokens.gclks.gclk4, pins.pa10, <span class="number">32_768</span>.hz()).enable();
+<span class="kw">let </span>(pclk, gclk4) = Pclk::enable(tokens.pclks.dfll, gclk4);
+<span class="kw">let </span>from_pclk = FromPclk { pclk };
+<span class="kw">let </span>(dfll, open_loop) = clocks.dfll.into_mode(from_pclk, |dfll| {
+    dfll.set_coarse_max_step(<span class="number">1</span>);
+    dfll.set_fine_max_step(<span class="number">8</span>);
+    dfll.set_chill_cycle(<span class="bool-val">false</span>);
+    dfll.set_run_standby(<span class="bool-val">true</span>);
+});</code></pre></div>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Dfll.html" title="atsamd_hal::clock::v2::dfll::Dfll struct">Dfll</a></div><div class="item-right docblock-short">Digital frequency-locked loop used to generate a 48 MHz clock</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.DfllToken.html" title="atsamd_hal::clock::v2::dfll::DfllToken struct">DfllToken</a></div><div class="item-right docblock-short">Singleton token that can be exchanged for the <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.FromPclk.html" title="atsamd_hal::clock::v2::dfll::FromPclk struct">FromPclk</a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.FromUsb.html" title="atsamd_hal::clock::v2::dfll::FromUsb struct">FromUsb</a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OpenLoop.html" title="atsamd_hal::clock::v2::dfll::OpenLoop struct">OpenLoop</a></div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.DfllId.html" title="atsamd_hal::clock::v2::dfll::DfllId enum">DfllId</a></div><div class="item-right docblock-short"><a href="../index.html#id-types"><code>Id</code> type</a> representing the identity of the DFLL clock</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.DynMode.html" title="atsamd_hal::clock::v2::dfll::DynMode enum">DynMode</a></div><div class="item-right docblock-short">Value-level enum identifying the <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a> control loop mode</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.DynReference.html" title="atsamd_hal::clock::v2::dfll::DynReference enum">DynReference</a></div><div class="item-right docblock-short">Value-level enum identifying one of two possible reference clocks for the
+<a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a></div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Mode.html" title="atsamd_hal::clock::v2::dfll::Mode trait">Mode</a></div><div class="item-right docblock-short">Type-level enum identifying the <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a> control loop mode</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Reference.html" title="atsamd_hal::clock::v2::dfll::Reference trait">Reference</a></div><div class="item-right docblock-short">Type-level enum identifying one of two possible <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a> reference clocks</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.EnabledDfll.html" title="atsamd_hal::clock::v2::dfll::EnabledDfll type">EnabledDfll</a></div><div class="item-right docblock-short">An <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> <a href="struct.Dfll.html" title="Dfll"><code>Dfll</code></a></div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

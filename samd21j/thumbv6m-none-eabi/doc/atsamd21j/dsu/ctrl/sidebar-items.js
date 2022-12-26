@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CE_W","Field `CE` writer - Chip Erase"],["CRC_W","Field `CRC` writer - 32-bit Cyclic Redundancy Check"],["CTRL_SPEC","Control"],["MBIST_W","Field `MBIST` writer - Memory Built-In Self-Test"],["SWRST_W","Field `SWRST` writer - Software Reset"],["W","Register `CTRL` writer"]]};

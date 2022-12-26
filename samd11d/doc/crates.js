@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["modular_bitfield_impl","paste","proc_macro2","quote","seq_macro","syn","unicode_ident"];

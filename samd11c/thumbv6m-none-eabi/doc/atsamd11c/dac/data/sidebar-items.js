@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DATA_R","Field `DATA` reader - Data value to be converted"],["DATA_SPEC","Data"],["DATA_W","Field `DATA` writer - Data value to be converted"],["R","Register `DATA` reader"],["W","Register `DATA` writer"]]};

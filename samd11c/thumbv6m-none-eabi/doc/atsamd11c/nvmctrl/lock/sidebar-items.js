@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["LOCK_R","Field `LOCK` reader - Region Lock Bits"],["LOCK_SPEC","Lock Section"],["R","Register `LOCK` reader"]]};

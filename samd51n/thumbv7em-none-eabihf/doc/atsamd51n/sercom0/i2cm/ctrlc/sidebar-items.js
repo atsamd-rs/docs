@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["DATA32B_A","Data 32 Bit"]],"struct":[["CTRLC_SPEC","I2CM Control C"],["DATA32B_R","Field `DATA32B` reader - Data 32 Bit"],["DATA32B_W","Field `DATA32B` writer - Data 32 Bit"],["R","Register `CTRLC` reader"],["W","Register `CTRLC` writer"]]};

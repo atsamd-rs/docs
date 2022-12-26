@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["DIV_A","Low-Power Clock Division Factor"]],"struct":[["CPUDIV_SPEC","CPU Clock Division"],["DIV_R","Field `DIV` reader - Low-Power Clock Division Factor"],["DIV_W","Field `DIV` writer - Low-Power Clock Division Factor"],["R","Register `CPUDIV` reader"],["W","Register `CPUDIV` writer"]]};

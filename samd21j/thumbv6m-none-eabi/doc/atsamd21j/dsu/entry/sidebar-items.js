@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADDOFF_R","Field `ADDOFF` reader - Address Offset"],["ENTRY_SPEC","CoreSight ROM Table Entry 0"],["EPRES_R","Field `EPRES` reader - Entry Present"],["FMT_R","Field `FMT` reader - Format"],["R","Register `ENTRY` reader"]]};

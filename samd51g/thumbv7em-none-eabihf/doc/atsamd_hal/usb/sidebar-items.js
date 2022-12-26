@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["UsbBus",""]],"type":[["DmPad","Default USB D- pad"],["DpPad","Default USB D+ pad"],["SofPad","Default SOF pad"]]};

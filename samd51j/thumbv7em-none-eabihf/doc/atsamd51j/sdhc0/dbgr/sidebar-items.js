@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["NIDBG_A","Non-intrusive debug enable"]],"struct":[["DBGR_SPEC","Debug"],["NIDBG_R","Field `NIDBG` reader - Non-intrusive debug enable"],["NIDBG_W","Field `NIDBG` writer - Non-intrusive debug enable"],["R","Register `DBGR` reader"],["W","Register `DBGR` writer"]]};

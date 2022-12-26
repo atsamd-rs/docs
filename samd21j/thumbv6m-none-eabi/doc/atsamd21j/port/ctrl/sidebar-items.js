@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CTRL_SPEC","Control"],["SAMPLING_W","Field `SAMPLING` writer - Input Sampling Mode"],["W","Register `CTRL%s` writer"]]};

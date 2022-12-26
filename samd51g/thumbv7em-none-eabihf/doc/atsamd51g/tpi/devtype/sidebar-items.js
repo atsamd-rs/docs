@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DEVTYPE_SPEC","TPIU_DEVTYPE"],["MAJORTYPE_R","Field `MajorType` reader - "],["R","Register `DEVTYPE` reader"],["SUBTYPE_R","Field `SubType` reader - "]]};

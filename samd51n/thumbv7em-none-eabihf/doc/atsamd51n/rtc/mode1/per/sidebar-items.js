@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PER_R","Field `PER` reader - Counter Period"],["PER_SPEC","MODE1 Counter Period"],["PER_W","Field `PER` writer - Counter Period"],["R","Register `PER` reader"],["W","Register `PER` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DIRTGL_R","Field `DIRTGL` reader - Port Data Direction Toggle"],["DIRTGL_SPEC","Data Direction Toggle"],["DIRTGL_W","Field `DIRTGL` writer - Port Data Direction Toggle"],["R","Register `DIRTGL` reader"],["W","Register `DIRTGL` writer"]]};

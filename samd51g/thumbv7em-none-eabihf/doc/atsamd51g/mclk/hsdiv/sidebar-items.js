@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["DIV_A","CPU Clock Division Factor"]],"struct":[["DIV_R","Field `DIV` reader - CPU Clock Division Factor"],["HSDIV_SPEC","HS Clock Division"],["R","Register `HSDIV` reader"]]};

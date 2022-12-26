@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CSSTATUS_R","Field `CSSTATUS` reader - Chip Select"],["ENABLE_R","Field `ENABLE` reader - Enable"],["R","Register `STATUS` reader"],["STATUS_SPEC","Status Register"]]};

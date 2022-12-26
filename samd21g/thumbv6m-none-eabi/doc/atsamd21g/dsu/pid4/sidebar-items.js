@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["FKBC_R","Field `FKBC` reader - 4KB Count"],["JEPCC_R","Field `JEPCC` reader - JEP-106 Continuation Code"],["PID4_SPEC","Peripheral Identification 4"],["R","Register `PID4` reader"]]};

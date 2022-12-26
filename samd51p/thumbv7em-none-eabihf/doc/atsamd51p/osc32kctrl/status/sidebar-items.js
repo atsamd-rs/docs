@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `STATUS` reader"],["STATUS_SPEC","Power and Clocks Status"],["XOSC32KFAIL_R","Field `XOSC32KFAIL` reader - XOSC32K Clock Failure Detector"],["XOSC32KRDY_R","Field `XOSC32KRDY` reader - XOSC32K Ready"],["XOSC32KSW_R","Field `XOSC32KSW` reader - XOSC32K Clock switch"]]};

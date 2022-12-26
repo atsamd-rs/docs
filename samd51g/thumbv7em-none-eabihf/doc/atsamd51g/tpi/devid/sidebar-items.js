@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ASYNCLKIN_R","Field `AsynClkIn` reader - "],["DEVID_SPEC","TPIU_DEVID"],["MANCVALID_R","Field `MANCVALID` reader - "],["MINBUFSZ_R","Field `MinBufSz` reader - "],["NRTRACEINPUT_R","Field `NrTraceInput` reader - "],["NRZVALID_R","Field `NRZVALID` reader - "],["PTINVALID_R","Field `PTINVALID` reader - "],["R","Register `DEVID` reader"]]};

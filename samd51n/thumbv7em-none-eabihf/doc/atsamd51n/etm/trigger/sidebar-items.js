@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `TRIGGER` reader"],["TRIGGER_SPEC","ETM Trigger Event Register"],["W","Register `TRIGGER` writer"]]};

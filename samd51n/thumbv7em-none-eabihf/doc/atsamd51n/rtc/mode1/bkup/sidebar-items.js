@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BKUP_R","Field `BKUP` reader - Backup"],["BKUP_SPEC","Backup"],["BKUP_W","Field `BKUP` writer - Backup"],["R","Register `BKUP[%s]` reader"],["W","Register `BKUP[%s]` writer"]]};

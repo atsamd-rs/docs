@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `TRIGGER` reader"],["TRIGGER_R","Field `TRIGGER` reader - "],["TRIGGER_SPEC","TRIGGER"]]};

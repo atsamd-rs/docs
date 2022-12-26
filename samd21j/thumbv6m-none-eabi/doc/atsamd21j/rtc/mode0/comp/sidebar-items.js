@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["COMP_R","Field `COMP` reader - Compare Value"],["COMP_SPEC","MODE0 Compare n Value"],["COMP_W","Field `COMP` writer - Compare Value"],["R","Register `COMP%s` reader"],["W","Register `COMP%s` writer"]]};

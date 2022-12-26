@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DATA_SPEC","DAC n Data"],["DATA_W","Field `DATA` writer - DAC0 Data"],["W","Register `DATA[%s]` writer"]]};

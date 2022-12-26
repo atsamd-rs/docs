@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Advanced peripheral bus clocks"><meta name="keywords" content="rust, rustlang, rust-lang, apb"><title>atsamd_hal::clock::v2::apb - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../../normalize.css"><link rel="stylesheet" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../../ayu.css" disabled><link rel="stylesheet" href="../../../../dark.css" disabled><link rel="stylesheet" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module apb</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Module <a href="../../../index.html">atsamd_hal</a>::<wbr><a href="../../index.html">clock</a>::<wbr><a href="../index.html">v2</a>::<wbr><a class="mod" href="#">apb</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../../../src/atsamd_hal/thumbv7em/clock/v2/apb.rs.html#1-669">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="advanced-peripheral-bus-clocks"><a href="#advanced-peripheral-bus-clocks">Advanced peripheral bus clocks</a></h2><h3 id="overview"><a href="#overview">Overview</a></h3>
+<p>APB clocks facilitate communication between the processor core and
+peripherals on the APB bus. To communicate with a peripheral, the
+corresponding APB clock must be enabled, which is done by setting a bit in
+one of the four <code>APBXMASK</code> registers.</p>
+<p>In this module, <em>enabled</em> APB clocks are represented by the <a href="struct.ApbClk.html" title="ApbClk&lt;A&gt;"><code>ApbClk&lt;A&gt;</code></a>
+struct, where the type parameter <code>A</code> is a type that implements <a href="trait.ApbId.html" title="ApbId"><code>ApbId</code></a> and
+corresponds to one of the bits in an <code>APBXMASK</code> register.</p>
+<p>While most other clocks in the <code>clock</code> module are configured through
+mutually exclusive registers, the <a href="struct.ApbClk.html" title="ApbClk"><code>ApbClk</code></a>s share the four <code>APBXMASK</code>
+registers. This presents a challenge for memory safety. Specifically, if we
+allowed unrestricted access to the corresponding <code>APBXMASK</code> register through
+each <code>ApbClk</code>, we could create data races.</p>
+<p>To solve this problem, we restrict access to the <code>APBXMASK</code> registers using
+the <a href="struct.Apb.html" title="Apb"><code>Apb</code></a> type. <code>Apb</code> was created to act as a gateway to the <code>APBXMASK</code>
+registers, allowing us to use <code>&amp;mut Apb</code> as compile-time proof of exclusive
+access to them.</p>
+<h3 id="example"><a href="#example">Example</a></h3>
+<p>Enabling and disabling the <a href="struct.ApbClk.html" title="ApbClk"><code>ApbClk</code></a>s proceeds according to the principles
+outlined in the <a href="../index.html"><code>clock</code> module documentation</a>. It is best shown with an
+example.</p>
+<p>Let’s start by using <a href="../fn.clock_system_at_reset.html"><code>clock_system_at_reset</code></a> to access the HAL clocking
+structs.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{
+        clock_system_at_reset,
+    },
+    pac::Peripherals,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>(<span class="kw-2">mut </span>buses, clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);</code></pre></div>
+<p>Some APB clocks are enabled at power-on reset. We can find these in the
+<a href="../struct.Clocks.html"><code>Clocks</code></a> struct.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>apb_port = clocks.apbs.port;</code></pre></div>
+<p>Other APB clocks are disabled at power-on reset. To enable these, we must
+have access to the <a href="struct.Apb.html" title="Apb"><code>Apb</code></a> bus type, which is found in the <a href="../struct.Buses.html"><code>Buses</code></a> struct.
+As described above, <a href="struct.Apb.html" title="Apb"><code>Apb</code></a> mediates access to the shared <code>APBXMASK</code>
+registers. We call <a href="struct.Apb.html#method.enable" title="Apb::enable"><code>Apb::enable</code></a> to convert an <a href="struct.ApbToken.html" title="ApbToken"><code>ApbToken</code></a> into the
+corresponding <a href="struct.ApbClk.html" title="ApbClk"><code>ApbClk</code></a>. The existence of each <code>ApbClk</code> type represents
+proof that the corresponding APB clock has been enabled.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>apb_sercom0 = buses.apb.enable(tokens.apbs.sercom0);</code></pre></div>
+<p>The complete example is shown below.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{
+        clock_system_at_reset,
+    },
+    pac::Peripherals,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>(<span class="kw-2">mut </span>buses, clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);
+<span class="kw">let </span>apb_port = clocks.apbs.port;
+<span class="kw">let </span>apb_sercom0 = buses.apb.enable(tokens.apbs.sercom0);</code></pre></div>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Apb.html" title="atsamd_hal::clock::v2::apb::Apb struct">Apb</a></div><div class="item-right docblock-short">APB clock controller</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ApbClk.html" title="atsamd_hal::clock::v2::apb::ApbClk struct">ApbClk</a></div><div class="item-right docblock-short">An enabled APB clock</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ApbClks.html" title="atsamd_hal::clock::v2::apb::ApbClks struct">ApbClks</a></div><div class="item-right docblock-short">Set of <a href="struct.ApbClk.html" title="ApbClk"><code>ApbClk</code></a>s for APB clocks that are enabled at power-on reset</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ApbToken.html" title="atsamd_hal::clock::v2::apb::ApbToken struct">ApbToken</a></div><div class="item-right docblock-short">Singleton token that can be exchanged for an <a href="struct.ApbClk.html" title="ApbClk"><code>ApbClk</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ApbTokens.html" title="atsamd_hal::clock::v2::apb::ApbTokens struct">ApbTokens</a></div><div class="item-right docblock-short">Set of <a href="struct.ApbToken.html" title="ApbToken"><code>ApbToken</code></a>s for APB clocks that are disabled at power-on reset</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.DynApbId.html" title="atsamd_hal::clock::v2::apb::DynApbId enum">DynApbId</a></div><div class="item-right docblock-short">Value-level enum identifying a single APB clock</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ApbId.html" title="atsamd_hal::clock::v2::apb::ApbId trait">ApbId</a></div><div class="item-right docblock-short">Type-level enum identifying one of the possible APB clocks</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CEN_W","Field `CEN` writer - Cache Controller Enable"],["CTRL_SPEC","Cache Control Register"],["W","Register `CTRL` writer"]]};

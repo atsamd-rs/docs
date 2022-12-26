@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["MMFR_SPEC","Memory Model Feature Register"],["R","Register `MMFR[%s]` reader"]]};

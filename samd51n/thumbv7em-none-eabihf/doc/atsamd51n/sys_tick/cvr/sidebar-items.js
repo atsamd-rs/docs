@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CURRENT_R","Field `CURRENT` reader - Current value at the time the register is accessed"],["CURRENT_W","Field `CURRENT` writer - Current value at the time the register is accessed"],["CVR_SPEC","SysTick Current Value Register"],["R","Register `CVR` reader"],["W","Register `CVR` writer"]]};

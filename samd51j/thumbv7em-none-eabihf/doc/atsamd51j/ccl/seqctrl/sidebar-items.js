@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["SEQSEL_A","Sequential Selection"]],"struct":[["R","Register `SEQCTRL[%s]` reader"],["SEQCTRL_SPEC","SEQ Control x"],["SEQSEL_R","Field `SEQSEL` reader - Sequential Selection"],["SEQSEL_W","Field `SEQSEL` writer - Sequential Selection"],["W","Register `SEQCTRL[%s]` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `SAMPCTRL` reader"],["SAMPCTRL_SPEC","Sampling Time Control"],["SAMPLEN_R","Field `SAMPLEN` reader - Sampling Time Length"],["SAMPLEN_W","Field `SAMPLEN` writer - Sampling Time Length"],["W","Register `SAMPCTRL` writer"]]};

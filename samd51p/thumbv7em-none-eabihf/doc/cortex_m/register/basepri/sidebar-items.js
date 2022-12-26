@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["read","Reads the CPU register"],["write","Writes to the CPU register"]]};

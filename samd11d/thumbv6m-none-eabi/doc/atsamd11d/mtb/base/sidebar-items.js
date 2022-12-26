@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BASE_SPEC","MTB Base"],["R","Register `BASE` reader"]]};

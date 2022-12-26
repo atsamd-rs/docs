@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["APBBDIV_A","APBB Prescaler Selection"]],"struct":[["APBBDIV_R","Field `APBBDIV` reader - APBB Prescaler Selection"],["APBBDIV_W","Field `APBBDIV` writer - APBB Prescaler Selection"],["APBBSEL_SPEC","APBB Clock Select"],["R","Register `APBBSEL` reader"],["W","Register `APBBSEL` writer"]]};

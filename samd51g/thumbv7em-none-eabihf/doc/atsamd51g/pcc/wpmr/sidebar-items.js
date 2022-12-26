@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `WPMR` reader"],["W","Register `WPMR` writer"],["WPEN_R","Field `WPEN` reader - Write Protection Enable"],["WPEN_W","Field `WPEN` writer - Write Protection Enable"],["WPKEY_R","Field `WPKEY` reader - Write Protection Key"],["WPKEY_W","Field `WPKEY` writer - Write Protection Key"],["WPMR_SPEC","Write Protection Mode Register"]]};

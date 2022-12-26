@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["EWOFFSET_A","Early Warning Interrupt Time Offset"]],"struct":[["EWCTRL_SPEC","Early Warning Interrupt Control"],["EWOFFSET_R","Field `EWOFFSET` reader - Early Warning Interrupt Time Offset"],["EWOFFSET_W","Field `EWOFFSET` writer - Early Warning Interrupt Time Offset"],["R","Register `EWCTRL` reader"],["W","Register `EWCTRL` writer"]]};

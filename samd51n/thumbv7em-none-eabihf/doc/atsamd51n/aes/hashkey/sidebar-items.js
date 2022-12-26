@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["HASHKEY_SPEC","Hash key n"],["R","Register `HASHKEY[%s]` reader"],["W","Register `HASHKEY[%s]` writer"]]};

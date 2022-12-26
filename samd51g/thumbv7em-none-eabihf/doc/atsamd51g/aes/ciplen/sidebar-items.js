@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CIPLEN_SPEC","Cipher Length"],["R","Register `CIPLEN` reader"],["W","Register `CIPLEN` writer"]]};

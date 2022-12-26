@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["bkupexit","Backup Exit Source"],["rcause","Reset Cause"]],"struct":[["RegisterBlock","Register block"]],"type":[["BKUPEXIT","BKUPEXIT register accessor: an alias for `Reg<BKUPEXIT_SPEC>`"],["RCAUSE","RCAUSE register accessor: an alias for `Reg<RCAUSE_SPEC>`"]]};

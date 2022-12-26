@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["EXTCTRL_SPEC","External Reset Controller"],["R","Register `EXTCTRL` reader"],["SETDIS_R","Field `SETDIS` reader - External Reset Disable"],["SETDIS_W","Field `SETDIS` writer - External Reset Disable"],["W","Register `EXTCTRL` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["NMIFLAG_SPEC","Non-Maskable Interrupt Flag Status and Clear"],["NMI_R","Field `NMI` reader - Non-Maskable Interrupt"],["NMI_W","Field `NMI` writer - Non-Maskable Interrupt"],["R","Register `NMIFLAG` reader"],["W","Register `NMIFLAG` writer"]]};

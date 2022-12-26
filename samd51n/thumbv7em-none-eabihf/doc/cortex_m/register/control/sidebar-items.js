@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["Fpca","Whether context floating-point is currently active"],["Npriv","Thread mode privilege level"],["Spsel","Currently active stack pointer"]],"fn":[["read","Reads the CPU register"],["write","Writes to the CPU register."]],"struct":[["Control","Control register"]]};

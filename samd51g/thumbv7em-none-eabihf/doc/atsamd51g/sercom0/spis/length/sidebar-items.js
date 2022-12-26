@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["LENEN_R","Field `LENEN` reader - Data Length Enable"],["LENEN_W","Field `LENEN` writer - Data Length Enable"],["LENGTH_SPEC","SPIS Length"],["LEN_R","Field `LEN` reader - Data Length"],["LEN_W","Field `LEN` writer - Data Length"],["R","Register `LENGTH` reader"],["W","Register `LENGTH` writer"]]};

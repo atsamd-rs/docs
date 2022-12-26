@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["FNCERR_R","Field `FNCERR` reader - Frame Number CRC Error"],["FNUM_R","Field `FNUM` reader - Frame Number"],["FNUM_SPEC","DEVICE Device Frame Number"],["MFNUM_R","Field `MFNUM` reader - Micro Frame Number"],["R","Register `FNUM` reader"]]};

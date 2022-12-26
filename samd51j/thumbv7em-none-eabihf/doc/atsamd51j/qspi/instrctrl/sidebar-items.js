@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["INSTRCTRL_SPEC","Instruction Code"],["INSTR_R","Field `INSTR` reader - Instruction Code"],["INSTR_W","Field `INSTR` writer - Instruction Code"],["OPTCODE_R","Field `OPTCODE` reader - Option Code"],["OPTCODE_W","Field `OPTCODE` writer - Option Code"],["R","Register `INSTRCTRL` reader"],["W","Register `INSTRCTRL` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BUFOVF_R","Field `BUFOVF` reader - Buffer Overflow"],["BUFOVF_W","Field `BUFOVF` writer - Buffer Overflow"],["LENERR_R","Field `LENERR` reader - Transaction Length Error"],["LENERR_W","Field `LENERR` writer - Transaction Length Error"],["R","Register `STATUS` reader"],["STATUS_SPEC","SPIM Status"],["W","Register `STATUS` writer"]]};

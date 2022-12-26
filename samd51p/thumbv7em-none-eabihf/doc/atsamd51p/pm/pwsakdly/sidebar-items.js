@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DLYVAL_R","Field `DLYVAL` reader - Delay Value"],["DLYVAL_W","Field `DLYVAL` writer - Delay Value"],["IGNACK_R","Field `IGNACK` reader - Ignore Acknowledge"],["IGNACK_W","Field `IGNACK` writer - Ignore Acknowledge"],["PWSAKDLY_SPEC","Power Switch Acknowledge Delay"],["R","Register `PWSAKDLY` reader"],["W","Register `PWSAKDLY` writer"]]};

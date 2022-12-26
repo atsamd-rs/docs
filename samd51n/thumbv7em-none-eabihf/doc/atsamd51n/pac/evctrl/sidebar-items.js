@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ERREO_R","Field `ERREO` reader - Peripheral acess error event output"],["ERREO_W","Field `ERREO` writer - Peripheral acess error event output"],["EVCTRL_SPEC","Event control"],["R","Register `EVCTRL` reader"],["W","Register `EVCTRL` writer"]]};

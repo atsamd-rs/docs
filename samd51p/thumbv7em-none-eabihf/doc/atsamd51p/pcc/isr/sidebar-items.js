@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DRDY_R","Field `DRDY` reader - Data Ready Interrupt Status"],["ISR_SPEC","Interrupt Status Register"],["OVRE_R","Field `OVRE` reader - Overrun Error Interrupt Status"],["R","Register `ISR` reader"]]};

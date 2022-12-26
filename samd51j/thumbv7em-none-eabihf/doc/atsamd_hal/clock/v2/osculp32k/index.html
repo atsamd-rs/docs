@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Internal, ultra low power, 32 kHz oscillator"><meta name="keywords" content="rust, rustlang, rust-lang, osculp32k"><title>atsamd_hal::clock::v2::osculp32k - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../../normalize.css"><link rel="stylesheet" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../../ayu.css" disabled><link rel="stylesheet" href="../../../../dark.css" disabled><link rel="stylesheet" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module osculp32k</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#types">Type Definitions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Module <a href="../../../index.html">atsamd_hal</a>::<wbr><a href="../../index.html">clock</a>::<wbr><a href="../index.html">v2</a>::<wbr><a class="mod" href="#">osculp32k</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../../../src/atsamd_hal/thumbv7em/clock/v2/osculp32k.rs.html#1-490">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="internal-ultra-low-power-32-khz-oscillator"><a href="#internal-ultra-low-power-32-khz-oscillator">Internal, ultra low power, 32 kHz oscillator</a></h2><h3 id="overview"><a href="#overview">Overview</a></h3>
+<p>The <code>osculp32k</code> module provides access to the 32 kHz ultra low power
+internal oscillator (OSCULP32K) within the <code>OSC32KCTRL</code> peripheral.</p>
+<p>The <code>OSCULP32K</code> clock is unlike most other clocks. First, it is an internal
+clock that is always enabled and can’t be disabled. And second, it has two
+separate outputs, one at 32 kHz and another divided down to 1 kHz. Moreover,
+none, either or both of these outputs can be enabled at any given time.</p>
+<p>We can see, then, that the <code>OSCULP32K</code> peripheral forms its own, miniature
+clock tree. There is a 1:N producer clock that is always enabled; and there
+are two possible consumer clocks that can be independently and optionally
+enabled. In fact, this structure is illustrated by the <code>OSCULP32K</code>
+register, which has no regular <code>ENABLE</code> bit and two different enable bits
+for clock output, <code>EN32K</code> and <code>EN1K</code>.</p>
+<p>To represent this structure in the type system, we divide the <code>OSCULP32K</code>
+peripheral into these three clocks. Users get access to the 1:N
+<a href="type.EnabledOscUlp32kBase.html" title="EnabledOscUlp32kBase"><code>EnabledOscUlp32kBase</code></a> clock <a href="../trait.Source.html" title="Source"><code>Source</code></a> at power-on reset, which can be
+consumed by both the <a href="struct.OscUlp32k.html" title="OscUlp32k"><code>OscUlp32k</code></a> and <a href="struct.OscUlp1k.html" title="OscUlp1k"><code>OscUlp1k</code></a> clocks. Note that
+<code>OscUlp32k</code> and <code>OscUlp1k</code> are themselves 1:N clocks as well.</p>
+<h3 id="write-lock"><a href="#write-lock">Write lock</a></h3>
+<p>Rhe <code>OSCULP32K</code> register has a dedicated write lock bit that will freeze its
+configuration until the next power-on reset. We implement this by simply
+dropping the <a href="struct.OscUlp32kBase.html" title="OscUlp32kBase"><code>OscUlp32kBase</code></a> clock, which prevents any further access to
+the <code>OSCULP32K</code> register.</p>
+<h3 id="example"><a href="#example">Example</a></h3>
+<p>Creating and configuring the OSCULP32K clocks proceeds according to the
+principles outlined in the <a href="../index.html"><code>clock</code> module documentation</a>. It is best shown
+with an example.</p>
+<p>Let’s start by using <a href="../fn.clock_system_at_reset.html"><code>clock_system_at_reset</code></a> to access the HAL clocking
+structs.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{
+        clock_system_at_reset,
+        osculp32k::{OscUlp1k, OscUlp32k},
+    },
+    pac::Peripherals,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>(buses, clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);</code></pre></div>
+<p>Next, we can extract the <a href="type.EnabledOscUlp32kBase.html" title="EnabledOscUlp32kBase"><code>EnabledOscUlp32kBase</code></a> clock from the <a href="../struct.Clocks.html"><code>Clocks</code></a>
+struct and use it to enable the <a href="struct.OscUlp1k.html" title="OscUlp1k"><code>OscUlp1k</code></a> and <a href="struct.OscUlp32k.html" title="OscUlp32k"><code>OscUlp32k</code></a> clocks.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>base = clocks.osculp32k_base;
+<span class="kw">let </span>(osculp1k, base) = OscUlp1k::enable(tokens.osculp32k.osculp1k, base);
+<span class="kw">let </span>(osculp32k, base) = OscUlp32k::enable(tokens.osculp32k.osculp32k, base);</code></pre></div>
+<p>We can then override the calibration value read from flash at start up.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>base.set_calibration(<span class="number">128</span>);</code></pre></div>
+<p>And finally, we can set the write lock bit to freeze the configuation until
+the next power-on reset. Doing so also drops the <code>EnabledOscUlp32kBase</code>
+clock.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>base.write_lock();</code></pre></div>
+<p>The complete example is shown below.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{
+        clock_system_at_reset,
+        osculp32k::{OscUlp1k, OscUlp32k},
+    },
+    pac::Peripherals,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>(buses, clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);
+<span class="kw">let </span>base = clocks.osculp32k_base;
+<span class="kw">let </span>(osculp1k, base) = OscUlp1k::enable(tokens.osculp32k.osculp1k, base);
+<span class="kw">let </span>(osculp32k, <span class="kw-2">mut </span>base) = OscUlp32k::enable(tokens.osculp32k.osculp32k, base);
+base.set_calibration(<span class="number">128</span>);
+base.write_lock();</code></pre></div>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OscUlp1k.html" title="atsamd_hal::clock::v2::osculp32k::OscUlp1k struct">OscUlp1k</a></div><div class="item-right docblock-short">Clock representing the 1 kHz output of the <a href="struct.OscUlp32kBase.html" title="OscUlp32kBase"><code>OscUlp32kBase</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OscUlp1kToken.html" title="atsamd_hal::clock::v2::osculp32k::OscUlp1kToken struct">OscUlp1kToken</a></div><div class="item-right docblock-short">Singleton token that can be exchanged for <a href="struct.OscUlp1k.html" title="OscUlp1k"><code>OscUlp1k</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OscUlp32k.html" title="atsamd_hal::clock::v2::osculp32k::OscUlp32k struct">OscUlp32k</a></div><div class="item-right docblock-short">Clock representing the 32 kHz output of the <a href="struct.OscUlp32kBase.html" title="OscUlp32kBase"><code>OscUlp32kBase</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OscUlp32kBase.html" title="atsamd_hal::clock::v2::osculp32k::OscUlp32kBase struct">OscUlp32kBase</a></div><div class="item-right docblock-short">OSC3ULP2K base clock, which feeds the <a href="struct.OscUlp1k.html" title="OscUlp1k"><code>OscUlp1k</code></a> and <a href="struct.OscUlp32k.html" title="OscUlp32k"><code>OscUlp32k</code></a> clocks</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OscUlp32kToken.html" title="atsamd_hal::clock::v2::osculp32k::OscUlp32kToken struct">OscUlp32kToken</a></div><div class="item-right docblock-short">Singleton token that can be exchanged for <a href="struct.OscUlp32k.html" title="OscUlp32k"><code>OscUlp32k</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OscUlp32kTokens.html" title="atsamd_hal::clock::v2::osculp32k::OscUlp32kTokens struct">OscUlp32kTokens</a></div><div class="item-right docblock-short">Set of tokens representing the disabled OSCULP32K clocks power-on reset</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.OscUlp1kId.html" title="atsamd_hal::clock::v2::osculp32k::OscUlp1kId enum">OscUlp1kId</a></div><div class="item-right docblock-short">Type representing the identity of the <a href="struct.OscUlp1k.html" title="OscUlp1k"><code>OscUlp1k</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.OscUlp32kId.html" title="atsamd_hal::clock::v2::osculp32k::OscUlp32kId enum">OscUlp32kId</a></div><div class="item-right docblock-short">Type representing the identity of the <a href="struct.OscUlp32k.html" title="OscUlp32k"><code>OscUlp32k</code></a> clock</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.EnabledOscUlp1k.html" title="atsamd_hal::clock::v2::osculp32k::EnabledOscUlp1k type">EnabledOscUlp1k</a></div><div class="item-right docblock-short">The <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> <a href="struct.OscUlp1k.html" title="OscUlp1k"><code>OscUlp1k</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.EnabledOscUlp32k.html" title="atsamd_hal::clock::v2::osculp32k::EnabledOscUlp32k type">EnabledOscUlp32k</a></div><div class="item-right docblock-short">The <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> <a href="struct.OscUlp32k.html" title="OscUlp32k"><code>OscUlp32k</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.EnabledOscUlp32kBase.html" title="atsamd_hal::clock::v2::osculp32k::EnabledOscUlp32kBase type">EnabledOscUlp32kBase</a></div><div class="item-right docblock-short">The <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> <a href="struct.OscUlp32kBase.html" title="OscUlp32kBase"><code>OscUlp32kBase</code></a> clock</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

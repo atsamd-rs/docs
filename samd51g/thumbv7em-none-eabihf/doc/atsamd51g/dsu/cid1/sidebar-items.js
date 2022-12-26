@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CCLASS_R","Field `CCLASS` reader - Component Class"],["CID1_SPEC","Component Identification 1"],["PREAMBLE_R","Field `PREAMBLE` reader - Preamble"],["R","Register `CID1` reader"]]};

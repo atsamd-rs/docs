@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PFR_SPEC","Processor Feature Register"],["R","Register `PFR[%s]` reader"],["W","Register `PFR[%s]` writer"]]};

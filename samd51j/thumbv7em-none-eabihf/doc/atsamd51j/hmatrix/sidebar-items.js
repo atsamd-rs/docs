@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["prs","Register block PRS[%s]"]],"struct":[["PRS","Register block"],["RegisterBlock","Register block"]]};

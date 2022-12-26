@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BINTERVAL_SPEC","HOST Bus Access Period of Pipe"],["BITINTERVAL_R","Field `BITINTERVAL` reader - Bit Interval"],["BITINTERVAL_W","Field `BITINTERVAL` writer - Bit Interval"],["R","Register `BINTERVAL%s` reader"],["W","Register `BINTERVAL%s` writer"]]};

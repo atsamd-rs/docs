@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DFLLSYNC_SPEC","DFLL48M Synchronization"],["READREQ_W","Field `READREQ` writer - Read Request"],["W","Register `DFLLSYNC` writer"]]};

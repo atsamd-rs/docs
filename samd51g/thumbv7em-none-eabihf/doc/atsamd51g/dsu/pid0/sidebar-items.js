@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PARTNBL_R","Field `PARTNBL` reader - Part Number Low"],["PID0_SPEC","Peripheral Identification 0"],["R","Register `PID0` reader"]]};

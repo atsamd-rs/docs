@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `SCR` reader"],["SCR_SPEC","ETM System Configuration Register"]]};

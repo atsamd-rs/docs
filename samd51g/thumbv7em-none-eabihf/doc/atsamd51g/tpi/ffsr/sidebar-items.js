@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["FFSR_SPEC","Formatter and Flush Status Register"],["FLINPROG_R","Field `FlInProg` reader - "],["FTNONSTOP_R","Field `FtNonStop` reader - "],["FTSTOPPED_R","Field `FtStopped` reader - "],["R","Register `FFSR` reader"],["TCPRESENT_R","Field `TCPresent` reader - "]]};

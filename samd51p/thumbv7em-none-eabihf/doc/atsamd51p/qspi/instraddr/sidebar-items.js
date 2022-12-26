@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADDR_R","Field `ADDR` reader - Instruction Address"],["ADDR_W","Field `ADDR` writer - Instruction Address"],["INSTRADDR_SPEC","Instruction Address"],["R","Register `INSTRADDR` reader"],["W","Register `INSTRADDR` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BAUD_R","Field `BAUD` reader - Baud Rate Value"],["BAUD_USARTFP_MODE_SPEC","USART Baud Rate"],["BAUD_W","Field `BAUD` writer - Baud Rate Value"],["R","Register `BAUD_USARTFP_MODE` reader"],["W","Register `BAUD_USARTFP_MODE` writer"]]};

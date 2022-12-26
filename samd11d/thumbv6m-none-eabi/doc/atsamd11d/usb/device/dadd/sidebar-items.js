@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADDEN_R","Field `ADDEN` reader - Device Address Enable"],["ADDEN_W","Field `ADDEN` writer - Device Address Enable"],["DADD_R","Field `DADD` reader - Device Address"],["DADD_SPEC","DEVICE Device Address"],["DADD_W","Field `DADD` writer - Device Address"],["R","Register `DADD` reader"],["W","Register `DADD` writer"]]};

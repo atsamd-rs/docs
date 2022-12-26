@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ACPR_SPEC","Asynchronous Clock Prescaler Register"],["PRESCALER_R","Field `PRESCALER` reader - "],["PRESCALER_W","Field `PRESCALER` writer - "],["R","Register `ACPR` reader"],["W","Register `ACPR` writer"]]};

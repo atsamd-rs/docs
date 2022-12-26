@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["ctrl","Control"],["lutctrl","LUT Control x"],["seqctrl","SEQ Control x"]],"struct":[["RegisterBlock","Register block"]],"type":[["CTRL","CTRL register accessor: an alias for `Reg<CTRL_SPEC>`"],["LUTCTRL","LUTCTRL register accessor: an alias for `Reg<LUTCTRL_SPEC>`"],["SEQCTRL","SEQCTRL register accessor: an alias for `Reg<SEQCTRL_SPEC>`"]]};

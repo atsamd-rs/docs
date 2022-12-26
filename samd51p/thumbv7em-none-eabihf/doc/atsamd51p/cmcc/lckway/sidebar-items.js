@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["LCKWAY_R","Field `LCKWAY` reader - Lockdown way Register"],["LCKWAY_SPEC","Cache Lock per Way Register"],["LCKWAY_W","Field `LCKWAY` writer - Lockdown way Register"],["R","Register `LCKWAY` reader"],["W","Register `LCKWAY` writer"]]};

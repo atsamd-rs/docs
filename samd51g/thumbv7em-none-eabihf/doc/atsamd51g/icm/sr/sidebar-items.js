@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ENABLE_R","Field `ENABLE` reader - ICM Controller Enable Register"],["R","Register `SR` reader"],["RAWRMDIS_R","Field `RAWRMDIS` reader - RAW Region Monitoring Disabled Status"],["RMDIS_R","Field `RMDIS` reader - Region Monitoring Disabled Status"],["SR_SPEC","Status"]]};

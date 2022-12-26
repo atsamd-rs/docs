@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DTCVAL_R","Field `DTCVAL` reader - Data Timeout Counter Value"],["DTCVAL_W","Field `DTCVAL` writer - Data Timeout Counter Value"],["R","Register `TCR` reader"],["TCR_SPEC","Timeout Control"],["W","Register `TCR` writer"]]};

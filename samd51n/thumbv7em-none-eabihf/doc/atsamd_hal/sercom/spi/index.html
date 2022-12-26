@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Use a SERCOM peripheral for SPI transactions"><meta name="keywords" content="rust, rustlang, rust-lang, spi"><title>atsamd_hal::sercom::spi - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module spi</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Module <a href="../../index.html">atsamd_hal</a>::<wbr><a href="../index.html">sercom</a>::<wbr><a class="mod" href="#">spi</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../../src/atsamd_hal/sercom/spi.rs.html#1-1375">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Use a SERCOM peripheral for SPI transactions</p>
+<p>Using an SPI peripheral occurs in three steps. First, you must supply
+<a href="../../gpio/index.html"><code>gpio</code></a> <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>s to create a set of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a>. Next, you combine the
+<code>Pads</code> with other pieces to form a <a href="struct.Config.html" title="Config"><code>Config</code></a> struct. Finally, after
+configuring the peripheral, you <a href="struct.Config.html#method.enable"><code>enable</code></a> it to yield a functional
+<a href="struct.Spi.html" title="Spi"><code>Spi</code></a> struct. Transactions are performed using traits from the
+<a href="../../../embedded_hal/index.html" title="embedded_hal"><code>embedded_hal</code></a> crate, specifically those from the
+<a href="../../../embedded_hal/spi/index.html"><code>spi</code></a>, <a href="../../../embedded_hal/serial/index.html"><code>serial</code></a>, and
+<a href="../../../embedded_hal/blocking/index.html"><code>blocking</code></a> modules.</p>
+<h2 id="crating-a-set-of-pads"><a href="#crating-a-set-of-pads">Crating a set of <code>Pads</code></a></h2>
+<p>An SPI peripheral can use up to four <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>s as <a href="../trait.Sercom.html" title="Sercom"><code>Sercom</code></a> pads. However,
+only certain <code>Pin</code> combinations are acceptable. All <code>Pin</code>s must be mapped to
+the same <code>Sercom</code>, and for SAMx5x chips, they must also belong to the same
+<a href="../pad/trait.IoSet.html" title="IoSet"><code>IoSet</code></a>.
+This HAL makes it impossible to use invalid <code>Pin</code> combinations, and the
+<a href="struct.Pads.html" title="Pads"><code>Pads</code></a> struct is responsible for enforcing these constraints.</p>
+<p>A <code>Pads</code> type takes five or six type parameters, depending on the chip. The
+first type always specifies the <code>Sercom</code>. On SAMx5x chips, the second type
+specifies the <code>IoSet</code>. The remaining four type parameters, <code>DI</code>, <code>DO</code>, <code>CK</code>
+and <code>SS</code>, represent the Data In, Data Out, Sclk and SS pads respectively.
+Each of these type parameters is an <a href="../pad/trait.OptionalPad.html" title="OptionalPad"><code>OptionalPad</code></a> and defaults to
+<a href="../../typelevel/struct.NoneT.html" title="NoneT"><code>NoneT</code></a>. A <code>Pad</code> is just a <code>Pin</code> configured in the correct <a href="../../gpio/pin/trait.PinMode.html"><code>PinMode</code></a>
+that implements <a href="../pad/trait.IsPad.html" title="IsPad"><code>IsPad</code></a>. The <a href="../../macro.bsp_pins.html"><code>bsp_pins!</code></a> macro can be
+used to define convenient type aliases for <code>Pad</code> types.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::gpio::{PA08, PA09, AlternateC};
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, spi};
+<span class="kw">use </span>atsamd_hal::typelevel::NoneT;
+
+<span class="comment">// SAMx5x-specific imports
+</span><span class="kw">use </span>atsamd_hal::sercom::pad::IoSet1;
+
+<span class="kw">type </span>Miso = Pin&lt;PA08, AlternateC&gt;;
+<span class="kw">type </span>Sclk = Pin&lt;PA09, AlternateC&gt;;
+
+<span class="comment">// SAMD11/SAMD21 version
+</span><span class="kw">type </span>Pads = spi::Pads&lt;Sercom0, Miso, NoneT, Sclk&gt;;
+<span class="comment">// SAMx5x version
+</span><span class="kw">type </span>Pads = spi::Pads&lt;Sercom0, IoSet1, Miso, NoneT, Sclk&gt;;</code></pre></div>
+<p>Alternatively, you can use the <code>PadsFromIds</code> alias to define a set of
+<code>Pads</code> in terms of <a href="../../gpio/pin/trait.PinId.html"><code>PinId</code></a>s instead of <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>s. This is useful when you
+don’t have <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a> aliases pre-defined.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::gpio::{PA08, PA09};
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, spi};
+<span class="kw">use </span>atsamd_hal::typelevel::NoneT;
+
+<span class="comment">// SAMx5x-specific imports
+</span><span class="kw">use </span>atsamd_hal::sercom::pad::IoSet1;
+
+<span class="comment">// SAMD21 version
+</span><span class="kw">type </span>Pads = spi::PadsFromIds&lt;Sercom0, PA08, NoneT, PA09&gt;;
+<span class="comment">// SAMx5x version
+</span><span class="kw">type </span>Pads = spi::PadsFromIds&lt;Sercom0, IoSet1, PA08, NoneT, PA09&gt;;</code></pre></div>
+<p>Instances of <code>Pads</code> are created using the builder pattern. Start by creating
+an empty set of <code>Pads</code> using <a href="https://doc.rust-lang.org/1.66.0/core/default/trait.Default.html" title="Default"><code>Default</code></a>. Then pass each respective <code>Pin</code>
+using the corresponding methods. For SAMD21 and SAMx5x chips, the builder
+methods automatically convert each pin to the correct <a href="../../gpio/pin/trait.PinMode.html"><code>PinMode</code></a>. However,
+due to inherent ambiguities, users must manually configure <code>PinMode</code>s for
+SAMD11 chips.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::target_device::Peripherals;
+<span class="kw">use </span>atsamd_hal::gpio::Pins;
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, spi};
+
+<span class="comment">// SAMx5x-specific imports
+</span><span class="kw">use </span>atsamd_hal::sercom::pad::IoSet1;
+
+<span class="kw">let </span><span class="kw-2">mut </span>peripherals = Peripherals::take().unwrap();
+<span class="kw">let </span>pins = Pins::new(peripherals.PORT);
+<span class="comment">// SAMD21 version
+</span><span class="kw">let </span>pads = spi::Pads::&lt;Sercom0&gt;::default()
+    .sclk(pins.pa09)
+    .data_in(pins.pa08)
+    .data_out(pins.pa11);
+<span class="comment">// SAMx5x version
+</span><span class="kw">let </span>pads = spi::Pads::&lt;Sercom0, IoSet1&gt;::default()
+    .sclk(pins.pa09)
+    .data_in(pins.pa08)
+    .data_out(pins.pa11);</code></pre></div>
+<p>To be accepted by the <a href="struct.Config.html" title="Config"><code>Config</code></a> struct as a set of <a href="trait.ValidPads.html" title="ValidPads"><code>ValidPads</code></a>, the
+<code>Pads</code> must do two things:</p>
+<ul>
+<li>Specify <a href="../pad/trait.SomePad.html" title="SomePad"><code>SomePad</code></a> for <code>CK</code> and at least one of <code>DI</code> or <code>DO</code></li>
+<li>Use a valid combination of <a href="../pad/trait.PadNum.html" title="PadNum"><code>PadNum</code></a>s, so that the <code>Pads</code> implement
+<a href="trait.DipoDopo.html" title="DipoDopo"><code>DipoDopo</code></a></li>
+</ul>
+<h2 id="configuring-the-peripheral"><a href="#configuring-the-peripheral"><code>Config</code>uring the peripheral</a></h2>
+<p>Next, create a <a href="struct.Config.html" title="Config"><code>Config</code></a> struct, which represents the SPI peripheral in its
+disabled state. A <code>Config</code> is specified with three type parameters: the
+<a href="struct.Pads.html" title="Pads"><code>Pads</code></a> type; an <a href="trait.OpMode.html" title="OpMode"><code>OpMode</code></a>, which defaults to <a href="enum.Master.html" title="Master"><code>Master</code></a>; and a
+<a href="trait.Size.html" title="Size"><code>Size</code></a> type that varies by chip. <a href="trait.Size.html" title="Size"><code>Size</code></a> essentially acts as a trait
+alias. On SAMD11 and SAMD21 chips, it represents the
+<code>CharSize</code>, which can either be <code>EightBit</code> or <code>NineBit</code>. 
+While on SAMx5x chips, it represents the transaction
+<a href="trait.Length.html" title="Length"><code>Length</code></a>
+in bytes, using type-level numbers provided by the <a href="../../https://docs.rs/typenum/1.12.0/typenum/index.html" title="typenum"><code>typenum</code></a> crate. Valid
+transaction lengths, from <code>U1</code> to <code>U255</code>, are re-exported in the
+<a href="lengths/index.html" title="lengths"><code>lengths</code></a>
+sub-module.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::gpio::{PA08, PA09};
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, spi};
+<span class="kw">use </span>atsamd_hal::sercom::spi::Master;
+<span class="kw">use </span>atsamd_hal::typelevel::NoneT;
+
+<span class="comment">// SAMD11/SAMD21-specific imports
+</span><span class="kw">use </span>atsamd_hal::sercom::spi::NineBit;
+
+<span class="comment">// SAMx5x-specific imports
+</span><span class="kw">use </span>atsamd_hal::sercom::spi::lengths::U2;
+<span class="kw">use </span>atsamd_hal::sercom::pad::IoSet1;
+
+<span class="comment">// SAMD11/SAMD21 version
+</span><span class="kw">type </span>Pads = spi::PadsFromIds&lt;Sercom0, PA08, NoneT, PA09&gt;;
+<span class="kw">type </span>Config = spi::Config&lt;Pads, Master, NineBit&gt;;
+
+<span class="comment">// SAMx5x version
+</span><span class="kw">type </span>Pads = spi::PadsFromIds&lt;Sercom0, IoSet1, PA08, NoneT, PA09&gt;;
+<span class="kw">type </span>Config = spi::Config&lt;Pads, Master, U2&gt;;</code></pre></div>
+<p>For simplicity, this module ignores character size on SAMx5x chips. Instead,
+the SPI peripheral is always configured to use 32-bit extension mode and the
+hardware <code>LENGTH</code> counter. Note that, due to a hardware bug, <code>ICSPACE</code> must
+be at least one when using the length counter. See the silicon errata for
+more details.</p>
+<p>Upon creation, the <a href="struct.Config.html" title="Config"><code>Config</code></a> takes ownership of both the <a href="struct.Pads.html" title="Pads"><code>Pads</code></a> and the
+PAC <a href="../trait.Sercom.html" title="Sercom"><code>Sercom</code></a> struct. It takes a reference to the <code>PM</code> or <code>MCLK</code>, so that
+it can enable the APB clock, and it takes a frequency to indicate the GCLK
+configuration. Users are responsible for correctly configuring the GCLK.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::time::U32Ext;
+
+<span class="comment">// Not shown: configure GCLK for 10 MHz
+
+// SAMD11/SAMD21 version
+</span><span class="kw">let </span>pm = peripherals.PM;
+<span class="kw">let </span>sercom = peripherals.SERCOM0;
+<span class="kw">let </span>freq = <span class="number">10</span>.mhz();
+<span class="kw">let </span>config = spi::Config::new(<span class="kw-2">&amp;</span>pm, sercom, pads, freq);
+
+<span class="comment">// SAMx5x version
+</span><span class="kw">let </span>mclk = peripherals.MCLK;
+<span class="kw">let </span>sercom = peripherals.SERCOM0;
+<span class="kw">let </span>freq = <span class="number">10</span>.mhz();
+<span class="kw">let </span>config = spi::Config::new(<span class="kw-2">&amp;</span>mclk, sercom, pads, freq);</code></pre></div>
+<p>The <a href="struct.Config.html" title="Config"><code>Config</code></a> uses two different APIs for configuration. For most
+parameters, it provides <code>get_</code> and <code>set_</code> methods that take <code>&amp;self</code> and
+<code>&amp;mut self</code> respectively, e.g. <a href="struct.Config.html#method.get_bit_order"><code>get_bit_order</code></a> and
+<a href="struct.Config.html#method.set_bit_order"><code>set_bit_order</code></a>. However, because <code>Config</code> tracks
+the <a href="trait.OpMode.html" title="OpMode"><code>OpMode</code></a> and <a href="trait.Size.html" title="Size"><code>Size</code></a> at compile-time, which requires changing the
+corresponding type parameters, <code>Config</code> also provides a builder-pattern API,
+where methods take and return <code>self</code>, e.g. <a href="struct.Config.html#method.bit_order"><code>bit_order</code></a>.</p>
+<p>Once configured, the <a href="struct.Config.html#method.enable"><code>enable</code></a> method consumes the <code>Config</code> and returns an
+enabled <a href="struct.Spi.html" title="Spi"><code>Spi</code></a> struct that can be used for transactions. Because the
+<code>enable</code> function takes the <code>Config</code> as <code>self</code>, the builder-pattern API is
+usually the more ergonomic option.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>embedded_hal::spi::MODE_1;
+
+<span class="comment">// SAMD11/SAMD21 version
+</span><span class="kw">let </span>spi = spi::Config::new(<span class="kw-2">&amp;</span>pm, sercom, pads, freq)
+    .baud(<span class="number">1</span>.mhz())
+    .char_size::&lt;NineBit&gt;()
+    .bit_order(BitOrder::LsbFirst)
+    .spi_mode(MODE_1)
+    .enable();
+
+<span class="comment">// SAMx5x version
+</span><span class="kw">let </span>spi = spi::Config::new(<span class="kw-2">&amp;</span>mclk, sercom, pads, freq)
+    .baud(<span class="number">1</span>.mhz())
+    .length::&lt;U2&gt;()
+    .bit_order(BitOrder::LsbFirst)
+    .spi_mode(MODE_1)
+    .enable();</code></pre></div>
+<p>To be accepted as a <a href="trait.ValidConfig.html" title="ValidConfig"><code>ValidConfig</code></a>, the <code>Config</code> must have a set of
+<a href="trait.ValidPads.html" title="ValidPads"><code>ValidPads</code></a> that matches its <a href="trait.OpMode.html" title="OpMode"><code>OpMode</code></a>. In particular, the <code>SS</code> pad must
+be <a href="../../typelevel/struct.NoneT.html" title="NoneT"><code>NoneT</code></a> for <a href="enum.Master.html" title="Master"><code>Master</code></a> mode, where the user is expected to handle it
+manaully. But it must be <a href="../pad/trait.SomePad.html" title="SomePad"><code>SomePad</code></a> in <a href="enum.MasterHWSS.html" title="MasterHWSS"><code>MasterHWSS</code></a> and <a href="enum.Slave.html" title="Slave"><code>Slave</code></a> modes,
+where it is controlled by the hardware.</p>
+<h2 id="using-a-functional-spi-peripheral"><a href="#using-a-functional-spi-peripheral">Using a functional <code>Spi</code> peripheral</a></h2>
+<p>An <a href="struct.Spi.html" title="Spi"><code>Spi</code></a> struct has two type parameters. The first is the corresponding
+<code>Config</code>, while the second represents its <a href="trait.Capability.html" title="Capability"><code>Capability</code></a>, i.e. <a href="struct.Rx.html" title="Rx"><code>Rx</code></a>,
+<a href="struct.Tx.html" title="Tx"><code>Tx</code></a> or <a href="struct.Duplex.html" title="Duplex"><code>Duplex</code></a>. The <a href="struct.Config.html#method.enable"><code>enable</code></a> function determines the <code>Capability</code>
+automaically from the set of <a href="trait.ValidPads.html" title="ValidPads"><code>ValidPads</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::gpio::{PA08, PA09};
+<span class="kw">use </span>atsamd_hal::sercom::{Sercom0, spi};
+<span class="kw">use </span>atsamd_hal::sercom::spi::{Master, Rx};
+<span class="kw">use </span>atsamd_hal::typelevel::NoneT;
+
+<span class="comment">// SAMD11/SAMD21-specific imports
+</span><span class="kw">use </span>atsamd_hal::sercom::spi::NineBit;
+
+<span class="comment">// SAMx5x-specific imports
+</span><span class="kw">use </span>atsamd_hal::sercom::spi::lengths::U2;
+<span class="kw">use </span>atsamd_hal::sercom::pad::IoSet1;
+
+<span class="comment">// SAMD11/SAMD21 version
+</span><span class="kw">type </span>Pads = spi::PadsFromIds&lt;Sercom0, PA08, NoneT, PA09&gt;;
+<span class="kw">type </span>Config = spi::Config&lt;Pads, Master, NineBit&gt;;
+<span class="kw">type </span>Spi = spi::Spi&lt;Config, Rx&gt;;
+
+<span class="comment">// SAMx5x version
+</span><span class="kw">type </span>Pads = spi::PadsFromIds&lt;Sercom0, IoSet1, PA08, NoneT, PA09&gt;;
+<span class="kw">type </span>Config = spi::Config&lt;Pads, Master, U2&gt;;
+<span class="kw">type </span>Spi = spi::Spi&lt;Config, Rx&gt;;</code></pre></div>
+<p>Only <code>Spi</code> structs can actually perform transactions. To do so, use the
+various embedded HAL traits, like
+<a href="../../prelude/trait._embedded_hal_spi_FullDuplex.html"><code>spi::FullDuplex</code></a>,
+<a href="../../prelude/trait._embedded_hal_serial_Read.html"><code>serial::Read</code></a> or
+<a href="../../prelude/trait._embedded_hal_serial_Write.html"><code>serial::Write</code></a>.
+See the <a href="impl_ehal/index.html" title="impl_ehal"><code>impl_ehal</code></a> module documentation for more details about the
+specific trait implementations, which vary based on <a href="trait.Size.html" title="Size"><code>Size</code></a> and
+<a href="trait.Capability.html" title="Capability"><code>Capability</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>nb::block;
+<span class="kw">use </span>embedded_hal::spi::FullDuplex;
+
+<span class="macro">block!</span>(spi.send(<span class="number">0xAA55</span>));
+<span class="kw">let </span>rcvd: u16 = <span class="macro">block!</span>(spi.read());</code></pre></div>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="impl_ehal/index.html" title="atsamd_hal::sercom::spi::impl_ehal mod">impl_ehal</a></div><div class="item-right docblock-short">Implement <a href="../../../embedded_hal/index.html" title="embedded_hal"><code>embedded_hal</code></a> traits for <a href="struct.Spi.html" title="Spi"><code>Spi</code></a> structs</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="lengths/index.html" title="atsamd_hal::sercom::spi::lengths mod">lengths</a></div><div class="item-right docblock-short">Valid transaction <a href="trait.Length.html" title="Length"><code>Length</code></a>s from the <a href="../../https://docs.rs/typenum/1.12.0/typenum/index.html" title="typenum"><code>typenum</code></a> crate</div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Config.html" title="atsamd_hal::sercom::spi::Config struct">Config</a></div><div class="item-right docblock-short">A configurable SPI peripheral in its disabled state</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Duplex.html" title="atsamd_hal::sercom::spi::Duplex struct">Duplex</a></div><div class="item-right docblock-short">Type-level variant of the <a href="trait.Capability.html" title="Capability"><code>Capability</code></a> enum for duplex transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Flags.html" title="atsamd_hal::sercom::spi::Flags struct">Flags</a></div><div class="item-right docblock-short">Interrupt bit flags for SPI transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Pads.html" title="atsamd_hal::sercom::spi::Pads struct">Pads</a></div><div class="item-right docblock-short">Container for a set of SERCOM pads</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Rx.html" title="atsamd_hal::sercom::spi::Rx struct">Rx</a></div><div class="item-right docblock-short">Type-level variant of the <a href="trait.Capability.html" title="Capability"><code>Capability</code></a> enum for simplex, <a href="trait.Receive.html" title="Receive"><code>Receive</code></a>-only
+transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Spi.html" title="atsamd_hal::sercom::spi::Spi struct">Spi</a></div><div class="item-right docblock-short">An enabled SPI peripheral that can perform transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Status.html" title="atsamd_hal::sercom::spi::Status struct">Status</a></div><div class="item-right docblock-short">Status bit flags for SPI transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Tx.html" title="atsamd_hal::sercom::spi::Tx struct">Tx</a></div><div class="item-right docblock-short">Type-level variant of the <a href="trait.Capability.html" title="Capability"><code>Capability</code></a> enum for simplex, <a href="trait.Transmit.html" title="Transmit"><code>Transmit</code></a>-only
+transactions</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.BitOrder.html" title="atsamd_hal::sercom::spi::BitOrder enum">BitOrder</a></div><div class="item-right docblock-short">Define the bit order of transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Error.html" title="atsamd_hal::sercom::spi::Error enum">Error</a></div><div class="item-right docblock-short">Error <code>enum</code> for SPI transactions</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Master.html" title="atsamd_hal::sercom::spi::Master enum">Master</a></div><div class="item-right docblock-short"><a href="trait.OpMode.html" title="OpMode"><code>OpMode</code></a> variant for Master mode</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.MasterHWSS.html" title="atsamd_hal::sercom::spi::MasterHWSS enum">MasterHWSS</a></div><div class="item-right docblock-short"><a href="trait.OpMode.html" title="OpMode"><code>OpMode</code></a> variant for Master mode with hardware-controlled slave select</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Phase.html" title="atsamd_hal::sercom::spi::Phase enum">Phase</a></div><div class="item-right docblock-short">Clock phase</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Polarity.html" title="atsamd_hal::sercom::spi::Polarity enum">Polarity</a></div><div class="item-right docblock-short">Clock polarity</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Slave.html" title="atsamd_hal::sercom::spi::Slave enum">Slave</a></div><div class="item-right docblock-short"><a href="trait.OpMode.html" title="OpMode"><code>OpMode</code></a> variant for Slave mode</div></div></div><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MODE_0.html" title="atsamd_hal::sercom::spi::MODE_0 constant">MODE_0</a></div><div class="item-right docblock-short">Helper for CPOL = 0, CPHA = 0</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MODE_1.html" title="atsamd_hal::sercom::spi::MODE_1 constant">MODE_1</a></div><div class="item-right docblock-short">Helper for CPOL = 0, CPHA = 1</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MODE_2.html" title="atsamd_hal::sercom::spi::MODE_2 constant">MODE_2</a></div><div class="item-right docblock-short">Helper for CPOL = 1, CPHA = 0</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MODE_3.html" title="atsamd_hal::sercom::spi::MODE_3 constant">MODE_3</a></div><div class="item-right docblock-short">Helper for CPOL = 1, CPHA = 1</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AnyConfig.html" title="atsamd_hal::sercom::spi::AnyConfig trait">AnyConfig</a></div><div class="item-right docblock-short">Type class for all possible <a href="struct.Config.html" title="Config"><code>Config</code></a> types</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AnySpi.html" title="atsamd_hal::sercom::spi::AnySpi trait">AnySpi</a></div><div class="item-right docblock-short">Type class for all possible <a href="struct.Spi.html" title="Spi"><code>Spi</code></a> types</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AtomicSize.html" title="atsamd_hal::sercom::spi::AtomicSize trait">AtomicSize</a></div><div class="item-right docblock-short">Marker trait for transaction <a href="trait.Size.html" title="Size"><code>Size</code></a>s that can be completed in a single
+read or write of the <code>DATA</code> register</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Capability.html" title="atsamd_hal::sercom::spi::Capability trait">Capability</a></div><div class="item-right docblock-short">Type-level enum representing the simplex or duplex transaction capability</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Dipo.html" title="atsamd_hal::sercom::spi::Dipo trait">Dipo</a></div><div class="item-right docblock-short">Map an <a href="../pad/trait.OptionalPadNum.html" title="OptionalPadNum"><code>OptionalPadNum</code></a> to its corresponding <code>DIPO</code> value</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.DipoDopo.html" title="atsamd_hal::sercom::spi::DipoDopo trait">DipoDopo</a></div><div class="item-right docblock-short">Configure the <code>DIPO</code> and <code>DOPO</code> fields based on a set of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Dopo.html" title="atsamd_hal::sercom::spi::Dopo trait">Dopo</a></div><div class="item-right docblock-short">Map an <a href="../pad/trait.OptionalPadNum.html" title="OptionalPadNum"><code>OptionalPadNum</code></a> to its corresponding <code>DOPO</code> value</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.GreaterThan4.html" title="atsamd_hal::sercom::spi::GreaterThan4 trait">GreaterThan4</a></div><div class="item-right docblock-short">Marker trait for transaction <a href="trait.Length.html" title="Length"><code>Length</code></a>s greater than four</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Length.html" title="atsamd_hal::sercom::spi::Length trait">Length</a></div><div class="item-right docblock-short">Type-level enum representing the SPI transaction length, in bytes</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.MasterMode.html" title="atsamd_hal::sercom::spi::MasterMode trait">MasterMode</a></div><div class="item-right docblock-short">Marker trait for Master operating modes</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.OpMode.html" title="atsamd_hal::sercom::spi::OpMode trait">OpMode</a></div><div class="item-right docblock-short">Type-level enum representing the SPI operating mode</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.PadSet.html" title="atsamd_hal::sercom::spi::PadSet trait">PadSet</a></div><div class="item-right docblock-short">Type-level function to recover the <a href="../pad/trait.OptionalPad.html" title="OptionalPad"><code>OptionalPad</code></a> types from a generic set
+of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Receive.html" title="atsamd_hal::sercom::spi::Receive trait">Receive</a></div><div class="item-right docblock-short">Sub-set of <a href="trait.Capability.html" title="Capability"><code>Capability</code></a> variants that can receive data, i.e. <a href="struct.Rx.html" title="Rx"><code>Rx</code></a> and
+<a href="struct.Duplex.html" title="Duplex"><code>Duplex</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Size.html" title="atsamd_hal::sercom::spi::Size trait">Size</a></div><div class="item-right docblock-short">Trait alias whose definition varies by chip</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.StaticLength.html" title="atsamd_hal::sercom::spi::StaticLength trait">StaticLength</a></div><div class="item-right docblock-short">Marker trait for statically known transaction <a href="trait.Length.html" title="Length"><code>Length</code></a>s</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Transmit.html" title="atsamd_hal::sercom::spi::Transmit trait">Transmit</a></div><div class="item-right docblock-short">Sub-set of <a href="trait.Capability.html" title="Capability"><code>Capability</code></a> variants that can transmit dat, i.e. <a href="struct.Tx.html" title="Tx"><code>Tx</code></a> and
+<a href="struct.Duplex.html" title="Duplex"><code>Duplex</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ValidConfig.html" title="atsamd_hal::sercom::spi::ValidConfig trait">ValidConfig</a></div><div class="item-right docblock-short">Marker trait for valid SPI <a href="struct.Config.html" title="Config"><code>Config</code></a>urations</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ValidPads.html" title="atsamd_hal::sercom::spi::ValidPads trait">ValidPads</a></div><div class="item-right docblock-short">Marker trait for valid sets of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a></div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.DataWidth.html" title="atsamd_hal::sercom::spi::DataWidth type">DataWidth</a></div><div class="item-right docblock-short">Type alias for the width of the <code>DATA</code> register</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.DefaultSize.html" title="atsamd_hal::sercom::spi::DefaultSize type">DefaultSize</a></div><div class="item-right docblock-short">Type alias for the default <a href="trait.Size.html" title="Size"><code>Size</code></a> type, which varies by chip</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.DynLength.html" title="atsamd_hal::sercom::spi::DynLength type">DynLength</a></div><div class="item-right docblock-short">Marker type for a run-time dynamic <a href="trait.Length.html" title="Length"><code>Length</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.PadsFromIds.html" title="atsamd_hal::sercom::spi::PadsFromIds type">PadsFromIds</a></div><div class="item-right docblock-short">Define a set of <a href="struct.Pads.html" title="Pads"><code>Pads</code></a> using <a href="../../gpio/pin/trait.PinId.html"><code>PinId</code></a>s instead of <a href="../../gpio/pin/struct.Pin.html"><code>Pin</code></a>s</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.SpecificConfig.html" title="atsamd_hal::sercom::spi::SpecificConfig type">SpecificConfig</a></div><div class="item-right docblock-short">Type alias to recover the specific <a href="struct.Config.html" title="Config"><code>Config</code></a> type from an implementation of
+<a href="trait.AnyConfig.html" title="AnyConfig"><code>AnyConfig</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.SpecificSpi.html" title="atsamd_hal::sercom::spi::SpecificSpi type">SpecificSpi</a></div><div class="item-right docblock-short">Type alias to recover the specific <a href="struct.Spi.html" title="Spi"><code>Spi</code></a> type from an implementation of
+<a href="trait.AnySpi.html" title="AnySpi"><code>AnySpi</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.Word.html" title="atsamd_hal::sercom::spi::Word type">Word</a></div><div class="item-right docblock-short">Type alias to recover the <a href="trait.Length.html#associatedtype.Word"><code>Word</code></a> type from an
+implementation of <a href="trait.Length.html" title="Length"><code>Length</code></a></div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

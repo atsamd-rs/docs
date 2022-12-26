@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `STATUS` reader"],["STATUS_SPEC","Status"],["SYNCBUSY_R","Field `SYNCBUSY` reader - Synchronization Busy"]]};

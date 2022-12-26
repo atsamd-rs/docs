@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CHID_SPEC","Channel ID"],["ID_R","Field `ID` reader - Channel ID"],["ID_W","Field `ID` writer - Channel ID"],["R","Register `CHID` reader"],["W","Register `CHID` writer"]]};

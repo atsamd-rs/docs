@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BDPR_SPEC","Buffer Data Port"],["BUFDATA_R","Field `BUFDATA` reader - Buffer Data"],["BUFDATA_W","Field `BUFDATA` writer - Buffer Data"],["R","Register `BDPR` reader"],["W","Register `BDPR` writer"]]};

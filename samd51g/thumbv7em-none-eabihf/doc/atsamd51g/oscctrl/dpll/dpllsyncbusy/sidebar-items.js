@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DPLLRATIO_R","Field `DPLLRATIO` reader - DPLL Loop Divider Ratio Synchronization Status"],["DPLLSYNCBUSY_SPEC","DPLL Synchronization Busy"],["ENABLE_R","Field `ENABLE` reader - DPLL Enable Synchronization Status"],["R","Register `DPLLSYNCBUSY` reader"]]};

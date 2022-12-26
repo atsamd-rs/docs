@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["aes","atsamd51g","atsamd_hal","bare_metal","bitfield","bitflags","cfg_if","cipher","cortex_m","embedded_hal","generic_array","modular_bitfield","nb","num_traits","opaque_debug","rand_core","static_assertions","typenum","usb_device","vcell","void","volatile_register"];

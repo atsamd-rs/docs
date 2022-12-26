@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ARG2_R","Field `ARG2` reader - Argument 2"],["ARG2_W","Field `ARG2` writer - Argument 2"],["R","Register `SSAR_CMD23_MODE` reader"],["SSAR_CMD23_MODE_SPEC","SDMA System Address / Argument 2"],["W","Register `SSAR_CMD23_MODE` writer"]]};

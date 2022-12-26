@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["TimerParams","Helper type for computing cycles and divider given frequency"]]};

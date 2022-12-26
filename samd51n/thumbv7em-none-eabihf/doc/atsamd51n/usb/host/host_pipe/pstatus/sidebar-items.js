@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BK0RDY_R","Field `BK0RDY` reader - Bank 0 ready"],["BK1RDY_R","Field `BK1RDY` reader - Bank 1 ready"],["CURBK_R","Field `CURBK` reader - Current Bank"],["DTGL_R","Field `DTGL` reader - Data Toggle"],["PFREEZE_R","Field `PFREEZE` reader - Pipe Freeze"],["PSTATUS_SPEC","HOST_PIPE End Point Pipe Status"],["R","Register `PSTATUS` reader"]]};

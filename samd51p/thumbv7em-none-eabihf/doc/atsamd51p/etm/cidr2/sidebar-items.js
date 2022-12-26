@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CIDR2_SPEC","ETM Component Identification Register #2"],["R","Register `CIDR2` reader"]]};

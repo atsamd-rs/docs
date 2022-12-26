@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DEVTYPE_SPEC","MTB Device Type"],["R","Register `DEVTYPE` reader"]]};

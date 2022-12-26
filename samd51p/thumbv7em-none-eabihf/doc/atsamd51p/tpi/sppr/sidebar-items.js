@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `SPPR` reader"],["SPPR_SPEC","Selected Pin Protocol Register"],["TXMODE_R","Field `TXMODE` reader - "],["TXMODE_W","Field `TXMODE` writer - "],["W","Register `SPPR` writer"]]};

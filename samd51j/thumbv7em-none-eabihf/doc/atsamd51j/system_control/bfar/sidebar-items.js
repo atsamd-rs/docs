@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADDRESS_R","Field `ADDRESS` reader - Address that generated the BusFault"],["ADDRESS_W","Field `ADDRESS` writer - Address that generated the BusFault"],["BFAR_SPEC","BusFault Address Register"],["R","Register `BFAR` reader"],["W","Register `BFAR` writer"]]};

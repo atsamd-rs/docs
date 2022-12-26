@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DCFG_R","Field `DCFG` reader - Device Configuration"],["DCFG_SPEC","Device Configuration"],["DCFG_W","Field `DCFG` writer - Device Configuration"],["R","Register `DCFG%s` reader"],["W","Register `DCFG%s` writer"]]};

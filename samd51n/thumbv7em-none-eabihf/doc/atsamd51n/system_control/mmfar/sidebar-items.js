@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADDRESS_R","Field `ADDRESS` reader - Address that generated the MemManage fault"],["ADDRESS_W","Field `ADDRESS` writer - Address that generated the MemManage fault"],["MMFAR_SPEC","MemManage Fault Address Register"],["R","Register `MMFAR` reader"],["W","Register `MMFAR` writer"]]};

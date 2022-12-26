@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ITCTRL_SPEC","Integration Mode Control"],["MODE_R","Field `Mode` reader - "],["MODE_W","Field `Mode` writer - "],["R","Register `ITCTRL` reader"],["W","Register `ITCTRL` writer"]]};

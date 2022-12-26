@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/work/atsamd/atsamd/pac/atsamd51p/src/icm.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>icm.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../atsamd51p/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+</pre><pre class="rust"><code><span class="attribute">#[doc = <span class="string">r&quot;Register block&quot;</span>]
+#[repr(C)]
+</span><span class="kw">pub struct </span>RegisterBlock {
+    <span class="attribute">#[doc = <span class="string">&quot;0x00 - Configuration&quot;</span>]
+    </span><span class="kw">pub </span>cfg: <span class="kw">crate</span>::Reg&lt;cfg::CFG_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x04 - Control&quot;</span>]
+    </span><span class="kw">pub </span>ctrl: <span class="kw">crate</span>::Reg&lt;ctrl::CTRL_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x08 - Status&quot;</span>]
+    </span><span class="kw">pub </span>sr: <span class="kw">crate</span>::Reg&lt;sr::SR_SPEC&gt;,
+    _reserved3: [u8; <span class="number">0x04</span>],
+    <span class="attribute">#[doc = <span class="string">&quot;0x10 - Interrupt Enable&quot;</span>]
+    </span><span class="kw">pub </span>ier: <span class="kw">crate</span>::Reg&lt;ier::IER_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x14 - Interrupt Disable&quot;</span>]
+    </span><span class="kw">pub </span>idr: <span class="kw">crate</span>::Reg&lt;idr::IDR_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x18 - Interrupt Mask&quot;</span>]
+    </span><span class="kw">pub </span>imr: <span class="kw">crate</span>::Reg&lt;imr::IMR_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1c - Interrupt Status&quot;</span>]
+    </span><span class="kw">pub </span>isr: <span class="kw">crate</span>::Reg&lt;isr::ISR_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x20 - Undefined Access Status&quot;</span>]
+    </span><span class="kw">pub </span>uasr: <span class="kw">crate</span>::Reg&lt;uasr::UASR_SPEC&gt;,
+    _reserved8: [u8; <span class="number">0x0c</span>],
+    <span class="attribute">#[doc = <span class="string">&quot;0x30 - Region Descriptor Area Start Address&quot;</span>]
+    </span><span class="kw">pub </span>dscr: <span class="kw">crate</span>::Reg&lt;dscr::DSCR_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x34 - Region Hash Area Start Address&quot;</span>]
+    </span><span class="kw">pub </span>hash: <span class="kw">crate</span>::Reg&lt;hash::HASH_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x38..0x58 - User Initial Hash Value n&quot;</span>]
+    </span><span class="kw">pub </span>uihval: [<span class="kw">crate</span>::Reg&lt;uihval::UIHVAL_SPEC&gt;; <span class="number">8</span>],
+}
+<span class="attribute">#[doc = <span class="string">&quot;CFG register accessor: an alias for `Reg&lt;CFG_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CFG = <span class="kw">crate</span>::Reg&lt;cfg::CFG_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Configuration&quot;</span>]
+</span><span class="kw">pub mod </span>cfg;
+<span class="attribute">#[doc = <span class="string">&quot;CTRL register accessor: an alias for `Reg&lt;CTRL_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CTRL = <span class="kw">crate</span>::Reg&lt;ctrl::CTRL_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Control&quot;</span>]
+</span><span class="kw">pub mod </span>ctrl;
+<span class="attribute">#[doc = <span class="string">&quot;SR register accessor: an alias for `Reg&lt;SR_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>SR = <span class="kw">crate</span>::Reg&lt;sr::SR_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Status&quot;</span>]
+</span><span class="kw">pub mod </span>sr;
+<span class="attribute">#[doc = <span class="string">&quot;IER register accessor: an alias for `Reg&lt;IER_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>IER = <span class="kw">crate</span>::Reg&lt;ier::IER_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Interrupt Enable&quot;</span>]
+</span><span class="kw">pub mod </span>ier;
+<span class="attribute">#[doc = <span class="string">&quot;IDR register accessor: an alias for `Reg&lt;IDR_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>IDR = <span class="kw">crate</span>::Reg&lt;idr::IDR_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Interrupt Disable&quot;</span>]
+</span><span class="kw">pub mod </span>idr;
+<span class="attribute">#[doc = <span class="string">&quot;IMR register accessor: an alias for `Reg&lt;IMR_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>IMR = <span class="kw">crate</span>::Reg&lt;imr::IMR_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Interrupt Mask&quot;</span>]
+</span><span class="kw">pub mod </span>imr;
+<span class="attribute">#[doc = <span class="string">&quot;ISR register accessor: an alias for `Reg&lt;ISR_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>ISR = <span class="kw">crate</span>::Reg&lt;isr::ISR_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Interrupt Status&quot;</span>]
+</span><span class="kw">pub mod </span>isr;
+<span class="attribute">#[doc = <span class="string">&quot;UASR register accessor: an alias for `Reg&lt;UASR_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>UASR = <span class="kw">crate</span>::Reg&lt;uasr::UASR_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Undefined Access Status&quot;</span>]
+</span><span class="kw">pub mod </span>uasr;
+<span class="attribute">#[doc = <span class="string">&quot;DSCR register accessor: an alias for `Reg&lt;DSCR_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>DSCR = <span class="kw">crate</span>::Reg&lt;dscr::DSCR_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Region Descriptor Area Start Address&quot;</span>]
+</span><span class="kw">pub mod </span>dscr;
+<span class="attribute">#[doc = <span class="string">&quot;HASH register accessor: an alias for `Reg&lt;HASH_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>HASH = <span class="kw">crate</span>::Reg&lt;hash::HASH_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Region Hash Area Start Address&quot;</span>]
+</span><span class="kw">pub mod </span>hash;
+<span class="attribute">#[doc = <span class="string">&quot;UIHVAL register accessor: an alias for `Reg&lt;UIHVAL_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>UIHVAL = <span class="kw">crate</span>::Reg&lt;uihval::UIHVAL_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;User Initial Hash Value n&quot;</span>]
+</span><span class="kw">pub mod </span>uihval;
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="atsamd51p" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

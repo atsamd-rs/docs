@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["URAT_A","Undefined Register Access Trace"]],"struct":[["R","Register `UASR` reader"],["UASR_SPEC","Undefined Access Status"],["URAT_R","Field `URAT` reader - Undefined Register Access Trace"]]};

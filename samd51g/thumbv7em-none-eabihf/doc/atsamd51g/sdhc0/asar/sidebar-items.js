@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ADMASA_R","Field `ADMASA` reader - ADMA System Address"],["ADMASA_W","Field `ADMASA` writer - ADMA System Address"],["ASAR_SPEC","ADMA System Address n"],["R","Register `ASAR[%s]` reader"],["W","Register `ASAR[%s]` writer"]]};

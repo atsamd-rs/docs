@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["KEY_W","Field `KEY` writer - Scrambling User Key"],["SCRAMBKEY_SPEC","Scrambling Key"],["W","Register `SCRAMBKEY` writer"]]};

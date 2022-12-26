@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["PRESC_A","Prescaler Value"]],"struct":[["PRESC_R","Field `PRESC` reader - Prescaler Value"],["PRESC_SPEC","Prescaler Value"],["PRESC_W","Field `PRESC` writer - Prescaler Value"],["R","Register `PRESC` reader"],["W","Register `PRESC` writer"]]};

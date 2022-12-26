@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PID4_SPEC","CoreSight"],["R","Register `PID4` reader"]]};

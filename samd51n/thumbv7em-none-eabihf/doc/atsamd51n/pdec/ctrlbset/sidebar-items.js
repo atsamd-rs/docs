@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["CMD_A","Command"]],"struct":[["CMD_R","Field `CMD` reader - Command"],["CMD_W","Field `CMD` writer - Command"],["CTRLBSET_SPEC","Control B Set"],["LUPD_R","Field `LUPD` reader - Lock Update"],["LUPD_W","Field `LUPD` writer - Lock Update"],["R","Register `CTRLBSET` reader"],["W","Register `CTRLBSET` writer"]]};

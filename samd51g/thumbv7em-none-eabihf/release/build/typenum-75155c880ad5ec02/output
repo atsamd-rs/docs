@@ -1,0 +1,3 @@
+cargo:rerun-if-changed=build/main.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/home/runner/work/atsamd/atsamd/docs_repo/samd51g/thumbv7em-none-eabihf/release/build/typenum-75155c880ad5ec02/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/home/runner/work/atsamd/atsamd/docs_repo/samd51g/thumbv7em-none-eabihf/release/build/typenum-75155c880ad5ec02/out/op.rs

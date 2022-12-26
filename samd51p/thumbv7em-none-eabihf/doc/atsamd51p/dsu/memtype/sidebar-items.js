@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["MEMTYPE_SPEC","CoreSight ROM Table Memory Type"],["R","Register `MEMTYPE` reader"],["SMEMP_R","Field `SMEMP` reader - System Memory Present"]]};

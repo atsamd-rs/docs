@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="ICM - Integrity Check Module"><meta name="keywords" content="rust, rustlang, rust-lang, icm"><title>atsamd_hal::icm - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module icm</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Module <a href="../index.html">atsamd_hal</a>::<wbr><a class="mod" href="#">icm</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/atsamd_hal/thumbv7em/icm.rs.html#1-1674">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="icm---integrity-check-module"><a href="#icm---integrity-check-module">ICM - Integrity Check Module</a></h2>
+<p>Used to calculate SHA digests of memory regions</p>
+<p>Multiple modes available</p>
+<ul>
+<li>Manual monitor of Internal SRAM (both contiguous and non-contiguous
+memory)</li>
+<li>Active monitoring of Internal SRAM (both contiguous and non-contiguous
+memory)</li>
+<li>Manual monitor of Internal Flash (both contiguous memory)</li>
+<li>Generates Hash using SHA engine, useful for verifying content</li>
+<li>ICM module has additional register protection and tamper detection</li>
+</ul>
+<p>Reading the Interrupt Status Register (ISR) clears the register,
+to provide a workaround for cases where multiple bits needs parsing,
+the <a href="struct.Icm.html#method.get_interrupt_status" title="Icm::get_interrupt_status()"><code>Icm::get_interrupt_status()</code></a> and
+<a href="struct.Region.html#method.get_interrupt_status" title="Region&lt;I&gt;::get_interrupt_status()"><code>Region&lt;I&gt;::get_interrupt_status()</code></a> are provided.
+These return a queryable structure containing the interrupt register
+contents. Allowing multiple different interrupts to be read.</p>
+<blockquote>
+<p><strong>IMPORTANT</strong> - Memory safety considerations</p>
+<p>The ICM engine accesses the assigned <code>DSCR</code> memory address, so it must be
+available. Depending on the application, this might entail making
+<a href="struct.Regions.html" title="Regions"><code>Regions</code></a> <strong>static</strong>.</p>
+<p>The same goes for <a href="struct.HashArea.html" title="HashArea"><code>HashArea</code></a>, but here it is even more <strong>important</strong> to
+ensure the memory is designated for <code>HashArea</code> usage, since the ICM
+controller will, depending on ICM configuration, write data to that
+address.</p>
+<p>Setting <a href="struct.HashArea.html" title="HashArea"><code>HashArea</code></a> <strong>static</strong> might be the safest path.</p>
+<p>Another alternative is to utilise the singleton macro provided by
+<a href="https://docs.rs/cortex-m/latest/cortex_m/macro.singleton.html"><code>cortex_m::singleton</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>cortex_m::singleton;
+
+<span class="kw">let </span>hasharea: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><span class="kw-2">mut </span>HashArea =
+<span class="macro">singleton!</span>(: HashArea = HashArea::default()).unwrap();</code></pre></div>
+</blockquote>
+<h3 id="usage"><a href="#usage">Usage:</a></h3><h4 id="general-icm-setup"><a href="#general-icm-setup">General ICM setup</a></h4>
+<p>Initialise the ICM engine <a href="struct.Icm.html#method.new" title="Icm::new()"><code>Icm::new()</code></a> and reset ICM via <a href="struct.Icm.html#method.swrst" title="Icm::swrst()"><code>Icm::swrst()</code></a></p>
+<p>Change any of the global options such as <a href="struct.Icm.html#method.set_eomdis" title="Icm::set_eomdis()"><code>Icm::set_eomdis()</code></a>, if required.</p>
+<p>Enable and create the interface for required memory regions
+<a href="struct.Icm.html#method.enable_region0" title="Icm::enable_region0()"><code>Icm::enable_region0()</code></a> and enable it via
+<a href="struct.Region.html#method.enable_monitoring" title="Region::enable_monitoring()"><code>Region::enable_monitoring()</code></a></p>
+<p>Depending on the number of regions required, the helper
+<a href="struct.Regions.html#method.default" title="Regions::default()"><code>Regions::default()</code></a> alows setting up all 4 regions directly, if one
+region is sufficient, manually create  [<code>MainRegionDesc&lt;Region0&gt;:: default()</code>].</p>
+<p>Modify the <a href="struct.MainRegionDesc.html" title="MainRegionDesc"><code>MainRegionDesc</code></a>, see documentation and cargo doc for all
+methods.</p>
+<p>Set the <code>DSCR</code> address to the beginning of the <a href="struct.MainRegionDesc.html" title="MainRegionDesc"><code>MainRegionDesc</code></a> via
+<a href="struct.Icm.html#method.set_dscr_addr" title="Icm::set_dscr_addr()"><code>Icm::set_dscr_addr()</code></a> (or via helper in
+<a href="struct.MainRegionDesc.html#method.set_dscr_addr" title="MainRegionDesc&lt;Region0&gt;::set_dscr_addr()"><code>MainRegionDesc&lt;Region0&gt;::set_dscr_addr()</code></a>)</p>
+<p>Via <a href="struct.Region.html" title="Region"><code>Region</code></a>, setup the desired interrupts depending on usecase.</p>
+<p>To view which interrupts has been enabled in the debugger, check the
+<code>ICM-&gt;IMR</code> register.</p>
+<p>Any object in memory can be used as the “Hash” area, but for convenience
+the provided  <a href="struct.HashArea.html" title="HashArea"><code>HashArea</code></a> allows indexing of the 4 regions and is
+correctly memory aligned.</p>
+<p>Set the pointer to <a href="struct.HashArea.html" title="HashArea"><code>HashArea</code></a> via <a href="struct.Icm.html#method.set_hash_addr" title="Icm::set_hash_addr()"><code>Icm::set_hash_addr()</code></a></p>
+<p><strong>See note about memory safety above</strong></p>
+<h4 id="hash-calculation"><a href="#hash-calculation">Hash calculation</a></h4>
+<p>Assuming general setup is already done, modify the <a href="struct.RegionConfiguration.html" title="RegionConfiguration"><code>RegionConfiguration</code></a>
+which is part of the <a href="struct.MainRegionDesc.html" title="MainRegionDesc"><code>MainRegionDesc</code></a>:</p>
+<ul>
+<li><a href="struct.RegionConfiguration.html#method.set_rhien" title="RegionConfiguration::set_rhien()"><code>RegionConfiguration::set_rhien()</code></a> to <code>false</code> to allow interrupts when
+calculation is done</li>
+<li><a href="struct.RegionConfiguration.html#method.set_eom" title="RegionConfiguration::set_eom()"><code>RegionConfiguration::set_eom()</code></a> to <code>true</code> only for the last region</li>
+</ul>
+<p>Change <a href="struct.RegionAddress.html" title="RegionAddress"><code>RegionAddress</code></a> to point to the object to SHA-sum with
+<a href="struct.MainRegionDesc.html#method.set_region_address" title="MainRegionDesc&lt;RegionNumT&gt;::set_region_address()"><code>MainRegionDesc&lt;RegionNumT&gt;::set_region_address()</code></a></p>
+<h4 id="memory-monitoring"><a href="#memory-monitoring">Memory monitoring</a></h4>
+<p><a href="struct.HashArea.html" title="HashArea"><code>HashArea</code></a> needs to contain the expected SHA-sums of the data to
+monitor, <a href="struct.Icm.html#method.set_ascd" title="Icm::set_ascd()"><code>Icm::set_ascd()</code></a> is provided to help with creating this data.
+Alternatively do it manually and then change mode, or prepopulate the
+<a href="struct.HashArea.html" title="HashArea"><code>HashArea</code></a> with SHA-sums.</p>
+<p>Assuming general setup is already done, modify the <a href="struct.RegionConfiguration.html" title="RegionConfiguration"><code>RegionConfiguration</code></a>
+which is part of the <a href="struct.MainRegionDesc.html" title="MainRegionDesc"><code>MainRegionDesc</code></a>:</p>
+<ul>
+<li><a href="struct.RegionConfiguration.html#method.set_dmien" title="RegionConfiguration::set_dmien()"><code>RegionConfiguration::set_dmien()</code></a> to <code>false</code> to allow interrupts if
+mismatch occurs</li>
+<li><a href="struct.RegionConfiguration.html#method.set_cdwbn" title="RegionConfiguration::set_cdwbn()"><code>RegionConfiguration::set_cdwbn()</code></a> to <code>true</code> to change to monitor mode</li>
+<li><a href="struct.RegionConfiguration.html#method.set_wrap" title="RegionConfiguration::set_wrap()"><code>RegionConfiguration::set_wrap()</code></a> to <code>true</code> only for the last region if
+continuous monitoring is desired</li>
+</ul>
+<h3 id="examples"><a href="#examples">Examples</a></h3><h4 id="calculate-sha1-sha224-and-sha256-sums-then-switch-to-memory-monitor"><a href="#calculate-sha1-sha224-and-sha256-sums-then-switch-to-memory-monitor">Calculate SHA1, SHA224 and SHA256 sums, then switch to memory monitor</a></h4>
+<p>4 memory regions, SHA1 in region0 and region1.
+Region2 uses SHA224 and region3 SHA256.</p>
+<p>This only covers the setup part, to achieve the functionality of first
+computing the SHA-sums and then do region monitoring handling of
+interrupts and changing mode is required.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="comment">// SHA Test data
+</span><span class="kw">static </span>MESSAGE_REF0: [u32; <span class="number">16</span>] = [
+    <span class="number">0x11111111</span>, <span class="number">0x22222222</span>, <span class="number">0x33333333</span>, <span class="number">0x44444444</span>, <span class="number">0x55555555</span>, <span class="number">0x66666666</span>, <span class="number">0x77777777</span>, <span class="number">0x88888888</span>,
+    <span class="number">0x99999999</span>, <span class="number">0xaaaaaaaa</span>, <span class="number">0xbbbbbbbb</span>, <span class="number">0xcccccccc</span>, <span class="number">0xdddddddd</span>, <span class="number">0xeeeeeeee</span>, <span class="number">0xffffffff</span>, <span class="number">0x00000000</span>,
+];
+
+<span class="kw">static </span>MESSAGE_REF1: [u32; <span class="number">16</span>] = [
+    <span class="number">0x80636261</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>,
+    <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x18000000</span>,
+];
+
+<span class="comment">// Expected SHA1 sum result
+</span><span class="kw">static </span>MESSAGE_SHA1_RES: [u32; <span class="number">8</span>] = [
+    <span class="number">0x363e99a9</span>, <span class="number">0x6a810647</span>, <span class="number">0x71253eba</span>, <span class="number">0x6cc25078</span>, <span class="number">0x9dd8d09c</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>, <span class="number">0x00000000</span>,
+];
+
+<span class="kw">static </span>MESSAGE_SHA224_RES: [u32; <span class="number">8</span>] = [
+    <span class="number">0x227d0923</span>, <span class="number">0x22d80534</span>, <span class="number">0x77a44286</span>, <span class="number">0xb355a2bd</span>, <span class="number">0xe4bcad2a</span>, <span class="number">0xf7b3a0bd</span>, <span class="number">0xa79d6ce3</span>, <span class="number">0x00000000</span>,
+];
+<span class="kw">static </span>MESSAGE_SHA256_RES: [u32; <span class="number">8</span>] = [
+    <span class="number">0xbf1678ba</span>, <span class="number">0xeacf018f</span>, <span class="number">0xde404141</span>, <span class="number">0x2322ae5d</span>, <span class="number">0xa36103b0</span>, <span class="number">0x9c7a1796</span>, <span class="number">0x61ff10b4</span>, <span class="number">0xad1500f2</span>,
+];
+<span class="kw">static </span><span class="kw-2">mut </span>HASH: HashArea = HashArea::default();
+<span class="kw">static </span><span class="kw-2">mut </span>ICM_REGION_DESC: Regions = Regions::default();
+
+<span class="comment">// Alternatively
+//use cortex_m::singleton;
+//let hasharea: &amp;&#39;static mut HashArea = singleton!(: HashArea = HashArea::default()).unwrap();
+
+// Enable ICM apb clock
+// Clock v1
+//mclk.apbcmask.modify(|_, w| w.icm_().set_bit());
+// Clock v2
+//tokens.apbs.icm.enable();
+
+</span><span class="kw">let </span><span class="kw-2">mut </span>peripherals = Peripherals::take().unwrap();
+
+<span class="comment">// Create new ICM
+</span><span class="kw">let </span><span class="kw-2">mut </span>icm = Icm::new(peripherals.ICM);
+
+<span class="comment">// Reset the ICM, clearing past error states
+</span>icm.swrst();
+
+<span class="comment">// End of Monitoring is permitted
+</span>icm.set_eomdis(<span class="bool-val">false</span>);
+<span class="comment">// Write Back is permitted
+</span>icm.set_wbdis(<span class="bool-val">false</span>);
+<span class="comment">// Secondary List branching is forbidden
+</span>icm.set_slbdis(<span class="bool-val">false</span>);
+<span class="comment">// Automatic Switch to Compare is disabled
+</span>icm.set_ascd(<span class="bool-val">false</span>);
+
+<span class="comment">// Region Descriptor
+</span><span class="kw">let </span><span class="kw-2">mut </span>icm_region_desc = Regions::default();
+
+<span class="comment">// Get the interface for Region0 and enable monitoring
+</span><span class="kw">let </span>icm_region0 = icm.enable_region0();
+icm_region0.enable_monitoring();
+
+<span class="comment">// Setup desired interrupts
+//
+// Region Hash Completed
+</span>icm_region0.set_rhc_int();
+
+<span class="comment">// Region0 raddr
+</span>icm_region_desc.region0.set_region_address(MESSAGE_REF0.as_ptr());
+
+<span class="comment">// Configure the RCFG
+
+// Some are default values, just as an example
+
+// Activate Write back (should be true when comparing memory)
+</span>icm_region_desc.region0.rcfg.set_cdwbn(<span class="bool-val">false</span>);
+<span class="comment">// Should the ICM controller loop back to DSCR after this region?
+</span>icm_region_desc.region0.rcfg.set_wrap(<span class="bool-val">false</span>);
+<span class="comment">// Set this as the end of descriptor linked list
+</span>icm_region_desc.region0.rcfg.set_eom(<span class="bool-val">false</span>);
+<span class="comment">// The RHC flag is set when the field NEXT = 0
+// in a descriptor of the main or second list
+</span>icm_region_desc.region0.rcfg.set_rhien(<span class="bool-val">false</span>);
+<span class="comment">// Set Algorithm to SHA1
+</span>icm_region_desc.region0.rcfg.set_algo(icm_algorithm::SHA1);
+
+<span class="comment">// Get the interface for region1
+</span><span class="kw">let </span>icm_region1 = icm.enable_region1();
+
+<span class="comment">// Enable region monitoring
+</span>icm_region1.enable_monitoring();
+
+<span class="comment">// Setup desired interrupts
+//
+// Region Hash Completed
+</span>icm_region1.set_rhc_int();
+
+<span class="comment">// Region1 raddr
+</span>icm_region_desc.region1.set_region_address(MESSAGE_REF1.as_ptr());
+
+<span class="comment">// Configure the RCFG
+// The RHC flag is set when the field NEXT = 0
+// in a descriptor of the main or second list
+</span>icm_region_desc.region1.rcfg.set_rhien(<span class="bool-val">false</span>);
+<span class="comment">// Set Algorithm to SHA1
+</span>icm_region_desc.region1.rcfg.set_algo(icm_algorithm::SHA1);
+
+<span class="comment">// Get the interface for region2
+</span><span class="kw">let </span>icm_region2 = icm.enable_region2();
+
+<span class="comment">// Enable region monitoring
+</span>icm_region2.enable_monitoring();
+
+<span class="comment">// Setup desired interrupts
+//
+// Region Hash Completed
+</span>icm_region2.set_rhc_int();
+
+<span class="comment">// Region2 raddr
+</span>icm_region_desc.region2.set_region_address(MESSAGE_REF1.as_ptr());
+
+<span class="comment">// Configure the RCFG
+// The RHC flag is set when the field NEXT = 0
+// in a descriptor of the main or second list
+</span>icm_region_desc.region2.rcfg.set_rhien(<span class="bool-val">false</span>);
+<span class="comment">// Set Algorithm to SHA224
+</span>icm_region_desc.region2.rcfg.set_algo(icm_algorithm::SHA224);
+
+<span class="comment">// Get the interface for region3
+</span><span class="kw">let </span>icm_region3 = icm.enable_region3();
+
+<span class="comment">// Enable region monitoring
+</span>icm_region3.enable_monitoring();
+
+<span class="comment">// Setup desired interrupts
+//
+// Region Hash Completed
+</span>icm_region3.set_rhc_int();
+
+<span class="comment">// Region3 raddr
+</span>icm_region_desc.region3.set_region_address(MESSAGE_REF1.as_ptr());
+
+<span class="comment">// Configure the RCFG
+//
+// Set this as the end of descriptor linked list
+</span>icm_region_desc.region3.rcfg.set_eom(<span class="bool-val">true</span>);
+<span class="comment">// The RHC flag is set when the field NEXT = 0
+// in a descriptor of the main or second list
+</span>icm_region_desc.region3.rcfg.set_rhien(<span class="bool-val">false</span>);
+<span class="comment">// Set Algorithm to SHA256
+</span>icm_region_desc.region3.rcfg.set_algo(icm_algorithm::SHA256);
+
+<span class="kw">unsafe </span>{
+    <span class="comment">// Hash Area
+    // Set HASH addr to the beginning of the Hash area
+    </span>icm.set_hash_addr(<span class="kw-2">&amp;</span>HASH);
+}
+
+<span class="kw">unsafe </span>{
+    <span class="comment">// Move the icm_region_desc into static
+    </span>ICM_REGION_DESC = icm_region_desc;
+    <span class="comment">// Set DSCR to the beginning of the region descriptor
+    </span>icm.set_dscr_addr(<span class="kw-2">&amp;</span>ICM_REGION_DESC.region0);
+    <span class="comment">// the same but via helper function
+    //ICM_REGION_DESC.region0.set_dscr_addr(&amp;icm);
+</span>}
+
+<span class="comment">// Start the ICM calculation
+</span>icm.enable();
+
+<span class="comment">// Setup memory region monitoring
+// Monitor all 4 memory regions
+
+// Setup the compare regions
+</span><span class="kw">let </span><span class="kw-2">mut </span>message_region0_sha1 = MESSAGE_REF0;
+<span class="kw">let </span><span class="kw-2">mut </span>message_region1_sha1 = MESSAGE_REF1;
+<span class="kw">let </span><span class="kw-2">mut </span>message_region2_sha224 = MESSAGE_REF1;
+<span class="kw">let </span><span class="kw-2">mut </span>message_region3_sha256 = MESSAGE_REF1;
+
+<span class="comment">// Reset the ICM, clearing past error states
+</span>icm.swrst();
+
+<span class="comment">// End of Monitoring is permitted
+</span>icm.set_eomdis(<span class="bool-val">false</span>);
+<span class="comment">// Write Back is permitted
+</span>icm.set_wbdis(<span class="bool-val">false</span>);
+<span class="comment">// Secondary List branching is forbidden
+</span>icm.set_slbdis(<span class="bool-val">false</span>);
+<span class="comment">// Automatic Switch to Compare is disabled
+</span>icm.set_ascd(<span class="bool-val">false</span>);
+
+<span class="comment">// Also possible to directly edit `ICM_REGION_DESC`
+// in an unsafe block
+</span><span class="kw">let </span><span class="kw-2">mut </span>icm_region_desc = Regions::default();
+
+<span class="comment">// Setup region 0 to monitor memory
+</span>icm_region_desc
+    .region0
+    .set_region_address(<span class="kw-2">&amp;</span>message_region0_sha1);
+icm_region_desc.region0.rcfg.reset_region_configuration_to_default();
+icm_region_desc.region0.rcfg.set_algo(icm_algorithm::SHA1);
+<span class="comment">// Activate Compare Digest (should be true when comparing memory)
+</span>icm_region_desc.region0.rcfg.set_cdwbn(<span class="bool-val">true</span>);
+<span class="comment">// Digest Mismatch Interrupt Disable (enabled)
+</span>icm_region_desc.region0.rcfg.set_dmien(<span class="bool-val">false</span>);
+
+<span class="comment">// Set Region Mismatch Interrupt
+</span>icm_region0.set_rdm_int();
+
+<span class="comment">// Setup region 1 to monitor memory
+</span>icm_region_desc
+    .region1
+    .set_region_address(<span class="kw-2">&amp;</span>message_region1_sha1);
+icm_region_desc.region1.rcfg.reset_region_configuration_to_default();
+icm_region_desc.region1.rcfg.set_algo(icm_algorithm::SHA1);
+<span class="comment">// Activate Compare Digest (should be true when comparing memory)
+</span>icm_region_desc.region1.rcfg.set_cdwbn(<span class="bool-val">true</span>);
+<span class="comment">// Digest Mismatch Interrupt Disable (enabled)
+</span>icm_region_desc.region1.rcfg.set_dmien(<span class="bool-val">false</span>);
+
+<span class="comment">// Set Region Mismatch Interrupt
+</span>icm_region1.set_rdm_int();
+
+<span class="comment">// Setup region 2 to monitor memory
+</span>icm_region_desc
+    .region2
+    .set_region_address(<span class="kw-2">&amp;</span>message_region2_sha224);
+icm_region_desc.region2.rcfg.reset_region_configuration_to_default();
+icm_region_desc.region2.rcfg.set_algo(icm_algorithm::SHA224);
+<span class="comment">// Activate Compare Digest (should be true when comparing memory)
+</span>icm_region_desc.region2.rcfg.set_cdwbn(<span class="bool-val">true</span>);
+<span class="comment">// Digest Mismatch Interrupt Disable (enabled)
+</span>icm_region_desc.region2.rcfg.set_dmien(<span class="bool-val">false</span>);
+
+<span class="comment">// Set Region Mismatch Interrupt
+</span>icm_region2.set_rdm_int();
+
+<span class="comment">// Setup region 3 to monitor memory
+</span>icm_region_desc
+    .region3
+    .set_region_address(<span class="kw-2">&amp;</span>message_region3_sha256);
+icm_region_desc.region3.rcfg.reset_region_configuration_to_default();
+icm_region_desc.region3.rcfg.set_algo(icm_algorithm::SHA256);
+<span class="comment">// Activate Compare Digest (should be true when comparing memory)
+</span>icm_region_desc.region3.rcfg.set_cdwbn(<span class="bool-val">true</span>);
+<span class="comment">// Digest Mismatch Interrupt Disable (enabled)
+</span>icm_region_desc.region3.rcfg.set_dmien(<span class="bool-val">false</span>);
+<span class="comment">// Wrap
+</span>icm_region_desc.region3.rcfg.set_wrap(<span class="bool-val">true</span>);
+
+<span class="comment">// Set Region Mismatch Interrupt
+</span>icm_region3.set_rdm_int();
+
+<span class="comment">// Modify regions to trigger interrupts
+</span>message_region0_sha1[<span class="number">3</span>] = <span class="number">0xDEAD_BEEF</span>;
+message_region1_sha1[<span class="number">4</span>] = <span class="number">0xDEAD_BEEF</span>;
+message_region2_sha224[<span class="number">5</span>] = <span class="number">0xDEAD_BEEF</span>;
+message_region3_sha256[<span class="number">6</span>] = <span class="number">0xDEAD_BEEF</span>;
+
+icm.enable()</code></pre></div>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.HashArea.html" title="atsamd_hal::icm::HashArea struct">HashArea</a></div><div class="item-right docblock-short">ICM Hash Area</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Icm.html" title="atsamd_hal::icm::Icm struct">Icm</a></div><div class="item-right docblock-short">ICM Peripheral</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Interrupt.html" title="atsamd_hal::icm::Interrupt struct">Interrupt</a></div><div class="item-right docblock-short">Struct useful for returning the interrupt status
+of the ICM. Provides methods for easy parsing of
+all the regions or via the <code>bitmask</code> argument
+narrow it down to the specific set of <a href="trait.RegionNum.html" title="RegionNum"><code>RegionNum</code></a>
+of interest.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.MainRegionDesc.html" title="atsamd_hal::icm::MainRegionDesc struct">MainRegionDesc</a></div><div class="item-right docblock-short">Structure ICM Region Descriptor area.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Region.html" title="atsamd_hal::icm::Region struct">Region</a></div><div class="item-right docblock-short">Region provides access to region-specific
+settings like interrupts and status</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionAddress.html" title="atsamd_hal::icm::RegionAddress struct">RegionAddress</a></div><div class="item-right docblock-short">Region Start Address Structure</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionBusError.html" title="atsamd_hal::icm::RegionBusError struct">RegionBusError</a></div><div class="item-right docblock-short">Region Bus Error interrupt</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionConfiguration.html" title="atsamd_hal::icm::RegionConfiguration struct">RegionConfiguration</a></div><div class="item-right docblock-short">Region Configuration Structure</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionControl.html" title="atsamd_hal::icm::RegionControl struct">RegionControl</a></div><div class="item-right docblock-short">Region Control Structure</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionDigestMismatch.html" title="atsamd_hal::icm::RegionDigestMismatch struct">RegionDigestMismatch</a></div><div class="item-right docblock-short">Region Digest Mismatch interrupt</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionEndConditionDetected.html" title="atsamd_hal::icm::RegionEndConditionDetected struct">RegionEndConditionDetected</a></div><div class="item-right docblock-short">Region End Condition detected interrupt</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionHashCompleted.html" title="atsamd_hal::icm::RegionHashCompleted struct">RegionHashCompleted</a></div><div class="item-right docblock-short">Region Hash Completed interrupt</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionInterrupt.html" title="atsamd_hal::icm::RegionInterrupt struct">RegionInterrupt</a></div><div class="item-right docblock-short">Struct useful for returning the interrupt status
+of the ICM. Provides methods for easy parsing of
+the region specific <a href="trait.RegionNum.html" title="RegionNum"><code>RegionNum</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionNext.html" title="atsamd_hal::icm::RegionNext struct">RegionNext</a></div><div class="item-right docblock-short">Region Next Address Structure</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionStatusUpdatedDetected.html" title="atsamd_hal::icm::RegionStatusUpdatedDetected struct">RegionStatusUpdatedDetected</a></div><div class="item-right docblock-short">Region Status Update detected interrupt</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegionWrapConditionDetected.html" title="atsamd_hal::icm::RegionWrapConditionDetected struct">RegionWrapConditionDetected</a></div><div class="item-right docblock-short">Region Wrap Condition detected interrupt</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Regions.html" title="atsamd_hal::icm::Regions struct">Regions</a></div><div class="item-right docblock-short">Helper for creating the Region Descriptor structure</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SecondaryRegionDesc.html" title="atsamd_hal::icm::SecondaryRegionDesc struct">SecondaryRegionDesc</a></div><div class="item-right docblock-short">Structure ICM Secondary Region Descriptor area.</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ProcessingDelay.html" title="atsamd_hal::icm::ProcessingDelay enum">ProcessingDelay</a></div><div class="item-right docblock-short">Processing Delay</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Region0.html" title="atsamd_hal::icm::Region0 enum">Region0</a></div><div class="item-right docblock-short">ICM Region 0</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Region1.html" title="atsamd_hal::icm::Region1 enum">Region1</a></div><div class="item-right docblock-short">ICM Region 1</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Region2.html" title="atsamd_hal::icm::Region2 enum">Region2</a></div><div class="item-right docblock-short">ICM Region 2</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Region3.html" title="atsamd_hal::icm::Region3 enum">Region3</a></div><div class="item-right docblock-short">ICM Region 3</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.icm_algorithm.html" title="atsamd_hal::icm::icm_algorithm enum">icm_algorithm</a></div><div class="item-right docblock-short">Reexport the User SHA Algorithm
+User SHA Algorithm</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.RegionDesc.html" title="atsamd_hal::icm::RegionDesc trait">RegionDesc</a></div><div class="item-right docblock-short">Functions required by <a href="struct.MainRegionDesc.html" title="MainRegionDesc"><code>MainRegionDesc</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.RegionNum.html" title="atsamd_hal::icm::RegionNum trait">RegionNum</a></div><div class="item-right docblock-short">Trait providing numerical identifier and
+offset for each ICM Region</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

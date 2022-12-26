@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `SCALER[%s]` reader"],["SCALER_SPEC","Scaler n"],["VALUE_R","Field `VALUE` reader - Scaler Value"],["VALUE_W","Field `VALUE` writer - Scaler Value"],["W","Register `SCALER[%s]` writer"]]};

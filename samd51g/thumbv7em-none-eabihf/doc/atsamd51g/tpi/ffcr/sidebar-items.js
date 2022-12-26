@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ENFCONT_R","Field `EnFCont` reader - "],["ENFCONT_W","Field `EnFCont` writer - "],["FFCR_SPEC","Formatter and Flush Control Register"],["R","Register `FFCR` reader"],["TRIGIN_R","Field `TrigIn` reader - "],["TRIGIN_W","Field `TrigIn` writer - "],["W","Register `FFCR` writer"]]};

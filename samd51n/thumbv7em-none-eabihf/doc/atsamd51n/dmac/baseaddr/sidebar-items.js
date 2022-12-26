@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BASEADDR_R","Field `BASEADDR` reader - Descriptor Memory Base Address"],["BASEADDR_SPEC","Descriptor Memory Section Base Address"],["BASEADDR_W","Field `BASEADDR` writer - Descriptor Memory Base Address"],["R","Register `BASEADDR` reader"],["W","Register `BASEADDR` writer"]]};

@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="External, 32 kHz crystal oscillator controller"><meta name="keywords" content="rust, rustlang, rust-lang, xosc32k"><title>atsamd_hal::clock::v2::xosc32k - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../../normalize.css"><link rel="stylesheet" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../../ayu.css" disabled><link rel="stylesheet" href="../../../../dark.css" disabled><link rel="stylesheet" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../atsamd_hal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module xosc32k</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Module <a href="../../../index.html">atsamd_hal</a>::<wbr><a href="../../index.html">clock</a>::<wbr><a href="../index.html">v2</a>::<wbr><a class="mod" href="#">xosc32k</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../../../src/atsamd_hal/thumbv7em/clock/v2/xosc32k.rs.html#1-1231">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="external-32-khz-crystal-oscillator-controller"><a href="#external-32-khz-crystal-oscillator-controller">External, 32 kHz crystal oscillator controller</a></h2><h3 id="overview"><a href="#overview">Overview</a></h3>
+<p>The <code>xosc32k</code> module provides access to the 32 kHz external crystal
+oscillator controller (XOSC32K) within the <code>OSC32KCTRL</code> peripheral.</p>
+<p>The peripheral can operate in two <a href="trait.Mode.html" title="Mode"><code>Mode</code></a>s. It can accept an external
+clock, or it can interface with an crystal oscillator. In both cases, the
+clock must be 32,768 Hz.</p>
+<p>When used with an external clock, only one GPIO <a href="../../../gpio/pin/struct.Pin.html" title="Pin"><code>Pin</code></a> is required, but
+when used with a crystal oscillator, two GPIO <code>Pin</code>s are required. The
+<a href="type.XIn32.html" title="XIn32"><code>XIn32</code></a> <code>Pin</code> is used in both <code>Mode</code>s, while the <a href="type.XOut32.html" title="XOut32"><code>XOut32</code></a> <code>Pin</code> is only
+used in <a href="enum.CrystalMode.html" title="CrystalMode"><code>CrystalMode</code></a>.</p>
+<h3 id="clock-tree-structure"><a href="#clock-tree-structure">Clock tree structure</a></h3>
+<p>The <code>XOSC32K</code> clock is unlike most other clocks, because it has two separate
+outputs, one at 32 kHz and another divided down to 1 kHz. Moreover, none,
+either or both of these outputs can be enabled at any given time.</p>
+<p>We can see, then, that the <code>XOSC32K</code> peripheral forms its own, miniature
+clock tree. There is a 1:N producer clock that must be enabled first; and
+there are two possible consumer clocks that can be independently and
+optionally enabled. In fact, this structure is illustrated by the <code>XOSC32K</code>
+register, which has three different enable bits: <code>ENABLE</code>, <code>EN32K</code> and
+<code>EN1K</code>.</p>
+<p>To represent this structure in the type system, we divide the <code>XOSC32K</code>
+peripheral into these three clocks. Users start by enabling the
+<a href="struct.Xosc32kBase.html" title="Xosc32kBase"><code>Xosc32kBase</code></a> clock, which corresponds to setting the <code>XOSC32K</code> register
+<code>ENABLE</code> bit. The call to <a href="struct.Xosc32kBase.html#method.enable" title="Xosc32kBase::enable"><code>Xosc32kBase::enable</code></a> returns a 1:N <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a>
+clock <a href="../trait.Source.html" title="Source"><code>Source</code></a>, which can be consumed by both the <a href="struct.Xosc32k.html" title="Xosc32k"><code>Xosc32k</code></a> and
+<a href="struct.Xosc1k.html" title="Xosc1k"><code>Xosc1k</code></a> clocks. Enabling either of these two clocks will <a href="../../../typelevel/trait.Increment.html" title="Increment"><code>Increment</code></a>
+the <a href="type.EnabledXosc32kBase.html" title="EnabledXosc32kBase"><code>EnabledXosc32kBase</code></a> counter, preventing it from being disabled.
+Note that <code>Xosc32k</code> and <code>Xosc1k</code> are themselves 1:N clocks as well.</p>
+<h3 id="clock-failure-detection-and-write-lock"><a href="#clock-failure-detection-and-write-lock">Clock failure detection and write lock</a></h3>
+<p>Like the <a href="../xosc/struct.Xosc.html"><code>Xosc</code></a> clocks, the XOSC32K peripheral also has clock failure
+detection. However, unlike the <code>XOSCCTRL</code> registers, the <code>XOSC32K</code> register
+has a dedicated write lock bit that will freeze its configuration until the
+next power-on reset.</p>
+<p>While <code>Xosc</code> clock failure detection is configured directly in the
+<code>XOSCCTRL</code> register, the XOSC32K peripheral has a separate, dedicated
+clock failure detection register (<code>CFDCTRL</code>). This difference likely exists
+to provide control of clock failure detection <em>after</em> write lock has been
+enabled.</p>
+<p>In this module, write lock is implemented by simply dropping the
+<a href="struct.Xosc32kBase.html" title="Xosc32kBase"><code>Xosc32kBase</code></a> clock, which prevents any further access to the <code>XOSC32K</code>
+register. Thus, to allow control of clock failure detection in the presence
+of write lock, we provide a dedicated <a href="struct.Xosc32kCfd.html" title="Xosc32kCfd"><code>Xosc32kCfd</code></a> interface, which has
+exclusive control over the <code>CFDCTRL</code> register.</p>
+<h3 id="example"><a href="#example">Example</a></h3>
+<p>Creating and configuring the XOSC32K clocks proceeds according to the
+principles outlined in the <a href="../index.html"><code>clock</code> module documentation</a>. It is best shown
+with an example.</p>
+<p>Let’s start by using <a href="../fn.clock_system_at_reset.html"><code>clock_system_at_reset</code></a> to access the HAL clocking
+structs. We’ll also need access to the GPIO <a href="../../../gpio/pin/struct.Pins.html"><code>Pins</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{
+        clock_system_at_reset,
+        osculp32k::OscUlp32k,
+        xosc32k::{
+            ControlGainMode, SafeClockDiv, StartUpDelay, Xosc1k, Xosc32k, Xosc32kBase,
+            Xosc32kCfd,
+        },
+    },
+    gpio::Pins,
+    pac::Peripherals,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>pins = Pins::new(pac.PORT);
+<span class="kw">let </span>(buses, clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);</code></pre></div>
+<p>Next, we create the <a href="struct.Xosc32kBase.html" title="Xosc32kBase"><code>Xosc32kBase</code></a> clock from a 32 kHz oscillator using its
+corresponding <a href="struct.Xosc32kBaseToken.html" title="Xosc32kBaseToken"><code>Xosc32kBaseToken</code></a> and the <a href="type.XIn32.html" title="XIn32"><code>XIn32</code></a> and <a href="type.XOut32.html" title="XOut32"><code>XOut32</code></a> <code>Pin</code>s.
+We then set the delay before the clock is unmasked by providing a desired
+<a href="enum.StartUpDelay.html" title="StartUpDelay"><code>StartUpDelay</code></a>. Finally, we select a <a href="enum.ControlGainMode.html" title="ControlGainMode"><code>ControlGainMode</code></a> for the crystal
+before enabling it.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>xosc32k_base = Xosc32kBase::from_crystal(tokens.xosc32k.base, pins.pa00, pins.pa01)
+    .start_up_delay(StartUpDelay::Delay1s)
+    .control_gain_mode(ControlGainMode::HighSpeed)
+    .enable();</code></pre></div>
+<p>At this point, we opt to wait until the <code>Xosc32kBase</code> oscillator <code>is_ready</code>
+and stable.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">while </span>!xosc32k_base.is_ready() {}</code></pre></div>
+<p>With the <a href="type.EnabledXosc32kBase.html" title="EnabledXosc32kBase"><code>EnabledXosc32kBase</code></a> clock in hand, we can enable the <a href="struct.Xosc1k.html" title="Xosc1k"><code>Xosc1k</code></a>
+and <a href="struct.Xosc32k.html" title="Xosc32k"><code>Xosc32k</code></a>, each of which <a href="../../../typelevel/trait.Increment.html" title="Increment"><code>Increment</code></a>s the <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> counter.
+Once we are satisfied with the configuration, we can call <code>write_lock</code> to
+lock the XOSC32K configuration at the hardware level. Doing so also consumes
+the <code>EnabledXosc32kBase</code> clock, which eliminates any ability to change the
+configuration at the API level.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>(xosc1k, xosc32k_base) = Xosc1k::enable(tokens.xosc32k.xosc1k, xosc32k_base);
+<span class="kw">let </span>(xosc32k, xosc32k_base) = Xosc32k::enable(tokens.xosc32k.xosc32k, xosc32k_base);
+xosc32k_base.write_lock();</code></pre></div>
+<p>However, while we have locked the XOSC32K configuration, we still want to
+enable clock failure detection, which will continuously monitor the clock
+and switch to a safe, backup clock if necessary.</p>
+<p>To do so, we must first enable the backup clock, which, for the XOSC32K, is
+the <a href="../osculp32k/struct.OscUlp32k.html"><code>OscUlp32k</code></a>. The OSCULP32K peripheral has a nearly identical structure
+to the XOSC32K; we create an <a href="../osculp32k/type.EnabledOscUlp32k.html"><code>EnabledOscUlp32k</code></a> from the
+<a href="../osculp32k/type.EnabledOscUlp32kBase.html"><code>EnabledOscUlp32kBase</code></a> clock and the corresponding <a href="../osculp32k/struct.OscUlp32kToken.html"><code>OscUlp32kToken</code></a>.</p>
+<p>Upon creation of the <a href="struct.Xosc32kCfd.html" title="Xosc32kCfd"><code>Xosc32kCfd</code></a> struct, we register it as a consumer of
+the <code>EnabledOscUlp32k</code>, which will <code>Increment</code> its <code>Counter</code> as well. When
+creating the safe clock, the <code>OscUlp32k</code> can be optionally divided by two,
+which is selected with <a href="enum.SafeClockDiv.html" title="SafeClockDiv"><code>SafeClockDiv</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>(osculp32k, osculp32k_base) =
+    OscUlp32k::enable(tokens.osculp32k.osculp32k, clocks.osculp32k_base);
+<span class="kw">let </span>(<span class="kw-2">mut </span>cfd, osculp32k) =
+    Xosc32kCfd::enable(tokens.xosc32k.cfd, osculp32k, SafeClockDiv::Div1);</code></pre></div>
+<p>Finally, with the clock failure detection interface in hand, we can do
+things like check if the XOSC32K <a href="struct.Xosc32kCfd.html#method.has_failed"><code>has_failed</code></a> or if it <a href="struct.Xosc32kCfd.html#method.is_switched"><code>is_switched</code></a> to
+the safe clock. If we are able to recover from a clock failure, we can even
+<a href="struct.Xosc32kCfd.html#method.switch_back"><code>switch_back</code></a> to the crystal oscillator.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">if </span>cfd.has_failed() &amp;&amp; cfd.is_switched() {
+    cfd.switch_back();
+}</code></pre></div>
+<p>The complete example is provided below.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>atsamd_hal::{
+    clock::v2::{
+        clock_system_at_reset,
+        osculp32k::OscUlp32k,
+        xosc32k::{
+            ControlGainMode, SafeClockDiv, StartUpDelay, Xosc1k, Xosc32k, Xosc32kBase,
+            Xosc32kCfd,
+        },
+    },
+    gpio::Pins,
+    pac::Peripherals,
+};
+<span class="kw">let </span><span class="kw-2">mut </span>pac = Peripherals::take().unwrap();
+<span class="kw">let </span>pins = Pins::new(pac.PORT);
+<span class="kw">let </span>(buses, clocks, tokens) = clock_system_at_reset(
+    pac.OSCCTRL,
+    pac.OSC32KCTRL,
+    pac.GCLK,
+    pac.MCLK,
+    <span class="kw-2">&amp;mut </span>pac.NVMCTRL,
+);
+<span class="kw">let </span>xosc32k_base = Xosc32kBase::from_crystal(tokens.xosc32k.base, pins.pa00, pins.pa01)
+    .start_up_delay(StartUpDelay::Delay1s)
+    .control_gain_mode(ControlGainMode::HighSpeed)
+    .enable();
+<span class="kw">while </span>!xosc32k_base.is_ready() {}
+<span class="kw">let </span>(xosc1k, xosc32k_base) = Xosc1k::enable(tokens.xosc32k.xosc1k, xosc32k_base);
+<span class="kw">let </span>(xosc32k, xosc32k_base) = Xosc32k::enable(tokens.xosc32k.xosc32k, xosc32k_base);
+xosc32k_base.write_lock();
+<span class="kw">let </span>(osculp32k, osculp32k_base) =
+    OscUlp32k::enable(tokens.osculp32k.osculp32k, clocks.osculp32k_base);
+<span class="kw">let </span>(<span class="kw-2">mut </span>cfd, osculp32k) =
+    Xosc32kCfd::enable(tokens.xosc32k.cfd, osculp32k, SafeClockDiv::Div1);
+<span class="kw">if </span>cfd.has_failed() &amp;&amp; cfd.is_switched() {
+    cfd.switch_back();
+}</code></pre></div>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc1k.html" title="atsamd_hal::clock::v2::xosc32k::Xosc1k struct">Xosc1k</a></div><div class="item-right docblock-short">Clock representing the 1 kHz output of the <a href="struct.Xosc32kBase.html" title="Xosc32kBase"><code>Xosc32kBase</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc1kToken.html" title="atsamd_hal::clock::v2::xosc32k::Xosc1kToken struct">Xosc1kToken</a></div><div class="item-right docblock-short">Singleton token that can be exchanged for <a href="struct.Xosc1k.html" title="Xosc1k"><code>Xosc1k</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc32k.html" title="atsamd_hal::clock::v2::xosc32k::Xosc32k struct">Xosc32k</a></div><div class="item-right docblock-short">Clock representing the 32 kHz output of the <a href="struct.Xosc32kBase.html" title="Xosc32kBase"><code>Xosc32kBase</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc32kBase.html" title="atsamd_hal::clock::v2::xosc32k::Xosc32kBase struct">Xosc32kBase</a></div><div class="item-right docblock-short">XOSC32K base clock, which feeds the <a href="struct.Xosc1k.html" title="Xosc1k"><code>Xosc1k</code></a> and <a href="struct.Xosc32k.html" title="Xosc32k"><code>Xosc32k</code></a> clocks</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc32kBaseToken.html" title="atsamd_hal::clock::v2::xosc32k::Xosc32kBaseToken struct">Xosc32kBaseToken</a></div><div class="item-right docblock-short">Singleton token that can be exchanged for <a href="struct.Xosc32kBase.html" title="Xosc32kBase"><code>Xosc32kBase</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc32kCfd.html" title="atsamd_hal::clock::v2::xosc32k::Xosc32kCfd struct">Xosc32kCfd</a></div><div class="item-right docblock-short">Clock failure detection interface for the XOSC32K peripheral</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc32kCfdToken.html" title="atsamd_hal::clock::v2::xosc32k::Xosc32kCfdToken struct">Xosc32kCfdToken</a></div><div class="item-right docblock-short">Singleton token that can be exchanged for <a href="struct.Xosc32kCfd.html" title="Xosc32kCfd"><code>Xosc32kCfd</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc32kToken.html" title="atsamd_hal::clock::v2::xosc32k::Xosc32kToken struct">Xosc32kToken</a></div><div class="item-right docblock-short">Singleton token that can be exchanged for <a href="struct.Xosc32k.html" title="Xosc32k"><code>Xosc32k</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Xosc32kTokens.html" title="atsamd_hal::clock::v2::xosc32k::Xosc32kTokens struct">Xosc32kTokens</a></div><div class="item-right docblock-short">Set of tokens representing the disabled XOSC32K clocks power-on reset</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ClockMode.html" title="atsamd_hal::clock::v2::xosc32k::ClockMode enum">ClockMode</a></div><div class="item-right docblock-short">Type-level variant of the XOSC32K operating <a href="trait.Mode.html" title="Mode"><code>Mode</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ControlGainMode.html" title="atsamd_hal::clock::v2::xosc32k::ControlGainMode enum">ControlGainMode</a></div><div class="item-right docblock-short">Gain mode for the XOSC32K control loop</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.CrystalMode.html" title="atsamd_hal::clock::v2::xosc32k::CrystalMode enum">CrystalMode</a></div><div class="item-right docblock-short">Type-level variant of the XOSC32K operating <a href="trait.Mode.html" title="Mode"><code>Mode</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.DynMode.html" title="atsamd_hal::clock::v2::xosc32k::DynMode enum">DynMode</a></div><div class="item-right docblock-short">Value-level enum identifying one of two possible XOSC32K operating modes</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.SafeClockDiv.html" title="atsamd_hal::clock::v2::xosc32k::SafeClockDiv enum">SafeClockDiv</a></div><div class="item-right docblock-short">Division factor for the safe clock prescaler</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.StartUpDelay.html" title="atsamd_hal::clock::v2::xosc32k::StartUpDelay enum">StartUpDelay</a></div><div class="item-right docblock-short">Start up delay before continuous monitoring takes effect</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Xosc1kId.html" title="atsamd_hal::clock::v2::xosc32k::Xosc1kId enum">Xosc1kId</a></div><div class="item-right docblock-short">Type representing the identity of the <a href="struct.Xosc1k.html" title="Xosc1k"><code>Xosc1k</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Xosc32kId.html" title="atsamd_hal::clock::v2::xosc32k::Xosc32kId enum">Xosc32kId</a></div><div class="item-right docblock-short">Type representing the identity of the <a href="struct.Xosc32k.html" title="Xosc32k"><code>Xosc32k</code></a> clock</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Mode.html" title="atsamd_hal::clock::v2::xosc32k::Mode trait">Mode</a></div><div class="item-right docblock-short">Type-level enum for the XOSC32K operation mode</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.EnabledXosc1k.html" title="atsamd_hal::clock::v2::xosc32k::EnabledXosc1k type">EnabledXosc1k</a></div><div class="item-right docblock-short">The <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> <a href="struct.Xosc1k.html" title="Xosc1k"><code>Xosc1k</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.EnabledXosc32k.html" title="atsamd_hal::clock::v2::xosc32k::EnabledXosc32k type">EnabledXosc32k</a></div><div class="item-right docblock-short">The <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> <a href="struct.Xosc32k.html" title="Xosc32k"><code>Xosc32k</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.EnabledXosc32kBase.html" title="atsamd_hal::clock::v2::xosc32k::EnabledXosc32kBase type">EnabledXosc32kBase</a></div><div class="item-right docblock-short">The <a href="../struct.Enabled.html" title="Enabled"><code>Enabled</code></a> <a href="struct.Xosc32kBase.html" title="Xosc32kBase"><code>Xosc32kBase</code></a> clock</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.XIn32.html" title="atsamd_hal::clock::v2::xosc32k::XIn32 type">XIn32</a></div><div class="item-right docblock-short">Type alias for the XOSC32K input <a href="../../../gpio/pin/struct.Pin.html" title="Pin"><code>Pin</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.XOut32.html" title="atsamd_hal::clock::v2::xosc32k::XOut32 type">XOut32</a></div><div class="item-right docblock-short">Type alias for the XOSC32K output <a href="../../../gpio/pin/struct.Pin.html" title="Pin"><code>Pin</code></a></div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="atsamd_hal" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

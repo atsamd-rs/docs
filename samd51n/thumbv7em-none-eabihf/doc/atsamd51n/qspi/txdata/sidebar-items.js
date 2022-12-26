@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["DATA_W","Field `DATA` writer - Transmit Data"],["TXDATA_SPEC","Transmit Data"],["W","Register `TXDATA` writer"]]};

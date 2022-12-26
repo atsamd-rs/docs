@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["RMode","Rounding mode"]],"fn":[["read","Read the FPSCR register"],["write","Set the value of the FPSCR register"]],"struct":[["Fpscr","Floating-point Status Control Register"]]};

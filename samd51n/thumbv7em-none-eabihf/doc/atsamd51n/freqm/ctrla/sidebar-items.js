@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CTRLA_SPEC","Control A Register"],["ENABLE_R","Field `ENABLE` reader - Enable"],["ENABLE_W","Field `ENABLE` writer - Enable"],["R","Register `CTRLA` reader"],["SWRST_R","Field `SWRST` reader - Software Reset"],["SWRST_W","Field `SWRST` writer - Software Reset"],["W","Register `CTRLA` writer"]]};

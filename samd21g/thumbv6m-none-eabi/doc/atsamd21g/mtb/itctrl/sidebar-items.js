@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ITCTRL_SPEC","MTB Integration Mode Control"],["R","Register `ITCTRL` reader"],["W","Register `ITCTRL` writer"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["ATREADY_R","Field `ATREADY` reader - "],["ITATBCTR2_SPEC","ITATBCTR2"],["R","Register `ITATBCTR2` reader"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CCBUF_R","Field `CCBUF` reader - Channel Compare/Capture Buffer Value"],["CCBUF_SPEC","Compare and Capture Buffer"],["CCBUF_W","Field `CCBUF` writer - Channel Compare/Capture Buffer Value"],["R","Register `CCBUF[%s]` reader"],["W","Register `CCBUF[%s]` writer"]]};

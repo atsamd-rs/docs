@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["GAINCORR_R","Field `GAINCORR` reader - Gain Correction Value"],["GAINCORR_SPEC","Gain Correction"],["GAINCORR_W","Field `GAINCORR` writer - Gain Correction Value"],["R","Register `GAINCORR` reader"],["W","Register `GAINCORR` writer"]]};

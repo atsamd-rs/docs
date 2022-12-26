@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["IDR2_SPEC","ETM ID Register 2"],["R","Register `IDR2` reader"]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CTRLB_SPEC","Control B"],["START0_W","Field `START0` writer - Comparator 0 Start Comparison"],["START1_W","Field `START1` writer - Comparator 1 Start Comparison"],["W","Register `CTRLB` writer"]]};

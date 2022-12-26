@@ -1,0 +1,330 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/work/atsamd/atsamd/pac/atsamd51j/src/dsu.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>dsu.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../atsamd51j/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+</pre><pre class="rust"><code><span class="attribute">#[doc = <span class="string">r&quot;Register block&quot;</span>]
+#[repr(C)]
+</span><span class="kw">pub struct </span>RegisterBlock {
+    <span class="attribute">#[doc = <span class="string">&quot;0x00 - Control&quot;</span>]
+    </span><span class="kw">pub </span>ctrl: <span class="kw">crate</span>::Reg&lt;ctrl::CTRL_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x01 - Status A&quot;</span>]
+    </span><span class="kw">pub </span>statusa: <span class="kw">crate</span>::Reg&lt;statusa::STATUSA_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x02 - Status B&quot;</span>]
+    </span><span class="kw">pub </span>statusb: <span class="kw">crate</span>::Reg&lt;statusb::STATUSB_SPEC&gt;,
+    _reserved3: [u8; <span class="number">0x01</span>],
+    <span class="attribute">#[doc = <span class="string">&quot;0x04 - Address&quot;</span>]
+    </span><span class="kw">pub </span>addr: <span class="kw">crate</span>::Reg&lt;addr::ADDR_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x08 - Length&quot;</span>]
+    </span><span class="kw">pub </span>length: <span class="kw">crate</span>::Reg&lt;length::LENGTH_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x0c - Data&quot;</span>]
+    </span><span class="kw">pub </span>data: <span class="kw">crate</span>::Reg&lt;data::DATA_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x10..0x18 - Debug Communication Channel n&quot;</span>]
+    </span><span class="kw">pub </span>dcc: [<span class="kw">crate</span>::Reg&lt;dcc::DCC_SPEC&gt;; <span class="number">2</span>],
+    <span class="attribute">#[doc = <span class="string">&quot;0x18 - Device Identification&quot;</span>]
+    </span><span class="kw">pub </span>did: <span class="kw">crate</span>::Reg&lt;did::DID_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1c - Configuration&quot;</span>]
+    </span><span class="kw">pub </span>cfg: <span class="kw">crate</span>::Reg&lt;cfg::CFG_SPEC&gt;,
+    _reserved9: [u8; <span class="number">0xd0</span>],
+    <span class="attribute">#[doc = <span class="string">&quot;0xf0..0xf8 - Device Configuration&quot;</span>]
+    </span><span class="kw">pub </span>dcfg: [<span class="kw">crate</span>::Reg&lt;dcfg::DCFG_SPEC&gt;; <span class="number">2</span>],
+    _reserved10: [u8; <span class="number">0x0f08</span>],
+    <span class="attribute">#[doc = <span class="string">&quot;0x1000 - CoreSight ROM Table Entry 0&quot;</span>]
+    </span><span class="kw">pub </span>entry0: <span class="kw">crate</span>::Reg&lt;entry0::ENTRY0_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1004 - CoreSight ROM Table Entry 1&quot;</span>]
+    </span><span class="kw">pub </span>entry1: <span class="kw">crate</span>::Reg&lt;entry1::ENTRY1_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1008 - CoreSight ROM Table End&quot;</span>]
+    </span><span class="kw">pub </span>end: <span class="kw">crate</span>::Reg&lt;end::END_SPEC&gt;,
+    _reserved13: [u8; <span class="number">0x0fc0</span>],
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fcc - CoreSight ROM Table Memory Type&quot;</span>]
+    </span><span class="kw">pub </span>memtype: <span class="kw">crate</span>::Reg&lt;memtype::MEMTYPE_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fd0 - Peripheral Identification 4&quot;</span>]
+    </span><span class="kw">pub </span>pid4: <span class="kw">crate</span>::Reg&lt;pid4::PID4_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fd4 - Peripheral Identification 5&quot;</span>]
+    </span><span class="kw">pub </span>pid5: <span class="kw">crate</span>::Reg&lt;pid5::PID5_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fd8 - Peripheral Identification 6&quot;</span>]
+    </span><span class="kw">pub </span>pid6: <span class="kw">crate</span>::Reg&lt;pid6::PID6_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fdc - Peripheral Identification 7&quot;</span>]
+    </span><span class="kw">pub </span>pid7: <span class="kw">crate</span>::Reg&lt;pid7::PID7_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fe0 - Peripheral Identification 0&quot;</span>]
+    </span><span class="kw">pub </span>pid0: <span class="kw">crate</span>::Reg&lt;pid0::PID0_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fe4 - Peripheral Identification 1&quot;</span>]
+    </span><span class="kw">pub </span>pid1: <span class="kw">crate</span>::Reg&lt;pid1::PID1_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fe8 - Peripheral Identification 2&quot;</span>]
+    </span><span class="kw">pub </span>pid2: <span class="kw">crate</span>::Reg&lt;pid2::PID2_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1fec - Peripheral Identification 3&quot;</span>]
+    </span><span class="kw">pub </span>pid3: <span class="kw">crate</span>::Reg&lt;pid3::PID3_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1ff0 - Component Identification 0&quot;</span>]
+    </span><span class="kw">pub </span>cid0: <span class="kw">crate</span>::Reg&lt;cid0::CID0_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1ff4 - Component Identification 1&quot;</span>]
+    </span><span class="kw">pub </span>cid1: <span class="kw">crate</span>::Reg&lt;cid1::CID1_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1ff8 - Component Identification 2&quot;</span>]
+    </span><span class="kw">pub </span>cid2: <span class="kw">crate</span>::Reg&lt;cid2::CID2_SPEC&gt;,
+    <span class="attribute">#[doc = <span class="string">&quot;0x1ffc - Component Identification 3&quot;</span>]
+    </span><span class="kw">pub </span>cid3: <span class="kw">crate</span>::Reg&lt;cid3::CID3_SPEC&gt;,
+}
+<span class="attribute">#[doc = <span class="string">&quot;CTRL register accessor: an alias for `Reg&lt;CTRL_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CTRL = <span class="kw">crate</span>::Reg&lt;ctrl::CTRL_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Control&quot;</span>]
+</span><span class="kw">pub mod </span>ctrl;
+<span class="attribute">#[doc = <span class="string">&quot;STATUSA register accessor: an alias for `Reg&lt;STATUSA_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>STATUSA = <span class="kw">crate</span>::Reg&lt;statusa::STATUSA_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Status A&quot;</span>]
+</span><span class="kw">pub mod </span>statusa;
+<span class="attribute">#[doc = <span class="string">&quot;STATUSB register accessor: an alias for `Reg&lt;STATUSB_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>STATUSB = <span class="kw">crate</span>::Reg&lt;statusb::STATUSB_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Status B&quot;</span>]
+</span><span class="kw">pub mod </span>statusb;
+<span class="attribute">#[doc = <span class="string">&quot;ADDR register accessor: an alias for `Reg&lt;ADDR_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>ADDR = <span class="kw">crate</span>::Reg&lt;addr::ADDR_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Address&quot;</span>]
+</span><span class="kw">pub mod </span>addr;
+<span class="attribute">#[doc = <span class="string">&quot;LENGTH register accessor: an alias for `Reg&lt;LENGTH_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>LENGTH = <span class="kw">crate</span>::Reg&lt;length::LENGTH_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Length&quot;</span>]
+</span><span class="kw">pub mod </span>length;
+<span class="attribute">#[doc = <span class="string">&quot;DATA register accessor: an alias for `Reg&lt;DATA_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>DATA = <span class="kw">crate</span>::Reg&lt;data::DATA_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Data&quot;</span>]
+</span><span class="kw">pub mod </span>data;
+<span class="attribute">#[doc = <span class="string">&quot;DCC register accessor: an alias for `Reg&lt;DCC_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>DCC = <span class="kw">crate</span>::Reg&lt;dcc::DCC_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Debug Communication Channel n&quot;</span>]
+</span><span class="kw">pub mod </span>dcc;
+<span class="attribute">#[doc = <span class="string">&quot;DID register accessor: an alias for `Reg&lt;DID_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>DID = <span class="kw">crate</span>::Reg&lt;did::DID_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Device Identification&quot;</span>]
+</span><span class="kw">pub mod </span>did;
+<span class="attribute">#[doc = <span class="string">&quot;CFG register accessor: an alias for `Reg&lt;CFG_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CFG = <span class="kw">crate</span>::Reg&lt;cfg::CFG_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Configuration&quot;</span>]
+</span><span class="kw">pub mod </span>cfg;
+<span class="attribute">#[doc = <span class="string">&quot;DCFG register accessor: an alias for `Reg&lt;DCFG_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>DCFG = <span class="kw">crate</span>::Reg&lt;dcfg::DCFG_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Device Configuration&quot;</span>]
+</span><span class="kw">pub mod </span>dcfg;
+<span class="attribute">#[doc = <span class="string">&quot;ENTRY0 register accessor: an alias for `Reg&lt;ENTRY0_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>ENTRY0 = <span class="kw">crate</span>::Reg&lt;entry0::ENTRY0_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;CoreSight ROM Table Entry 0&quot;</span>]
+</span><span class="kw">pub mod </span>entry0;
+<span class="attribute">#[doc = <span class="string">&quot;ENTRY1 register accessor: an alias for `Reg&lt;ENTRY1_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>ENTRY1 = <span class="kw">crate</span>::Reg&lt;entry1::ENTRY1_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;CoreSight ROM Table Entry 1&quot;</span>]
+</span><span class="kw">pub mod </span>entry1;
+<span class="attribute">#[doc = <span class="string">&quot;END register accessor: an alias for `Reg&lt;END_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>END = <span class="kw">crate</span>::Reg&lt;end::END_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;CoreSight ROM Table End&quot;</span>]
+</span><span class="kw">pub mod </span>end;
+<span class="attribute">#[doc = <span class="string">&quot;MEMTYPE register accessor: an alias for `Reg&lt;MEMTYPE_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>MEMTYPE = <span class="kw">crate</span>::Reg&lt;memtype::MEMTYPE_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;CoreSight ROM Table Memory Type&quot;</span>]
+</span><span class="kw">pub mod </span>memtype;
+<span class="attribute">#[doc = <span class="string">&quot;PID4 register accessor: an alias for `Reg&lt;PID4_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PID4 = <span class="kw">crate</span>::Reg&lt;pid4::PID4_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Peripheral Identification 4&quot;</span>]
+</span><span class="kw">pub mod </span>pid4;
+<span class="attribute">#[doc = <span class="string">&quot;PID5 register accessor: an alias for `Reg&lt;PID5_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PID5 = <span class="kw">crate</span>::Reg&lt;pid5::PID5_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Peripheral Identification 5&quot;</span>]
+</span><span class="kw">pub mod </span>pid5;
+<span class="attribute">#[doc = <span class="string">&quot;PID6 register accessor: an alias for `Reg&lt;PID6_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PID6 = <span class="kw">crate</span>::Reg&lt;pid6::PID6_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Peripheral Identification 6&quot;</span>]
+</span><span class="kw">pub mod </span>pid6;
+<span class="attribute">#[doc = <span class="string">&quot;PID7 register accessor: an alias for `Reg&lt;PID7_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PID7 = <span class="kw">crate</span>::Reg&lt;pid7::PID7_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Peripheral Identification 7&quot;</span>]
+</span><span class="kw">pub mod </span>pid7;
+<span class="attribute">#[doc = <span class="string">&quot;PID0 register accessor: an alias for `Reg&lt;PID0_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PID0 = <span class="kw">crate</span>::Reg&lt;pid0::PID0_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Peripheral Identification 0&quot;</span>]
+</span><span class="kw">pub mod </span>pid0;
+<span class="attribute">#[doc = <span class="string">&quot;PID1 register accessor: an alias for `Reg&lt;PID1_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PID1 = <span class="kw">crate</span>::Reg&lt;pid1::PID1_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Peripheral Identification 1&quot;</span>]
+</span><span class="kw">pub mod </span>pid1;
+<span class="attribute">#[doc = <span class="string">&quot;PID2 register accessor: an alias for `Reg&lt;PID2_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PID2 = <span class="kw">crate</span>::Reg&lt;pid2::PID2_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Peripheral Identification 2&quot;</span>]
+</span><span class="kw">pub mod </span>pid2;
+<span class="attribute">#[doc = <span class="string">&quot;PID3 register accessor: an alias for `Reg&lt;PID3_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>PID3 = <span class="kw">crate</span>::Reg&lt;pid3::PID3_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Peripheral Identification 3&quot;</span>]
+</span><span class="kw">pub mod </span>pid3;
+<span class="attribute">#[doc = <span class="string">&quot;CID0 register accessor: an alias for `Reg&lt;CID0_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CID0 = <span class="kw">crate</span>::Reg&lt;cid0::CID0_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Component Identification 0&quot;</span>]
+</span><span class="kw">pub mod </span>cid0;
+<span class="attribute">#[doc = <span class="string">&quot;CID1 register accessor: an alias for `Reg&lt;CID1_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CID1 = <span class="kw">crate</span>::Reg&lt;cid1::CID1_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Component Identification 1&quot;</span>]
+</span><span class="kw">pub mod </span>cid1;
+<span class="attribute">#[doc = <span class="string">&quot;CID2 register accessor: an alias for `Reg&lt;CID2_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CID2 = <span class="kw">crate</span>::Reg&lt;cid2::CID2_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Component Identification 2&quot;</span>]
+</span><span class="kw">pub mod </span>cid2;
+<span class="attribute">#[doc = <span class="string">&quot;CID3 register accessor: an alias for `Reg&lt;CID3_SPEC&gt;`&quot;</span>]
+</span><span class="kw">pub type </span>CID3 = <span class="kw">crate</span>::Reg&lt;cid3::CID3_SPEC&gt;;
+<span class="attribute">#[doc = <span class="string">&quot;Component Identification 3&quot;</span>]
+</span><span class="kw">pub mod </span>cid3;
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="atsamd51j" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

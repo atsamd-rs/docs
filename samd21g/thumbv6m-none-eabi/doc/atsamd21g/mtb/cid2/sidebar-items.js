@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CID2_SPEC","CoreSight"],["R","Register `CID2` reader"]]};

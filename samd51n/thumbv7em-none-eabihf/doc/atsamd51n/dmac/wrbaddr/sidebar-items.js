@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["R","Register `WRBADDR` reader"],["W","Register `WRBADDR` writer"],["WRBADDR_R","Field `WRBADDR` reader - Write-Back Memory Base Address"],["WRBADDR_SPEC","Write-Back Memory Section Base Address"],["WRBADDR_W","Field `WRBADDR` writer - Write-Back Memory Base Address"]]};
